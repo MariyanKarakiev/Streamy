@@ -6,7 +6,8 @@ namespace Streamy.Core.Models
     {
         public Playlist()
         {
-            Songs = new HashSet<Song>();
+            Id = Guid.NewGuid().ToString();
+            Songs = new HashSet<SongPlaylist>();
         }
 
         [Key]
@@ -14,6 +15,6 @@ namespace Streamy.Core.Models
 
         public string Title { get; set; }
 
-        public virtual ICollection<Song> Songs { get; set; }
+        public virtual ICollection<SongPlaylist> Songs { get; set; }
     }
 }
