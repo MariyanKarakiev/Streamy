@@ -1,0 +1,17 @@
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\bin\Debug\net6.0\Streamy.Core.deps.json
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\bin\Debug\net6.0\Streamy.Core.dll
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\bin\Debug\net6.0\Streamy.Core.pdb
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\bin\Debug\net6.0\Streamy.Infrastructure.dll
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\bin\Debug\net6.0\Streamy.Infrastructure.pdb
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\obj\Debug\net6.0\Streamy.Core.csproj.AssemblyReference.cache
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\obj\Debug\net6.0\Streamy.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\obj\Debug\net6.0\Streamy.Core.AssemblyInfoInputs.cache
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\obj\Debug\net6.0\Streamy.Core.AssemblyInfo.cs
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\obj\Debug\net6.0\Streamy.Core.csproj.CoreCompileInputs.cache
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\obj\Debug\net6.0\Streamy.Core.csproj.CopyComplete
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\obj\Debug\net6.0\Streamy.Core.dll
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\obj\Debug\net6.0\refint\Streamy.Core.dll
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\obj\Debug\net6.0\Streamy.Core.pdb
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\obj\Debug\net6.0\ref\Streamy.Core.dll
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\bin\Debug\net6.0\Streamy.Core.runtimeconfig.json
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\obj\Debug\net6.0\Streamy.Core.genruntimeconfig.cache

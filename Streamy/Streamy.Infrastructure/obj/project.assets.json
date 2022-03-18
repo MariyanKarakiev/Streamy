@@ -1,30 +1,11 @@
 {
   "version": 3,
   "targets": {
-    "net6.0": {
-      "Streamy.Core/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "compile": {
-          "bin/placeholder/Streamy.Core.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Streamy.Core.dll": {}
-        }
-      }
-    }
+    "net6.0": {}
   },
-  "libraries": {
-    "Streamy.Core/1.0.0": {
-      "type": "project",
-      "path": "../Streamy.Core/Streamy.Core.csproj",
-      "msbuildProject": "../Streamy.Core/Streamy.Core.csproj"
-    }
-  },
+  "libraries": {},
   "projectFileDependencyGroups": {
-    "net6.0": [
-      "Streamy.Core >= 1.0.0"
-    ]
+    "net6.0": []
   },
   "packageFolders": {
     "C:\\Users\\mariq\\.nuget\\packages\\": {},
@@ -58,11 +39,7 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {
-            "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy.Core\\Streamy.Core.csproj": {
-              "projectPath": "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy.Core\\Streamy.Core.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {
