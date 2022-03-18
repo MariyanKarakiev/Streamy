@@ -771,6 +771,29 @@
             "rid": "win"
           }
         }
+      },
+      "Streamy.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Streamy.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Streamy.Core.dll": {}
+        }
+      },
+      "Streamy.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Streamy.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Streamy.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Streamy.Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -2339,6 +2362,16 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "Streamy.Core/1.0.0": {
+      "type": "project",
+      "path": "../Streamy.Core/Streamy.Core.csproj",
+      "msbuildProject": "../Streamy.Core/Streamy.Core.csproj"
+    },
+    "Streamy.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../Streamy.Infrastructure/Streamy.Infrastructure.csproj",
+      "msbuildProject": "../Streamy.Infrastructure/Streamy.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -2348,7 +2381,8 @@
       "Microsoft.AspNetCore.Identity.UI >= 6.0.3",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.3",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.3",
-      "Microsoft.VisualStudio.Azure.Containers.Tools.Targets >= 1.14.0"
+      "Microsoft.VisualStudio.Azure.Containers.Tools.Targets >= 1.14.0",
+      "Streamy.Infrastructure >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -2383,7 +2417,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy.Infrastructure\\Streamy.Infrastructure.csproj": {
+              "projectPath": "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy.Infrastructure\\Streamy.Infrastructure.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
