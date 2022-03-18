@@ -17,7 +17,7 @@ namespace Streamy.Core.Models
         [Required]
         public string Title { get; set; }
 
-        public DateTime ReleaseYear { get; set; }
+        public DateTime ReleaseDate { get; set; }
         public TimeSpan Duration { get; set; }
 
 
