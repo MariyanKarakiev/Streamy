@@ -13,8 +13,6 @@ namespace Streamy.Infrastructure.Models
         public Song()
         {
             Id = Guid.NewGuid().ToString();
-            Artists = new HashSet<SongArtist>();
-            Playlists = new HashSet<SongPlaylist>();
         }
 
         [Key]
@@ -26,18 +24,14 @@ namespace Streamy.Infrastructure.Models
         public DateTime ReleaseDate { get; set; }
         public TimeSpan Duration { get; set; }
 
-
-        [ForeignKey(nameof(Genre))]
+        [Required]
         public short GenreId { get; set; }
         public Genre Genre { get; set; }
 
-
-        [ForeignKey(nameof(Album))]
         public string AlbumId { get; set; }
         public Album Album { get; set; }
 
         public virtual ICollection<SongArtist> Artists { get; set; }
-        public virtual ICollection<SongPlaylist> Playlists { get; set; }
 
     }
 }

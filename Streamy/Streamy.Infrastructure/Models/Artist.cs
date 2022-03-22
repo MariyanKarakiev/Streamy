@@ -1,4 +1,6 @@
-﻿namespace Streamy.Infrastructure.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Streamy.Infrastructure.Models
 {
     public class Artist
     {
@@ -10,10 +12,10 @@
 
         public string Id { get; set; }
       
+        [Required]
         public string Name { get; set; }
 
-        public DateTime DateOfBirth { get; set; }
-
+        [Required]
         public string Country { get; set; }
 
         public virtual ICollection<SongArtist> Songs { get; set; }
