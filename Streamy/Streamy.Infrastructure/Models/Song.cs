@@ -32,6 +32,7 @@ namespace Streamy.Infrastructure.Models
         public Album Album { get; set; }
 
         public virtual ICollection<SongArtist> Artists { get; set; }
+        public virtual ICollection<SongPlaylist> Playlists { get; set; }
 
     }
 }
