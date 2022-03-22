@@ -13,6 +13,7 @@ namespace Streamy.Infrastructure.Models
         [Key]
         public string Id { get; set; }
 
+        [Required]
         public string Title { get; set; }
 
         public virtual ICollection<SongPlaylist> Songs { get; set; }

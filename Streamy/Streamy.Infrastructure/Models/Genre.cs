@@ -10,12 +10,10 @@ namespace Streamy.Infrastructure.Models
 {
     public class Genre
     {
-       
-
         [Key]
         public short Id { get; set; }
-        public string Name { get; set; }
 
-     
+        [Required]
+        public string Name { get; set; }     
     }
 }

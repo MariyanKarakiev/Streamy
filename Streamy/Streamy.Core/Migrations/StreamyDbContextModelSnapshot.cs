@@ -47,27 +47,6 @@ namespace Streamy.Core.Migrations
                     b.ToTable("Albums");
                 });
 
-            modelBuilder.Entity("Streamy.Infrastructure.Models.Artist", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Artists");
-                });
-
             modelBuilder.Entity("Streamy.Infrastructure.Models.Genre", b =>
                 {
                     b.Property<short>("Id")
@@ -85,27 +64,12 @@ namespace Streamy.Core.Migrations
                     b.ToTable("Genres");
                 });
 
-            modelBuilder.Entity("Streamy.Infrastructure.Models.Playlist", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Playlists");
-                });
-
             modelBuilder.Entity("Streamy.Infrastructure.Models.Song", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AlbumId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<TimeSpan>("Duration")
@@ -130,56 +94,6 @@ namespace Streamy.Core.Migrations
                     b.ToTable("Songs");
                 });
 
-            modelBuilder.Entity("Streamy.Infrastructure.Models.SongAlbum", b =>
-                {
-                    b.Property<string>("SongId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("AlbumId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("SongId", "AlbumId");
-
-                    b.HasIndex("AlbumId");
-
-                    b.ToTable("AlbumSongs");
-                });
-
-            modelBuilder.Entity("Streamy.Infrastructure.Models.SongArtist", b =>
-                {
-                    b.Property<string>("SongId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ArtistId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("AlbumId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("SongId", "ArtistId");
-
-                    b.HasIndex("AlbumId");
-
-                    b.HasIndex("ArtistId");
-
-                    b.ToTable("ArtistSongs");
-                });
-
-            modelBuilder.Entity("Streamy.Infrastructure.Models.SongPlaylist", b =>
-                {
-                    b.Property<string>("SongId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("PlaylistId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("SongId", "PlaylistId");
-
-                    b.HasIndex("PlaylistId");
-
-                    b.ToTable("PlaylistSongs");
-                });
-
             modelBuilder.Entity("Streamy.Infrastructure.Models.Album", b =>
                 {
                     b.HasOne("Streamy.Infrastructure.Models.Genre", "Genre")
@@ -192,105 +106,23 @@ namespace Streamy.Core.Migrations
                 });
 
             modelBuilder.Entity("Streamy.Infrastructure.Models.Song", b =>
-                {
-                    b.HasOne("Streamy.Infrastructure.Models.Album", "Album")
-                        .WithMany()
-                        .HasForeignKey("AlbumId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Streamy.Infrastructure.Models.Genre", "Genre")
-                        .WithMany()
-                        .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Album");
-
-                    b.Navigation("Genre");
-                });
-
-            modelBuilder.Entity("Streamy.Infrastructure.Models.SongAlbum", b =>
-                {
-                    b.HasOne("Streamy.Infrastructure.Models.Album", "Album")
-                        .WithMany()
-                        .HasForeignKey("AlbumId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Streamy.Infrastructure.Models.Song", "Song")
-                        .WithMany()
-                        .HasForeignKey("SongId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Album");
-
-                    b.Navigation("Song");
-                });
-
-            modelBuilder.Entity("Streamy.Infrastructure.Models.SongArtist", b =>
                 {
                     b.HasOne("Streamy.Infrastructure.Models.Album", null)
-                        .WithMany("Artists")
+                        .WithMany("Songs")
                         .HasForeignKey("AlbumId");
 
-                    b.HasOne("Streamy.Infrastructure.Models.Artist", "Artist")
-                        .WithMany("Songs")
-                        .HasForeignKey("ArtistId")
+                    b.HasOne("Streamy.Infrastructure.Models.Genre", "Genre")
+                        .WithMany()
+                        .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Streamy.Infrastructure.Models.Song", "Song")
-                        .WithMany("Artists")
-                        .HasForeignKey("SongId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Artist");
-
-                    b.Navigation("Song");
-                });
-
-            modelBuilder.Entity("Streamy.Infrastructure.Models.SongPlaylist", b =>
-                {
-                    b.HasOne("Streamy.Infrastructure.Models.Playlist", "Playlist")
-                        .WithMany("Songs")
-                        .HasForeignKey("PlaylistId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Streamy.Infrastructure.Models.Song", "Song")
-                        .WithMany("Playlists")
-                        .HasForeignKey("SongId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Playlist");
-
-                    b.Navigation("Song");
+                    b.Navigation("Genre");
                 });
 
             modelBuilder.Entity("Streamy.Infrastructure.Models.Album", b =>
                 {
-                    b.Navigation("Artists");
-                });
-
-            modelBuilder.Entity("Streamy.Infrastructure.Models.Artist", b =>
-                {
                     b.Navigation("Songs");
-                });
-
-            modelBuilder.Entity("Streamy.Infrastructure.Models.Playlist", b =>
-                {
-                    b.Navigation("Songs");
-                });
-
-            modelBuilder.Entity("Streamy.Infrastructure.Models.Song", b =>
-                {
-                    b.Navigation("Artists");
-
-                    b.Navigation("Playlists");
                 });
 #pragma warning restore 612, 618
         }
