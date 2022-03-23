@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Streamy", "Streamy\Streamy.csproj", "{7FD7A8CD-B287-40AA-BC2B-55FEA93D3F30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Streamy.Core", "Streamy.Core\Streamy.Core.csproj", "{DD005CFD-9095-4BA5-8063-C853784746BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Streamy.Core", "Streamy.Core\Streamy.Core.csproj", "{DD005CFD-9095-4BA5-8063-C853784746BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Streamy.Infrastructure", "Streamy.Infrastructure\Streamy.Infrastructure.csproj", "{9880CF92-87EF-4945-BACF-F67ACCA4F0E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Streamy.Infrastructure", "Streamy.Infrastructure\Streamy.Infrastructure.csproj", "{9880CF92-87EF-4945-BACF-F67ACCA4F0E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Streamy-Old", "Streamy-Old\Streamy-Old.csproj", "{D5A42DA8-D45B-437A-AB00-904FB202B311}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Streamy", "Streamy\Streamy.csproj", "{4BEB7225-73B2-47E9-A375-990099F3576D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7FD7A8CD-B287-40AA-BC2B-55FEA93D3F30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7FD7A8CD-B287-40AA-BC2B-55FEA93D3F30}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7FD7A8CD-B287-40AA-BC2B-55FEA93D3F30}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7FD7A8CD-B287-40AA-BC2B-55FEA93D3F30}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DD005CFD-9095-4BA5-8063-C853784746BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DD005CFD-9095-4BA5-8063-C853784746BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD005CFD-9095-4BA5-8063-C853784746BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -27,6 +25,14 @@ Global
 		{9880CF92-87EF-4945-BACF-F67ACCA4F0E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9880CF92-87EF-4945-BACF-F67ACCA4F0E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9880CF92-87EF-4945-BACF-F67ACCA4F0E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5A42DA8-D45B-437A-AB00-904FB202B311}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5A42DA8-D45B-437A-AB00-904FB202B311}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5A42DA8-D45B-437A-AB00-904FB202B311}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5A42DA8-D45B-437A-AB00-904FB202B311}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BEB7225-73B2-47E9-A375-990099F3576D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BEB7225-73B2-47E9-A375-990099F3576D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BEB7225-73B2-47E9-A375-990099F3576D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BEB7225-73B2-47E9-A375-990099F3576D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

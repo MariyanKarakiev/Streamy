@@ -246,7 +246,7 @@ namespace Streamy.Infrastructure.Migrations
 
                     b.HasIndex("GenreId");
 
-                    b.ToTable("Album");
+                    b.ToTable("Albums");
                 });
 
             modelBuilder.Entity("Streamy.Infrastructure.Models.Artist", b =>
@@ -264,7 +264,7 @@ namespace Streamy.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Artist");
+                    b.ToTable("Artists");
                 });
 
             modelBuilder.Entity("Streamy.Infrastructure.Models.Genre", b =>
@@ -281,7 +281,7 @@ namespace Streamy.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Genre");
+                    b.ToTable("Genres");
                 });
 
             modelBuilder.Entity("Streamy.Infrastructure.Models.Playlist", b =>
@@ -295,7 +295,7 @@ namespace Streamy.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Playlist");
+                    b.ToTable("Playlists");
                 });
 
             modelBuilder.Entity("Streamy.Infrastructure.Models.Song", b =>
@@ -326,7 +326,7 @@ namespace Streamy.Infrastructure.Migrations
 
                     b.HasIndex("GenreId");
 
-                    b.ToTable("Song");
+                    b.ToTable("Songs");
                 });
 
             modelBuilder.Entity("Streamy.Infrastructure.Models.SongArtist", b =>
@@ -341,7 +341,7 @@ namespace Streamy.Infrastructure.Migrations
 
                     b.HasIndex("SongId");
 
-                    b.ToTable("SongArtist");
+                    b.ToTable("SongArtists");
                 });
 
             modelBuilder.Entity("Streamy.Infrastructure.Models.SongPlaylist", b =>
@@ -356,7 +356,7 @@ namespace Streamy.Infrastructure.Migrations
 
                     b.HasIndex("SongId");
 
-                    b.ToTable("SongPlaylist");
+                    b.ToTable("SongPlaylists");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
