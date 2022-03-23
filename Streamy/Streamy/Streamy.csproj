@@ -756,7 +756,6 @@
     <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Rubik\Rubik-Medium.ttf" />
     <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Rubik\Rubik-Regular.ttf" />
     <_ContentIncludedByDefault Remove="wwwroot\assets\images\auth\lockscreen-bg.jpg" />
-    <_ContentIncludedByDefault Remove="wwwroot\assets\images\auth\login-bg.jpg" />
     <_ContentIncludedByDefault Remove="wwwroot\assets\images\auth\Login_bg.jpg" />
     <_ContentIncludedByDefault Remove="wwwroot\assets\images\auth\Login_bg2.jpg" />
     <_ContentIncludedByDefault Remove="wwwroot\assets\images\auth\register-bg.jpg" />

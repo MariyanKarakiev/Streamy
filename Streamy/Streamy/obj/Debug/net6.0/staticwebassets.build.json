@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "HzRPHNNSmgQElX9osS0Jx6TzgaqN/3ULRMpjWTKE2kk=",
+  "Hash": "XNfOprUhLxPXWgWtSczywZVEVR/9JLyClFc2dX56KsM=",
   "Source": "Streamy",
   "BasePath": "_content/Streamy",
   "Mode": "Default",
@@ -1545,6 +1545,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\images\\auth\\login-bg.jpg"
+    },
+    {
+      "Identity": "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy\\wwwroot\\assets\\images\\auth\\login-bg3.jpg",
+      "SourceId": "Streamy",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy\\wwwroot\\",
+      "BasePath": "_content/Streamy",
+      "RelativePath": "assets/images/auth/login-bg3.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\auth\\login-bg3.jpg"
     },
     {
       "Identity": "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy\\wwwroot\\assets\\images\\auth\\register-bg.jpg",
@@ -5166,6 +5183,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\logo.png"
+    },
+    {
+      "Identity": "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy\\wwwroot\\img\\phone-headphns.jpg",
+      "SourceId": "Streamy",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy\\wwwroot\\",
+      "BasePath": "_content/Streamy",
+      "RelativePath": "img/phone-headphns.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\phone-headphns.jpg"
     },
     {
       "Identity": "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy\\wwwroot\\img\\photo1.png",
