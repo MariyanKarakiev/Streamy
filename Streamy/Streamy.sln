@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Streamy.Core", "Streamy.Cor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Streamy.Infrastructure", "Streamy.Infrastructure\Streamy.Infrastructure.csproj", "{9880CF92-87EF-4945-BACF-F67ACCA4F0E7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Streamy-Old", "Streamy-Old\Streamy-Old.csproj", "{D5A42DA8-D45B-437A-AB00-904FB202B311}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Streamy", "Streamy\Streamy.csproj", "{4BEB7225-73B2-47E9-A375-990099F3576D}"
 EndProject
 Global
@@ -25,10 +23,6 @@ Global
 		{9880CF92-87EF-4945-BACF-F67ACCA4F0E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9880CF92-87EF-4945-BACF-F67ACCA4F0E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9880CF92-87EF-4945-BACF-F67ACCA4F0E7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D5A42DA8-D45B-437A-AB00-904FB202B311}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D5A42DA8-D45B-437A-AB00-904FB202B311}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D5A42DA8-D45B-437A-AB00-904FB202B311}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D5A42DA8-D45B-437A-AB00-904FB202B311}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4BEB7225-73B2-47E9-A375-990099F3576D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4BEB7225-73B2-47E9-A375-990099F3576D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BEB7225-73B2-47E9-A375-990099F3576D}.Release|Any CPU.ActiveCfg = Release|Any CPU
