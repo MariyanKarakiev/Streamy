@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Streamy.Infrastructure.Models;
 
-namespace Streamy.Core
+namespace Streamy.Infrastructure.Data
 {
-    public class StreamyDbContext : DbContext
+    public class StreamyDbContext : IdentityDbContext
     {
         public StreamyDbContext(DbContextOptions<StreamyDbContext> options)
             : base(options)

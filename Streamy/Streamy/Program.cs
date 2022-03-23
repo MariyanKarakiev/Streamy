@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Streamy.Core;
+using Streamy.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<StreamyDbContext>(options =>
     options.UseSqlServer(connectionString,
-                    x => x.MigrationsAssembly("Streamy.Core")));
+                    x => x.MigrationsAssembly("Streamy.Infrastructure")));
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<StreamyDbContext>();
