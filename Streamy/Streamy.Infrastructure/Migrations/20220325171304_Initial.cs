@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Streamy.Infrastructure.Migrations
 {
-    public partial class IdentityBugFix : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,9 +13,9 @@ namespace Streamy.Infrastructure.Migrations
                 name: "Artists",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    Country = table.Column<string>(type: "nvarchar(56)", maxLength: 56, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -67,7 +67,7 @@ namespace Streamy.Infrastructure.Migrations
                 {
                     Id = table.Column<short>(type: "smallint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -78,8 +78,8 @@ namespace Streamy.Infrastructure.Migrations
                 name: "Playlists",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -196,15 +196,21 @@ namespace Streamy.Infrastructure.Migrations
                 name: "Albums",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Duration = table.Column<TimeSpan>(type: "time", nullable: false),
-                    GenreId = table.Column<short>(type: "smallint", nullable: false)
+                    GenreId = table.Column<short>(type: "smallint", nullable: false),
+                    ArtistId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Albums", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Albums_Artists_ArtistId",
+                        column: x => x.ArtistId,
+                        principalTable: "Artists",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Albums_Genres_GenreId",
                         column: x => x.GenreId,
@@ -217,12 +223,12 @@ namespace Streamy.Infrastructure.Migrations
                 name: "Songs",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Duration = table.Column<TimeSpan>(type: "time", nullable: false),
-                    GenreId = table.Column<short>(type: "smallint", nullable: false),
-                    AlbumId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    AlbumId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GenreId = table.Column<short>(type: "smallint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -232,21 +238,21 @@ namespace Streamy.Infrastructure.Migrations
                         column: x => x.AlbumId,
                         principalTable: "Albums",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Songs_Genres_GenreId",
                         column: x => x.GenreId,
                         principalTable: "Genres",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "SongArtists",
                 columns: table => new
                 {
-                    SongId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ArtistId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    SongId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ArtistId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -269,8 +275,8 @@ namespace Streamy.Infrastructure.Migrations
                 name: "SongPlaylists",
                 columns: table => new
                 {
-                    SongId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    PlaylistId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    SongId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PlaylistId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -288,6 +294,11 @@ namespace Streamy.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Albums_ArtistId",
+                table: "Albums",
+                column: "ArtistId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Albums_GenreId",
@@ -384,9 +395,6 @@ namespace Streamy.Infrastructure.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Artists");
-
-            migrationBuilder.DropTable(
                 name: "Playlists");
 
             migrationBuilder.DropTable(
@@ -394,6 +402,9 @@ namespace Streamy.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Albums");
+
+            migrationBuilder.DropTable(
+                name: "Artists");
 
             migrationBuilder.DropTable(
                 name: "Genres");

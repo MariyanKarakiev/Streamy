@@ -4,18 +4,13 @@ namespace Streamy.Infrastructure.Models
 {
     public class Playlist
     {
-        public Playlist()
-        {
-            Id = Guid.NewGuid().ToString();
-            Songs = new HashSet<SongPlaylist>();
-        }
-
         [Key]
-        public string Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         [Required]
+        [StringLength(70)]
         public string Title { get; set; }
 
-        public virtual ICollection<SongPlaylist> Songs { get; set; }
+        public virtual ICollection<SongPlaylist> Songs { get; set; } = new HashSet<SongPlaylist>();
     }
 }

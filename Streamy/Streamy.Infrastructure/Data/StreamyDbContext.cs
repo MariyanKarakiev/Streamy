@@ -23,10 +23,10 @@ namespace Streamy.Infrastructure.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Album>()
-                .HasMany<Song>(a => a.Songs)
-                .WithOne(s => s.Album)
-                .HasForeignKey(s => s.AlbumId)
+            modelBuilder.Entity<Song>()
+                .HasOne<Genre>(s => s.Genre)
+                .WithMany(g => g.Song)
+                .HasForeignKey(s => s.GenreId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<SongArtist>()
