@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Streamy.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using Streamy.Infrastructure.Data;
 namespace Streamy.Infrastructure.Migrations
 {
     [DbContext(typeof(StreamyDbContext))]
-    partial class StreamyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220327091422_NullableAlbumId")]
+    partial class NullableAlbumId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

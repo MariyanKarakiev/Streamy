@@ -12,7 +12,7 @@ using Streamy.Infrastructure.Data;
 namespace Streamy.Infrastructure.Migrations
 {
     [DbContext(typeof(StreamyDbContext))]
-    [Migration("20220325171304_Initial")]
+    [Migration("20220327091217_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -319,7 +319,8 @@ namespace Streamy.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AlbumId")
+                    b.Property<Guid?>("AlbumId")
+                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<TimeSpan>("Duration")
