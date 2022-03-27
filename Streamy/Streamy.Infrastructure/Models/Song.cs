@@ -15,10 +15,9 @@ namespace Streamy.Infrastructure.Models
         public DateTime ReleaseDate { get; set; }
         public TimeSpan Duration { get; set; }
 
-
         [ForeignKey(nameof(Album))]
-        public Guid AlbumId { get; set; }
-        public Album Album { get; set; }
+        public Guid? AlbumId { get; set; }
+        public Album? Album { get; set; }
 
         [Required]
         [ForeignKey(nameof(Genre))]
