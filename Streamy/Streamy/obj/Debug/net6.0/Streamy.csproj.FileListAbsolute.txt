@@ -70,7 +70,6 @@ D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\obj\Debug\net6.0\refint\Streamy.
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\obj\Debug\net6.0\Streamy.pdb
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\obj\Debug\net6.0\Streamy.genruntimeconfig.cache
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\obj\Debug\net6.0\ref\Streamy.dll
-D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\obj\Debug\net6.0\scopedcss\Views\Shared\_LayoutOl.cshtml.rz.scp.css
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\bin\Debug\net6.0\MessagePack.dll
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\bin\Debug\net6.0\MessagePack.Annotations.dll
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\bin\Debug\net6.0\Microsoft.AspNetCore.Razor.Language.dll
@@ -283,3 +282,4 @@ D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\bin\Debug\net6.0\IdentityModel.d
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\bin\Debug\net6.0\Microsoft.AspNetCore.ApiAuthorization.IdentityServer.dll
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\obj\Debug\net6.0\scopedcss\Views\Shared\_LayoutOld.cshtml.rz.scp.css

@@ -1,7 +1,7 @@
 ﻿@page
 @model RegisterModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Sign Up";
     Layout = null;
 }
 <head>
@@ -24,13 +24,13 @@
                 <div class="content-wrapper full-page-wrapper d-flex align-items-center auth login-bg">
                     <div class="card col-lg-4 mx-auto">
                         <div class="card-body px-5 py-5">
-                            <h3 class="card-title text-left mb-3">Register</h3>
+                            <h3 class="card-title text-left mb-3">@ViewData["Title"]</h3>
                             <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <div class="form-group">
-                                    <label asp-for="Input.Username"></label>
-                                    <input asp-for="Input.Username" class="form-control p_input" autocomplete="username" aria-required="true" />
-                                    <span asp-validation-for="Input.Username" class="text-danger"></span>
+                                    <label asp-for="Input.UserName"></label>
+                                    <input asp-for="Input.UserName" class="form-control p_input" autocomplete="username" aria-required="true" />
+                                    <span asp-validation-for="Input.UserName" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="Input.Email"></label>
@@ -58,7 +58,7 @@
                                         <i class="mdi mdi-google-plus"></i> Google plus
                                     </button>
                                 </div>
-                                <p class="sign-up text-center">Already have an Account?<a href="#"> Sign Up</a></p>
+                                <p class="sign-up text-center">Already have an Account?<a asp-page="./Login"> Log In</a></p>
                                 <p class="terms">By creating an account you are accepting our<a href="#"> Terms & Conditions</a></p>
                             </form>
                         </div>

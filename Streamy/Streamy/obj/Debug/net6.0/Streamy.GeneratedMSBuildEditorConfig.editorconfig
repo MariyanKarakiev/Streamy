@@ -215,6 +215,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-jocjx6vfoi
 
-[D:/SoftUni/SoftUni/ASP.NET Core/Streamy/Streamy/Views/Shared/_LayoutOl.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRPbC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = b-anhe5jv0fl
+[D:/SoftUni/SoftUni/ASP.NET Core/Streamy/Streamy/Views/Shared/_LayoutOld.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRPbGQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-94cg39ybpa
