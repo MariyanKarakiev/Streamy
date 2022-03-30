@@ -4,9 +4,9 @@ using Streamy.Infrastructure.Models;
 
 namespace Streamy.Infrastructure.Data
 {
-    public class StreamyDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext
     {
-        public StreamyDbContext(DbContextOptions<StreamyDbContext> options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
 

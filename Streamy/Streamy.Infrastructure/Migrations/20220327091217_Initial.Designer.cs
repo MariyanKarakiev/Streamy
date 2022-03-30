@@ -11,7 +11,7 @@ using Streamy.Infrastructure.Data;
 
 namespace Streamy.Infrastructure.Migrations
 {
-    [DbContext(typeof(StreamyDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20220327091217_Initial")]
     partial class Initial
     {

@@ -10,7 +10,7 @@ using Streamy.Infrastructure.Data;
 
 namespace Streamy.Infrastructure.Migrations
 {
-    [DbContext(typeof(StreamyDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     partial class StreamyDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
