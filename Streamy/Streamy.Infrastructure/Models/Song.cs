@@ -12,6 +12,7 @@ namespace Streamy.Infrastructure.Models
         [StringLength(100)]
         public string Title { get; set; }
 
+        [Column(TypeName = "date")]
         public DateTime ReleaseDate { get; set; }
         public TimeSpan Duration { get; set; }
 
