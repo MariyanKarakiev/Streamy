@@ -3365,6 +3365,21 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
+      "Streamy.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "6.0.3",
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.3",
+          "Streamy.Infrastructure": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Streamy.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Streamy.Core.dll": {}
+        }
+      },
       "Streamy.Infrastructure/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -10390,6 +10405,11 @@
         "system.xml.xdocument.nuspec"
       ]
     },
+    "Streamy.Core/1.0.0": {
+      "type": "project",
+      "path": "../Streamy.Core/Streamy.Core.csproj",
+      "msbuildProject": "../Streamy.Core/Streamy.Core.csproj"
+    },
     "Streamy.Infrastructure/1.0.0": {
       "type": "project",
       "path": "../Streamy.Infrastructure/Streamy.Infrastructure.csproj",
@@ -10406,7 +10426,7 @@
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.3",
       "Microsoft.VisualStudio.Azure.Containers.Tools.Targets >= 1.14.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 6.0.2",
-      "Streamy.Infrastructure >= 1.0.0"
+      "Streamy.Core >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -10442,8 +10462,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy.Infrastructure\\Streamy.Infrastructure.csproj": {
-              "projectPath": "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy.Infrastructure\\Streamy.Infrastructure.csproj"
+            "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy.Core\\Streamy.Core.csproj": {
+              "projectPath": "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy.Core\\Streamy.Core.csproj"
             }
           }
         }

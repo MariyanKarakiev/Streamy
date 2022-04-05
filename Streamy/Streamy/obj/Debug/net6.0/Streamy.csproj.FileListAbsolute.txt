@@ -283,3 +283,5 @@ D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\bin\Debug\net6.0\Microsoft.AspNe
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\obj\Debug\net6.0\scopedcss\Views\Shared\_LayoutOld.cshtml.rz.scp.css
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\bin\Debug\net6.0\Streamy.Core.dll
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\bin\Debug\net6.0\Streamy.Core.pdb

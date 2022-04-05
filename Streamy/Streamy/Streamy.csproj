@@ -2419,7 +2419,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Streamy.Infrastructure\Streamy.Infrastructure.csproj" />
+    <ProjectReference Include="..\Streamy.Core\Streamy.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
