@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Streamy.Core.Services;
+using Streamy.Extensions;
 using Streamy.Infrastructure.Data;
 using Streamy.Infrastructure.Data.Repositories;
 
@@ -8,18 +9,29 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString,
-                    x => x.MigrationsAssembly("Streamy.Infrastructure")));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddApplicationDbContexts(builder.Configuration);
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+        options.SignIn.RequireConfirmedAccount = true
+)
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddAuthentication()
+    .AddFacebook(options =>
+    {
+        options.AppId = builder.Configuration.GetValue<string>("Facebook:AppId");
+        options.AppSecret = builder.Configuration.GetValue<string>("Facebook:AppSecret");
+    })
+    .AddGoogle(options =>
+    {
+        options.ClientId = builder.Configuration.GetValue<string>("Google:ClientId");
+        options.ClientSecret = builder.Configuration.GetValue<string>("Google:ClientSecret");
+    });
+;
 builder.Services.AddControllersWithViews();
 
-builder.Services
-    .AddScoped<IApplicationDbRepository, ApplicationDbRepository>()
-    .AddScoped<IGenreService, GenreService>();
+builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 
