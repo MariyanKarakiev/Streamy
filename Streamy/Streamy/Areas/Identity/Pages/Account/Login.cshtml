@@ -50,21 +50,27 @@
                                     </div>
 
                                     <a asp-page="./ForgotPassword" class="forgot-pass">Forgot password</a>
-
                                 </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary btn-block enter-btn">Login</button>
                                 </div>
-                                <div class="d-flex">
-                                    <button class="btn btn-facebook mr-2 col">
-                                        <i class="mdi mdi-facebook"></i>Facebook
-                                    </button>
-                                    <button class="btn btn-google col">
-                                        <i class="mdi mdi-google-plus"></i>Google plus
-                                    </button>
-                                </div>
-                                <p class="sign-up">Don't have an Account?  <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Sign Up</a></p>
                             </form>
+                            @{
+                                if ((Model.ExternalLogins?.Count ?? 0) != 0)
+                                {
+                                    <form asp-page="./ExternalLogin" method="post">
+                                        <div class="d-flex">
+                                            <button class="btn btn-facebook mr-2 col" type="submit" name="provider" value="@Model.ExternalLogins[0].Name">
+                                                <i class="mdi mdi-facebook"></i>@Model.ExternalLogins[0].DisplayName
+                                            </button>
+                                            <button class="btn btn-google col" type="submit" name="provider" value="@Model.ExternalLogins[1].Name">
+                                                <i class="mdi mdi-google-plus"></i>@Model.ExternalLogins[1].DisplayName
+                                            </button>
+                                        </div>
+                                    </form>
+                                }
+                            }
+                            <p class="sign-up">Don't have an Account?  <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Sign Up</a></p>
                         </div>
                     </div>
                 </div>

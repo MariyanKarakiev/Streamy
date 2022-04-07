@@ -20,7 +20,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Add Genre</h4>
-                        <form class="forms-sample" asp-action="Create">
+                        <form class="forms-sample" asp-action="Create" asp-controller="Genre" method="post" enctype="multipart/form-data">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="form-group">
                                 <label asp-for="Name"></label>

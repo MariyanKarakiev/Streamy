@@ -24,7 +24,7 @@ namespace Streamy.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name")]GenreModel genreModel)
+        public async Task<IActionResult> Create(GenreModel genreModel)
         {
             if (ModelState.IsValid)
             {
