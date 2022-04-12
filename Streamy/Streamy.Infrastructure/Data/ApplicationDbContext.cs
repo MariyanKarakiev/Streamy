@@ -25,7 +25,7 @@ namespace Streamy.Infrastructure.Data
 
             modelBuilder.Entity<Song>()
                 .HasOne<Genre>(s => s.Genre)
-                .WithMany(g => g.Song)
+                .WithMany(g => g.Songs)
                 .HasForeignKey(s => s.GenreId)
                 .OnDelete(DeleteBehavior.Restrict);
 
