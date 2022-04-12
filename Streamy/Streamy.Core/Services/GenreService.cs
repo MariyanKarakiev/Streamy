@@ -99,6 +99,7 @@ namespace Streamy.Core.Services
 
             var mappedGenre = new GenreViewModel()
             {
+                Id= genre.Id,
                 Name = genre.Name,
                 Albums = genre.Albums.Count,
                 Songs = genre.Songs.Count,

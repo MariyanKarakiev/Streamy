@@ -13,5 +13,6 @@ namespace Streamy.Core.Models
             Genres = new List<GenreViewModel>();
         }
         public List<GenreViewModel> Genres { get; set; }
+        public string Name { get; set; }
     }
 }

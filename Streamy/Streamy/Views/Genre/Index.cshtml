@@ -7,34 +7,39 @@
 }
 
 <html>
-<div class="row">
-    <div class="col-lg-6 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <div class="list-wrapper">
-                    <ul class="d-flex flex-column-reverse text-white todo-list todo-list-custom">
-                        @foreach (var genre in Model.Genres)
-                        {
+<div class="col-lg-auto">
+    <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">@ViewData["Title"]</h4>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Genre</th>
+                                    <th>Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var genre in Model.Genres)
+                                {
+                                    <tr>
+                                        <td>@genre.Name</td>
+                                        <td>
+                                            <a asp-action="Detail" asp-route-id="@genre.Id" class="mdi mdi-information-outline "></a>
+                                            <a asp-action="Edit" asp-route-id="@genre.Id" class="mdi mdi-border-color"></a>
+                                            <a asp-action="Delete" asp-route-id="@genre.Id" class="mdi mdi-delete "></a>
+                                        </td>
+                                    </tr>
 
-                            <div class="d-flex flex-row justify-content-between">
-                                <label class=" mb-1">
-                                    @genre.Name
-                                </label>
-
-                                <div class="text-muted mb-1">
-                                    <a asp-action="Edit" asp-route-id="@genre.Id" class="mdi mdi-border-color"></a>
-                                    <a asp-action="Detail" asp-route-id="@genre.Id" class="mdi mdi-information-variant"></a>
-                                    <a asp-action="Delete" asp-route-id="@genre.Id" class="mdi mdi-delete-variant"></a>
-                                </div>
-                            </div>
-
-                        }
-                    </ul>
+                                }
+                            </tbody>
+                        </table>  
+                                <button asp-action="Create" class="btn btn-primary mr-2">Add</button>
+                    </div>
                 </div>
             </div>
-            <a asp-action="Create" class="btn btn-primary mr-2">Add</a>
         </div>
     </div>
-</div>
 </html>
-
