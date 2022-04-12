@@ -1,11 +1,40 @@
 ﻿@using Streamy.Core.Models
-@model GenreModel
+@model GenreListViewModel
 
 @{
+    ViewData["Title"] = "Genres";
 
 }
-<html>
-    <p>kfjlkje</p>
 
-   
+<html>
+<div class="row">
+    <div class="col-lg-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="list-wrapper">
+                    <ul class="d-flex flex-column-reverse text-white todo-list todo-list-custom">
+                        @foreach (var genre in Model.Genres)
+                        {
+
+                            <div class="d-flex flex-row justify-content-between">
+                                <label class=" mb-1">
+                                    @genre.Name
+                                </label>
+
+                                <div class="text-muted mb-1">
+                                    <a asp-action="Edit" asp-route-id="@genre.Id" class="mdi mdi-border-color"></a>
+                                    <a asp-action="Detail" asp-route-id="@genre.Id" class="mdi mdi-information-variant"></a>
+                                    <a asp-action="Delete" asp-route-id="@genre.Id" class="mdi mdi-delete-variant"></a>
+                                </div>
+                            </div>
+
+                        }
+                    </ul>
+                </div>
+            </div>
+            <a asp-action="Create" class="btn btn-primary mr-2">Add</a>
+        </div>
+    </div>
+</div>
 </html>
+

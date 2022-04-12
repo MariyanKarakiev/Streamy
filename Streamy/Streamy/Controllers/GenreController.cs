@@ -14,7 +14,9 @@ namespace Streamy.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var allGenres = _genreService.GetAllGenres();
+
+            return View(allGenres);
         }
 
         public IActionResult Create()
@@ -24,7 +26,7 @@ namespace Streamy.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(GenreModel genreModel)
+        public async Task<IActionResult> Create(GenreViewModel genreModel)
         {
             if (ModelState.IsValid)
             {
@@ -34,6 +36,51 @@ namespace Streamy.Controllers
 
             return View(genreModel);
 
+        }
+
+        public async Task<IActionResult> Detail(short? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var genreToDetail = await _genreService.GetGenreWithDetails((short)id);
+
+            return View(genreToDetail);
+        }
+
+        public async Task<IActionResult> Delete(short? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            await _genreService.DeleteGenre((short)id);
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Edit(short? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var genreToEdit = await _genreService.GetByIdAsync((short)id);
+
+            return View(genreToEdit);
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> Edit(GenreViewModel genreViewModel)
+        {
+            _genreService.UpdateGenre(genreViewModel);
+
+            return RedirectToAction("Index");
         }
     }
 }

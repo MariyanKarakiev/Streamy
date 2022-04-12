@@ -2,7 +2,7 @@
 @model GenreViewModel
 
 @{
-    ViewData["Title"] = "Add Genre";
+    ViewData["Title"] = "Edit Genre";
 }
 
 <!DOCTYPE html>
@@ -19,15 +19,15 @@
             <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Add Genre</h4>
-                        <form class="forms-sample" asp-action="Create" asp-controller="Genre" method="post">
+                        <h4 class="card-title">Edit Genre</h4>
+                        <form class="forms-sample" asp-action="Edit" asp-controller="Genre" method="post">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="form-group">
                                 <label asp-for="Name"></label>
                                 <input asp-for="Name" type="text" class="form-control" id="exampleInputUsername1" placeholder="Genre">
                                 <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
-                            <button type="submit" class="btn btn-primary mr-2">Create</button>
+                            <button type="submit" class="btn btn-primary mr-2">Edit</button>
                             <button class="btn btn-dark" asp-action="Index">Cancel</button>
                         </form>
                     </div>
@@ -37,7 +37,3 @@
     </div>
 </body>
 </html>
-
-
-            
-            
