@@ -22,7 +22,7 @@ namespace Streamy.Infrastructure.Data.Common
 
         Task DeleteAsync<TEntity>(object id) where TEntity : class;
 
-        void Detach<T>(T entity) where T : class;
+        void Detach<TEntity>(TEntity entity) where TEntity : class;
 
         int SaveChanges();
 

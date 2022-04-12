@@ -9,8 +9,11 @@ namespace Streamy.Core.Services
 {
     public interface IGenreService
     {
-        Task CreateGenre(GenreModel genreModel);
-        Task UpdateGenre(GenreModel genreModel);
-        Task DeleteGenre(string genreId);
+        GenreListViewModel GetAllGenres();
+        Task<GenreViewModel> GetByIdAsync(short id);
+        Task CreateGenre(GenreViewModel genreModel);
+        void UpdateGenre(GenreViewModel genreModel);
+        Task DeleteGenre(short id);
+        Task<GenreViewModel> GetGenreWithDetails(short id);
     }
 }
