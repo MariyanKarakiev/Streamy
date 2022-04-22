@@ -15,7 +15,7 @@ namespace Streamy.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var songs = _songService.GetAllAsync();
+            var songs = _songService.GetAll();
             return View(songs);
         }
 
@@ -38,6 +38,13 @@ namespace Streamy.Controllers
                 Duration = TimeSpan.Zero,
                 ReleaseDate = DateTime.UtcNow,
                 GenreId = 1,
+                ArtistList = new List<ArtistViewModel>()
+                {
+                    new ArtistViewModel()
+                    {
+                        Id = "c9c485cc-35f5-4541-aa57-4391c614161b",
+                    }
+                }
             };
 
 

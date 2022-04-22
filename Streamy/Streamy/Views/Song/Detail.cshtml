@@ -31,16 +31,15 @@
                         <tbody>
                             <tr>
                                 <td>@Model.Title</td>
-                                @foreach (var artist in Model.Artists)
+                              
+                                @foreach (var artist in Model.ArtistList)
                                 {
-
                                 <tr>
                                     <th>Song</th>
                                     <th>Artists</th>
                                     <th>Duration</th>
                                     <th>ReleaseDate</th>
                                 </tr>
-
                                 }
 
                             </tr>
@@ -77,7 +76,7 @@
                                                         <div class="p-0" style="display: none;">
                                                             <table class="table table-hover">
                                                                 <tbody>
-                                                                    @foreach (var artist in Model.Artists)
+                                                                    @foreach (var artist in Model.ArtistList)
                                                                     {
                                                                         <tr>
                                                                             <td>artist.Name</td>

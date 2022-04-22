@@ -9,7 +9,7 @@ namespace Streamy.Core.Contracts
         Task DeleteSong(Guid id);
 
         Task<SongViewModel> GetByIdAsync(Guid id);
-        SongListViewModel GetAllAsync();
+        SongListViewModel GetAll();
         Task<SongViewModel> GetSongWithDetails(Guid id);
     }
 }

@@ -23,10 +23,14 @@ namespace Streamy.Core.Services
                 throw new ArgumentNullException("There is no song to create.");
             }
 
-            var artistIds = songModel.ArtistIds.Select(a => a.ToString()).ToArray();
+            var artistIds = Guid.Parse(songModel.ArtistList.FirstOrDefault().Id);
 
-            var artist = await _repo.GetByIdsAsync<Artist>(artistIds);
+            var artist = await _repo.GetByIdAsync<Artist>((object)artistIds);
 
+            if (artist == null)
+            {
+                throw new ArgumentNullException("There is no valid artist.");
+            }
 
             var mappedSong = new Song()
             {
@@ -37,7 +41,14 @@ namespace Streamy.Core.Services
                 GenreId = songModel.GenreId
             };
 
+            var songArtistModel = new SongArtist()
+            {
+                Song = mappedSong,
+                Artist = artist
+            };
+
             await _repo.AddAsync(mappedSong);
+            await _repo.AddAsync(songArtistModel);
             _repo.SaveChanges();
         }
 
@@ -54,7 +65,7 @@ namespace Streamy.Core.Services
             _repo.SaveChanges();
         }
 
-        public SongListViewModel GetAllAsync()
+        public SongListViewModel GetAll()
         {
             var songs = _repo.All<Song>().ToList();
 
@@ -116,19 +127,35 @@ namespace Streamy.Core.Services
         {
             var song = await GetSongByIdAsync(id);
 
+            //to do: get album, playlist and genre full info
+
+            var mappedArtists = song.Artists
+                .Select(a => new ArtistViewModel()
+                {
+                    Id = a.Artist.Id.ToString(),
+                    Name = a.Artist.Name,
+                    Country = a.Artist.Country,
+                })
+                .ToList();
+
+            var mappedGenre = new GenreViewModel()
+            {
+                Id = song.Genre.Id,
+                Name = song.Genre.Name,
+            };
+
+
             var mappedSong = new SongViewModel()
             {
                 Id = song.Id.ToString(),
                 Title = song.Title,
                 Duration = song.Duration,
                 ReleaseDate = song.ReleaseDate,
-                AlbumId = song.AlbumId,
-                GenreId = song.GenreId
-
+                ArtistList = mappedArtists,
+                Genre = mappedGenre
             };
-            //to do: get album, playlist and genre full info
 
-            return
+            return mappedSong;
         }
 
         public Task UpdateSong(SongViewModel songModel)
