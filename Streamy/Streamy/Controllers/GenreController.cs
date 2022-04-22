@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Streamy.Core.Contracts;
 using Streamy.Core.Models;
 using Streamy.Core.Services;
 

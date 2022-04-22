@@ -1,10 +1,5 @@
 ﻿using Streamy.Infrastructure.Models;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Streamy.Core.Models
 {
@@ -23,10 +18,14 @@ namespace Streamy.Core.Models
         public TimeSpan Duration { get; set; }
 
         public Guid? AlbumId { get; set; }
+        public Album? Album { get; set; }
 
         public short GenreId { get; set; }
+        public Genre? Genre { get; set; }
+         
 
-        public List<Artist> Artists { get; set; } = new List<Artist>();
-        public List<Album> Albums { get; set; } = new List<Album>();
+        public List<ArtistViewModel> Artists { get; set; } = new List<ArtistViewModel>();
+        public Guid[] ArtistIds { get; set; }
+        public List<Playlist> PlayLists { get; set; } = new List<Playlist>();
     }
 }

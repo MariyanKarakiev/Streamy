@@ -2835,8 +2835,4 @@
     </Content>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Song\" />
-  </ItemGroup>
-
 </Project>

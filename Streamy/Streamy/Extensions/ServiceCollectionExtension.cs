@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
+
+using Microsoft.EntityFrameworkCore;
+using Streamy.Core.Contracts;
 using Streamy.Core.Services;
 using Streamy.Infrastructure.Data;
 using Streamy.Infrastructure.Data.Repositories;
@@ -11,6 +14,7 @@ namespace Streamy.Extensions
         {
             services.AddScoped<IApplicationDbRepository, ApplicationDbRepository>();
             services.AddScoped<IGenreService, GenreService>();
+            services.AddScoped<ISongService, SongService>();
 
             return services;
         }
@@ -22,7 +26,7 @@ namespace Streamy.Extensions
             services.AddDbContext<ApplicationDbContext>(options =>
                  options.UseSqlServer(connectionString));
             services.AddDatabaseDeveloperPageExceptionFilter();
-           
+
             return services;
         }
     }

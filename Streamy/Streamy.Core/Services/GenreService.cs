@@ -1,11 +1,7 @@
-﻿using Streamy.Core.Models;
+﻿using Streamy.Core.Contracts;
+using Streamy.Core.Models;
 using Streamy.Infrastructure.Data.Repositories;
 using Streamy.Infrastructure.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Streamy.Core.Services
 {

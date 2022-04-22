@@ -1,0 +1,46 @@
+﻿@using Streamy.Core.Models
+@model SongListViewModel
+
+@{
+    ViewData["Title"] = "Add Song";
+
+}
+
+<html>
+<div class="col-lg-auto">
+    <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">@ViewData["Title"]</h4>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Song</th>
+                                    <th>Artists</th>
+                                    <th>Duration</th>
+                                    <th>ReleaseDate</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var song in Model.Songs)
+                                {
+                                    <tr>
+                                        <td>@song.Title</td>
+                                        <td>@song.Artists.Count</td>
+                                        <td>@song.Duration</td>
+                                        <td>@song.ReleaseDate</td>
+                                        <td>
+                                            <a asp-action="Detail" asp-route-id="@song.Id" class="mdi mdi-information-outline "></a>
+                                            <a asp-action="Edit" asp-route-id="@song.Id" class="mdi mdi-border-color"></a>
+                                            <a asp-action="Delete" asp-route-id="@song.Id" class="mdi mdi-delete "></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>

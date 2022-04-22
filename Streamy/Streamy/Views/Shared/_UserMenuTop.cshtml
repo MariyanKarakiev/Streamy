@@ -18,10 +18,10 @@
                 <div class="preview-item-content">
                     <p class="preview-subject ellipsis mb-1">Genres</p>
                 </div>
-
             </a>
+
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item preview-item">
+            <a asp-controller="Song" asp-action="Index" class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
                     <div class="preview-icon bg-dark rounded-circle">
                         <i class="mdi mdi-web text-info"></i>
@@ -32,7 +32,7 @@
                 </div>
             </a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item preview-item">
+            <a asp-controller="Playlist" asp-action="Index" class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
                     <div class="preview-icon bg-dark rounded-circle">
                         <i class="mdi mdi-layers text-danger"></i>
@@ -43,7 +43,7 @@
                 </div>
             </a>
             <div class="dropdown-divider"></div>
-            <p class="p-3 mb-0 text-center">See all projects</p>
+            <p class="p-3 mb-0 text-center">Playlist</p>
         </div>
     </li>
     <partial name="_LoginPartial" ? />

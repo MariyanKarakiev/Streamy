@@ -1,0 +1,107 @@
+﻿@using Streamy.Core.Models
+@model SongViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+</head>
+
+<body>
+    <div class="col-lg-auto">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">@ViewData["Title"]</h4>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Song</th>
+                                <th>Artists</th>
+                                <th>Duration</th>
+                                <th>ReleaseDate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@Model.Title</td>
+                                @foreach (var artist in Model.Artists)
+                                {
+
+                                <tr>
+                                    <th>Song</th>
+                                    <th>Artists</th>
+                                    <th>Duration</th>
+                                    <th>ReleaseDate</th>
+                                </tr>
+
+                                }
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary mr-2">Edit</a>
+                    <a asp-action="Index" class="btn btn-dark">Cancel</a>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <td class="border-0">183</td>
+                            </tr>
+                            <tr data-widget="expandable-table" aria-expanded="false">
+                                <td>
+                                    <i class="expandable-table-caret fas fa-caret-right fa-fw"></i>
+                                    219
+                                </td>
+                            </tr>
+                            <tr class="expandable-body d-none">
+                                <td>
+                                    <div class="p-0" style="display: none;">
+                                        <table class="table table-hover">
+                                            <tbody>
+                                                <tr data-widget="expandable-table" aria-expanded="false">
+                                                    <td>
+                                                        <i class="expandable-table-caret fas fa-caret-right fa-fw"></i>
+                                                        219-1
+                                                    </td>
+                                                </tr>
+                                                <tr class="expandable-body d-none">
+                                                    <td>
+                                                        <div class="p-0" style="display: none;">
+                                                            <table class="table table-hover">
+                                                                <tbody>
+                                                                    @foreach (var artist in Model.Artists)
+                                                                    {
+                                                                        <tr>
+                                                                            <td>artist.Name</td>
+
+                                                                        </tr>
+                                                                    }
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
