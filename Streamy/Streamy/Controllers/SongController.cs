@@ -19,16 +19,28 @@ namespace Streamy.Controllers
             return View(songs);
         }
 
-        public async Task<IActionResult> Detail(Guid? id)
+        public async Task<IActionResult> Detail(string? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var genreToDetail = await _songService.GetSongWithDetails((Guid)id);
+            var genreToDetail = await _songService.GetSongWithDetails((id));
 
             return View(genreToDetail);
+        }
+
+        public async Task<IActionResult> Delete(string? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            await _songService.DeleteSong(id);
+
+            return RedirectToAction("Index");
         }
         public async Task<IActionResult> Create()
         {
@@ -37,12 +49,16 @@ namespace Streamy.Controllers
                 Title = "Pesen",
                 Duration = TimeSpan.Zero,
                 ReleaseDate = DateTime.UtcNow,
-                GenreId = 1,
+                GenreId = 1, 
                 ArtistList = new List<ArtistViewModel>()
                 {
                     new ArtistViewModel()
                     {
                         Id = "c9c485cc-35f5-4541-aa57-4391c614161b",
+                    },
+                    new ArtistViewModel()
+                    {
+                        Id = "bccb344f-9aa2-4fcd-bcdb-56572a20d6ee",
                     }
                 }
             };
