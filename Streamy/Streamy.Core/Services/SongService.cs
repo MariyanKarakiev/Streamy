@@ -23,14 +23,11 @@ namespace Streamy.Core.Services
                 throw new ArgumentNullException("There is no song to create.");
             }
 
-            var artistIds = Guid.Parse(songModel.ArtistList.FirstOrDefault().Id);
+            Guid[] artistIds = songModel.ArtistList.Select(a => Guid.Parse(a.Id)).ToArray();
+            Guid[] playlistIds = songModel.PlaylistList.Select(p => Guid.Parse(p.Id)).ToArray();
 
-            var artist = await _repo.GetByIdAsync<Artist>((object)artistIds);
-
-            if (artist == null)
-            {
-                throw new ArgumentNullException("There is no valid artist.");
-            }
+            var artists = new List<Artist>();
+            var playlists = new List<Playlist>();
 
             var mappedSong = new Song()
             {
@@ -41,25 +38,53 @@ namespace Streamy.Core.Services
                 GenreId = songModel.GenreId
             };
 
-            var songArtistModel = new SongArtist()
+            var songArtistModel = new List<SongArtist>();
+            var songPlaylistModel = new List<SongPlaylist>();
+
+            foreach (Guid artistId in artistIds)
             {
-                Song = mappedSong,
-                Artist = artist
-            };
+                var artist = await _repo.GetByIdAsync<Artist>((object)artistId);
+
+                if (artist == null)
+                {
+                    throw new ArgumentNullException("There is no valid artist.");
+                }
+
+                songArtistModel.Add(new SongArtist()
+                {
+                    Song = mappedSong,
+                    Artist = artist
+                });
+            }
+
+            if (playlistIds != null)
+            {
+                foreach (Guid playlistId in playlistIds)
+                {
+                    var playlist = await _repo.GetByIdAsync<Playlist>((object)playlistId);
+
+                    if (playlist == null)
+                    {
+                        throw new ArgumentNullException("There is no valid playlist.");
+                    }
+
+                    songPlaylistModel.Add(new SongPlaylist()
+                    {
+                        Song = mappedSong,
+                        Playlist = playlist
+                    });
+                }
+            }
 
             await _repo.AddAsync(mappedSong);
-            await _repo.AddAsync(songArtistModel);
+            await _repo.AddRangeAsync(songArtistModel);
+            await _repo.AddRangeAsync(songPlaylistModel);
             _repo.SaveChanges();
         }
 
-        public async Task DeleteSong(Guid id)
+        public async Task DeleteSong(string id)
         {
-            var songToDelete = await GetByIdAsync(id);
-
-            if (id == Guid.Empty)
-            {
-                throw new ArgumentNullException("There is no valid id to create.");
-            }
+            var songToDelete = await GetSongByIdAsync(id);
 
             _repo.Delete(songToDelete);
             _repo.SaveChanges();
@@ -71,7 +96,7 @@ namespace Streamy.Core.Services
 
             if (songs == null)
             {
-                throw new ArgumentNullException("There are no genres", nameof(songs));
+                throw new ArgumentNullException("There are no songs", nameof(songs));
             }
 
             var songListModel = new SongListViewModel();
@@ -93,10 +118,9 @@ namespace Streamy.Core.Services
 
             return songListModel;
         }
-
-        public async Task<SongViewModel> GetByIdAsync(Guid id)
+        public async Task<SongViewModel> GetByIdAsync(string id)
         {
-            var song = await GetByIdAsync(id);
+            var song = await GetSongByIdAsync(id);
 
             var mappedSong = new SongViewModel()
             {
@@ -110,10 +134,11 @@ namespace Streamy.Core.Services
 
             return mappedSong;
         }
-
-        public async Task<Song> GetSongByIdAsync(Guid id)
+        private async Task<Song> GetSongByIdAsync(string id)
         {
-            var song = await _repo.GetByIdAsync<Song>(id);
+            var guidId = CheckIdIsGuid(id);
+
+            var song = await _repo.GetByIdAsync<Song>((object)guidId);
 
             if (song == null)
             {
@@ -122,9 +147,10 @@ namespace Streamy.Core.Services
 
             return song;
         }
-
-        public async Task<SongViewModel> GetSongWithDetails(Guid id)
+        public async Task<SongViewModel> GetSongWithDetails(string id)
         {
+            var guidId = CheckIdIsGuid(id);
+
             var song = await GetSongByIdAsync(id);
 
             //to do: get album, playlist and genre full info
@@ -161,6 +187,16 @@ namespace Streamy.Core.Services
         public Task UpdateSong(SongViewModel songModel)
         {
             throw new NotImplementedException();
+        }
+
+        private Guid CheckIdIsGuid(string id)
+        {
+            if (Guid.TryParse(id, out var guidId))
+            {
+                throw new InvalidCastException("Invalid id.");
+            }
+
+            return guidId;
         }
     }
 }
