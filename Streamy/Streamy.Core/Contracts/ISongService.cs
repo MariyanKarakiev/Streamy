@@ -6,10 +6,10 @@ namespace Streamy.Core.Contracts
     {
         Task CreateSong(SongViewModel songModel);
         Task UpdateSong(SongViewModel songModel);
-        Task DeleteSong(Guid id);
+        Task DeleteSong(string id);
 
-        Task<SongViewModel> GetByIdAsync(Guid id);
+        Task<SongViewModel> GetByIdAsync(string id);
         SongListViewModel GetAll();
-        Task<SongViewModel> GetSongWithDetails(Guid id);
+        Task<SongViewModel> GetSongWithDetails(string id);
     }
 }
