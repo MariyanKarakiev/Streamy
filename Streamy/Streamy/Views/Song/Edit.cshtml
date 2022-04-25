@@ -59,8 +59,8 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label asp-for=@Model.Genre></label>
-                                    <select class="form-control" placeholder=" ">
+                                    <label asp-for=@Model.GenreId></label>
+                                    <select asp-for=@Model.GenreId class="form-control" placeholder=" ">
                                         @foreach (var genre in Model.Genres)
                                         {
                                             <option value=@genre.Id>@genre.Name</option>
@@ -68,20 +68,25 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label asp-for=@Model.Album></label>
-                                    <select class="select2 form-control" multiple="multiple" style="width:100%">
+                                    <label asp-for=@Model.AlbumId></label>
+                                    <select  asp-for=@Model.AlbumId class="select2 form-control" multiple="multiple" style="width:100%">
                                         @foreach (var album in Model.Albums)
                                         {
                                             <option>@album</option>
                                         }
 
                                     </select>
-                                    <span asp-validation-for=@Model.Album class="text-danger"></span>
+                                    <span asp-validation-for=@Model.AlbumId class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Artist</label>
-                                    <select class="select2" multiple="multiple" data-placeholder="Select a State" data-dropdown-css-class="select2-purple" style="width: 100%;">
-                                        @foreach (var artist in Model.Artists)
+                                    <select  asp-for=@Model.ArtistIds class="select2" multiple="multiple" data-placeholder="Select a State" data-dropdown-css-class="select2-purple" style="width: 100%;">
+                                      
+                                        @foreach(var currentArtists in Model.Artists)
+                                        {
+                                              <option selected="selected" value=@currentArtists.Id>@currentArtists.Name</option>
+                                        }
+                                        @foreach (var artist in Model.AllArtists)
                                         {
                                             <option value=@artist.Id>@artist.Name</option>
                                         }

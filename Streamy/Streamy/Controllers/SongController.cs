@@ -64,17 +64,17 @@ namespace Streamy.Controllers
                 return NotFound();
             }
 
-            songModel.Artists = new List<ArtistViewModel>()
-                {
-                    new ArtistViewModel()
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                    },
-                    new ArtistViewModel()
-                    {
-                      Id = Guid.NewGuid().ToString(),
-                    }
-                };
+            //songModel.Artists = new List<ArtistViewModel>()
+            //    {
+            //        new ArtistViewModel()
+            //        {
+            //            Id = Guid.NewGuid().ToString(),
+            //        },
+            //        new ArtistViewModel()
+            //        {
+            //          Id = Guid.NewGuid().ToString(),
+            //        }
+            //    };
 
             await _songService.CreateSong(songModel);
             return RedirectToAction(nameof(Index));

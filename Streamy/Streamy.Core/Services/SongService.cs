@@ -83,46 +83,37 @@ namespace Streamy.Core.Services
             _repo.Delete(songToDelete);
             _repo.SaveChanges();
         }
-        public Task UpdateSong(SongCreateModel songModel)
+        public async Task UpdateSong(SongCreateModel songModel)
         {
             if (songModel == null)
             {
                 throw new ArgumentNullException("No valid model.");
             }
 
-            var song = new Song()
-            {
-                Id = CheckIdIsGuid(songModel.Id),
-                Title = songModel.Title,
-                Duration = songModel.Duration,
-                ReleaseDate = songModel.ReleaseDate,
-                //  AlbumId = songModel.AlbumId,
-                GenreId = songModel.GenreId,
+            var ids =songModel
+                  .ArtistIds
+                     .Select(ai => CheckIdIsGuid(ai))
+                     .ToArray();
 
-                Artists = songModel
-                .Artists
-                .Select(a => new Artist()
-                {
-                    Id = CheckIdIsGuid(a.Id),
-                    Name = a.Name,
-                    Country = a.Country,
-                })
-                .ToList(),
+            var artists =   _repo.All<Artist>()
+                .Where(a => ids.Contains(a.Id)).ToList();
 
-                Playlists = songModel
-                .Playlists
-                .Select(p => new Playlist()
-                {
-                    Id = CheckIdIsGuid(p.Id),
-                    Title = p.Title
-                })
-                .ToList()
-            };
+            var song = _repo.All<Song>()
+                .Include(s=>s.Artists)
+                .Include(s=>s.Playlists)
+                .Include(s=>s.Album)
+                .Include(s=>s.Genre)
+                 .FirstOrDefault(s => s.Id == CheckIdIsGuid(songModel.Id));
 
+            song.Title = songModel.Title;
+            song.Duration = songModel.Duration;
+            song.ReleaseDate = songModel.ReleaseDate;
+            song.GenreId = songModel.GenreId;
+            song.Artists = artists;
+           // song.AlbumId = CheckIdIsGuid(songModel.AlbumId);
+            
             _repo.Update(song);
             _repo.SaveChanges();
-
-            return Task.CompletedTask;
         }
 
         public SongListModel GetAll()
@@ -146,7 +137,7 @@ namespace Streamy.Core.Services
                         Title = s.Title,
                         Duration = s.Duration,
                         ReleaseDate = s.ReleaseDate,
-                      //  AlbumId = s.AlbumId,
+                      // AlbumId = s.AlbumId,
                         GenreId = s.GenreId
                     });
             }
@@ -185,9 +176,9 @@ namespace Streamy.Core.Services
                 Id = song.Id.ToString(),
                 AlbumId = song.AlbumId,
                 Duration = song.Duration,
-                Album = song.Album,
-                Genre = song.Genre,
-                Playlists = song.Playlists,
+               // AlbumId = song.AlbumId,
+                GenreId= song.Genre.Id,
+               // Playlists = song.Playlists,
                 Artists = song.Artists,
                 Title = song.Title,
                 ReleaseDate = song.ReleaseDate,

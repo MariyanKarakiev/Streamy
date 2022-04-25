@@ -63,13 +63,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var artist in Model.ArtistList)
+                            @foreach (var artist in Model.Artists)
                             {
                                 <tr>
                                     <th>@artist.Name</th>
-                                    <th>Artists</th>
-                                    <th>Duration</th>
-                                    <th>ReleaseDate</th>
+                                    <th>@artist.Country</th>
                                     <td>
                                         <a asp-action="Detail" asp-controller="Artist" asp-route-id="@artist.Id" class="mdi mdi-information-outline "></a>
                                         <a asp-action="Edit" asp-controller="Artist" asp-route-id="@artist.Id" class="mdi mdi-border-color"></a>
