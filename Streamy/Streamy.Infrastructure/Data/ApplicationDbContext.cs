@@ -20,6 +20,11 @@ namespace Streamy.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Song>()
+             .HasOne(s => s.Genre)
+             .WithMany(g => g.Songs)
+             .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

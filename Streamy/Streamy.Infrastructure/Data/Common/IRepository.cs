@@ -27,7 +27,6 @@ namespace Streamy.Infrastructure.Data.Common
         int SaveChanges();
 
         Task<int> SaveChangesAsync();
-
         void Dispose();
     }
 }
