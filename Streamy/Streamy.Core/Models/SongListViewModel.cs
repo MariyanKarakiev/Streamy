@@ -8,10 +8,6 @@ namespace Streamy.Core.Models
 {
     public class SongListViewModel
     {
-        public SongListViewModel()
-        {
-            Songs = new List<SongViewModel>();
-        }
-        public List<SongViewModel> Songs { get; set; }
+        public List<SongViewModel> Songs { get; set; } = new List<SongViewModel>();
     }
 }
