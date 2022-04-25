@@ -43,7 +43,7 @@ namespace Streamy.Core.Services
             _repo.SaveChanges();
         }
 
-        public GenreListViewModel GetAllGenres()
+        public List<GenreViewModel> GetAllGenres()
         {
             var genres = _repo.All<Genre>().ToList();
 
@@ -52,16 +52,16 @@ namespace Streamy.Core.Services
                 throw new ArgumentNullException("There are no genres", nameof(genres));
             }
 
-            var genreListModel = new GenreListViewModel();
+            var genreModelList = new List<GenreViewModel>();
 
-            genres.ForEach(g => genreListModel.Genres
+            genres.ForEach(g => genreModelList
             .Add(new GenreViewModel
             {
                 Id = g.Id,
                 Name = g.Name
             }));
 
-            return genreListModel;
+            return genreModelList;
         }
 
         public async Task<GenreViewModel> GetByIdAsync(short id)
@@ -95,7 +95,7 @@ namespace Streamy.Core.Services
 
             var mappedGenre = new GenreViewModel()
             {
-                Id= genre.Id,
+                Id = genre.Id,
                 Name = genre.Name,
                 Albums = genre.Albums.Count,
                 Songs = genre.Songs.Count,

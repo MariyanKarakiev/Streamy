@@ -1,5 +1,4 @@
-﻿
-@using Streamy.Core.Models.Song
+﻿@using Streamy.Core.Models.Song
 @model SongCreateModel
 
 @{
@@ -24,13 +23,12 @@
 <body>
     <section class="content">
         <div class="container-fluid">
-            <!-- SELECT2 EXAMPLE -->
+     
             <div class="card card-default">
                 <div class="card-header">
                     <h4 class="card-title">Add Song</h4>
 
-                  
-                    <form class="forms-sample" asp-action="Create" asp-controller="Song" method="post">
+                    <form class="forms-sample" asp-action="Edit" asp-controller="Song" method="post">
                         <div class="row">
                             <div class="col-md-6">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -93,7 +91,7 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-outline-primary">Create</button>
+                        <button type="submit" class="btn btn-outline-primary">Update</button>
                         <button class="btn btn-outline-behance" asp-action="Index">Cancel</button>
                     </form>
                 </div>

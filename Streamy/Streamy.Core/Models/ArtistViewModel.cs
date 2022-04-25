@@ -6,12 +6,8 @@ namespace Streamy.Core.Models
     {
         public string Id { get; set; }
 
-        [Required]
-        [StringLength(60)]
         public string Name { get; set; }
 
-        [Required]
-        [StringLength(56)]
         public string Country { get; set; }
     }
 }

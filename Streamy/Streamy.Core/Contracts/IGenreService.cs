@@ -4,7 +4,7 @@ namespace Streamy.Core.Contracts
 {
     public interface IGenreService
     {
-        GenreListViewModel GetAllGenres();
+        List<GenreViewModel> GetAllGenres();
         Task<GenreViewModel> GetByIdAsync(short id);
         Task CreateGenre(GenreViewModel genreModel);
         void UpdateGenre(GenreViewModel genreModel);

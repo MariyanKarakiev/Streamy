@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Streamy.Core.Contracts;
 using Streamy.Core.Models;
+using Streamy.Core.Models.Song;
 
 namespace Streamy.Controllers
 {
@@ -47,23 +48,23 @@ namespace Streamy.Controllers
 
         public IActionResult Create()
         {
-            var songModel = new SongViewModel();
+            var songModel = new SongCreateModel();
 
             var genres = _genreService.GetAllGenres();
 
-            songModel.GenreListViewModel = genres;
+            songModel.Genres = genres;
             return View(songModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(SongViewModel songModel)
+        public async Task<IActionResult> Create(SongCreateModel songModel)
         {
             if (songModel == null)
             {
                 return NotFound();
             }
 
-            songModel.ArtistList = new List<ArtistViewModel>()
+            songModel.Artists = new List<ArtistViewModel>()
                 {
                     new ArtistViewModel()
                     {
@@ -77,6 +78,26 @@ namespace Streamy.Controllers
 
             await _songService.CreateSong(songModel);
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Edit(string? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var songToEdit = await _songService.GetByIdForCreateAsync(id);
+
+            return View(songToEdit);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(SongCreateModel songModel)
+        {
+            _songService.UpdateSong(songModel);
+
+            return RedirectToAction("Index");
         }
     }
 }

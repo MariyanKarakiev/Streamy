@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Streamy.Core.Models
 {
-    public class SongListViewModel
+    public class SongListModel
     {
-        public List<SongViewModel> Songs { get; set; } = new List<SongViewModel>();
+        public List<SongModel> Songs { get; set; } = new List<SongModel>();
     }
 }
