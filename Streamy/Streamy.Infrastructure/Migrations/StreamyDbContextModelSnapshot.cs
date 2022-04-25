@@ -22,6 +22,21 @@ namespace Streamy.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("ArtistSong", b =>
+                {
+                    b.Property<Guid>("ArtistsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SongsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ArtistsId", "SongsId");
+
+                    b.HasIndex("SongsId");
+
+                    b.ToTable("ArtistSong");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -224,6 +239,21 @@ namespace Streamy.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("PlaylistSong", b =>
+                {
+                    b.Property<Guid>("PlaylistsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SongsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("PlaylistsId", "SongsId");
+
+                    b.HasIndex("SongsId");
+
+                    b.ToTable("PlaylistSong");
+                });
+
             modelBuilder.Entity("Streamy.Infrastructure.Models.Album", b =>
                 {
                     b.Property<Guid>("Id")
@@ -343,34 +373,19 @@ namespace Streamy.Infrastructure.Migrations
                     b.ToTable("Songs");
                 });
 
-            modelBuilder.Entity("Streamy.Infrastructure.Models.SongArtist", b =>
+            modelBuilder.Entity("ArtistSong", b =>
                 {
-                    b.Property<Guid>("ArtistId")
-                        .HasColumnType("uniqueidentifier");
+                    b.HasOne("Streamy.Infrastructure.Models.Artist", null)
+                        .WithMany()
+                        .HasForeignKey("ArtistsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<Guid>("SongId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ArtistId", "SongId");
-
-                    b.HasIndex("SongId");
-
-                    b.ToTable("SongArtists");
-                });
-
-            modelBuilder.Entity("Streamy.Infrastructure.Models.SongPlaylist", b =>
-                {
-                    b.Property<Guid>("PlaylistId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("SongId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("PlaylistId", "SongId");
-
-                    b.HasIndex("SongId");
-
-                    b.ToTable("SongPlaylists");
+                    b.HasOne("Streamy.Infrastructure.Models.Song", null)
+                        .WithMany()
+                        .HasForeignKey("SongsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -424,6 +439,21 @@ namespace Streamy.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("PlaylistSong", b =>
+                {
+                    b.HasOne("Streamy.Infrastructure.Models.Playlist", null)
+                        .WithMany()
+                        .HasForeignKey("PlaylistsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Streamy.Infrastructure.Models.Song", null)
+                        .WithMany()
+                        .HasForeignKey("SongsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Streamy.Infrastructure.Models.Album", b =>
                 {
                     b.HasOne("Streamy.Infrastructure.Models.Artist", null)
@@ -448,50 +478,12 @@ namespace Streamy.Infrastructure.Migrations
                     b.HasOne("Streamy.Infrastructure.Models.Genre", "Genre")
                         .WithMany("Songs")
                         .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Album");
 
                     b.Navigation("Genre");
-                });
-
-            modelBuilder.Entity("Streamy.Infrastructure.Models.SongArtist", b =>
-                {
-                    b.HasOne("Streamy.Infrastructure.Models.Artist", "Artist")
-                        .WithMany("Songs")
-                        .HasForeignKey("ArtistId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Streamy.Infrastructure.Models.Song", "Song")
-                        .WithMany("Artists")
-                        .HasForeignKey("SongId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Artist");
-
-                    b.Navigation("Song");
-                });
-
-            modelBuilder.Entity("Streamy.Infrastructure.Models.SongPlaylist", b =>
-                {
-                    b.HasOne("Streamy.Infrastructure.Models.Playlist", "Playlist")
-                        .WithMany("Songs")
-                        .HasForeignKey("PlaylistId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Streamy.Infrastructure.Models.Song", "Song")
-                        .WithMany("Playlists")
-                        .HasForeignKey("SongId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Playlist");
-
-                    b.Navigation("Song");
                 });
 
             modelBuilder.Entity("Streamy.Infrastructure.Models.Album", b =>
@@ -502,8 +494,6 @@ namespace Streamy.Infrastructure.Migrations
             modelBuilder.Entity("Streamy.Infrastructure.Models.Artist", b =>
                 {
                     b.Navigation("Albums");
-
-                    b.Navigation("Songs");
                 });
 
             modelBuilder.Entity("Streamy.Infrastructure.Models.Genre", b =>
@@ -511,18 +501,6 @@ namespace Streamy.Infrastructure.Migrations
                     b.Navigation("Albums");
 
                     b.Navigation("Songs");
-                });
-
-            modelBuilder.Entity("Streamy.Infrastructure.Models.Playlist", b =>
-                {
-                    b.Navigation("Songs");
-                });
-
-            modelBuilder.Entity("Streamy.Infrastructure.Models.Song", b =>
-                {
-                    b.Navigation("Artists");
-
-                    b.Navigation("Playlists");
                 });
 #pragma warning restore 612, 618
         }

@@ -15,7 +15,7 @@ namespace Streamy.Infrastructure.Data.Common
 
         public IQueryable<TEntity> All<TEntity>() where TEntity : class
         {
-            return DbSet<TEntity>().AsQueryable();
+            return  DbSet<TEntity>();
         }
 
         public IQueryable<TEntity> All<TEntity>(Expression<Func<TEntity, bool>> search) where TEntity : class
@@ -63,11 +63,16 @@ namespace Streamy.Infrastructure.Data.Common
         {
             return await DbSet<TEntity>().FindAsync(id);
         }
-
+        
         public async Task<TEntity> GetByIdsAsync<TEntity>(object[] id) where TEntity : class
         {
             return await DbSet<TEntity>().FindAsync(id);
         }
+
+        //public async Task<IEnumerable<TEntity>> GetByIdsAsync<TEntity>(object[] id) where TEntity : class
+        //{
+        //    return await DbSet<TEntity>().FindAsync(id);
+        //}
 
         public void Update<TEntity>(TEntity entity) where TEntity : class
         {
@@ -88,5 +93,6 @@ namespace Streamy.Infrastructure.Data.Common
         {
             return Context.SaveChangesAsync();
         }
+
     }
 }

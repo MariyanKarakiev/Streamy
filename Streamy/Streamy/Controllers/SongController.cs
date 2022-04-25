@@ -7,10 +7,12 @@ namespace Streamy.Controllers
     public class SongController : Controller
     {
         private readonly ISongService _songService;
+        private readonly IGenreService _genreService;
 
-        public SongController(ISongService songService)
+        public SongController(ISongService songService, IGenreService genreService)
         {
             _songService = songService;
+           _genreService = genreService;
         }
 
         public async Task<IActionResult> Index()
@@ -42,29 +44,38 @@ namespace Streamy.Controllers
 
             return RedirectToAction("Index");
         }
-        public async Task<IActionResult> Create()
+
+        public IActionResult Create()
         {
-            var testSong = new SongViewModel()
+            var songModel = new SongViewModel();
+
+            var genres = _genreService.GetAllGenres();
+
+            songModel.GenreListViewModel = genres;
+            return View(songModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(SongViewModel songModel)
+        {
+            if (songModel == null)
             {
-                Title = "Pesen",
-                Duration = TimeSpan.Zero,
-                ReleaseDate = DateTime.UtcNow,
-                GenreId = 1, 
-                ArtistList = new List<ArtistViewModel>()
+                return NotFound();
+            }
+
+            songModel.ArtistList = new List<ArtistViewModel>()
                 {
                     new ArtistViewModel()
                     {
-                        Id = "c9c485cc-35f5-4541-aa57-4391c614161b",
+                        Id = Guid.NewGuid().ToString(),
                     },
                     new ArtistViewModel()
                     {
-                        Id = "bccb344f-9aa2-4fcd-bcdb-56572a20d6ee",
+                      Id = Guid.NewGuid().ToString(),
                     }
-                }
-            };
+                };
 
-
-            await _songService.CreateSong(testSong);
+            await _songService.CreateSong(songModel);
             return RedirectToAction(nameof(Index));
         }
     }

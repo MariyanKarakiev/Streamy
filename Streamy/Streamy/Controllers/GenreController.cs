@@ -77,7 +77,7 @@ namespace Streamy.Controllers
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> Edit(GenreViewModel genreViewModel)
+        public IActionResult Edit(GenreViewModel genreViewModel)
         {
             _genreService.UpdateGenre(genreViewModel);
 

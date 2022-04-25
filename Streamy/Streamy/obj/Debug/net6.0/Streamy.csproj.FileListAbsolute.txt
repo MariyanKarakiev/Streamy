@@ -287,3 +287,4 @@ D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\bin\Debug\net6.0\Streamy.Core.dl
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\bin\Debug\net6.0\Streamy.Core.pdb
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.Facebook.dll
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.Google.dll
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\bin\Debug\net6.0\wwwroot\js\adminlte.js

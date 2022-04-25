@@ -15,10 +15,44 @@
 
 <body>
     <div class="col-lg-auto">
-        <div class="col-md-6 grid-margin stretch-card">
+        <div class="col-lg-auto grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">@ViewData["Title"]</h4>
+                    <div class="card card-widget widget-user-2">
+                        <div class="widget-user-header bg-warning">
+                            <div class="widget-user-image">
+                                <img class="img-circle elevation-2" src="../dist/img/user7-128x128.jpg" alt="User Avatar">
+                            </div>
+                            <!-- /.widget-user-image -->
+                            <h3 class="widget-user-username">Nadia Carmichael</h3>
+                            <h5 class="widget-user-desc">Lead Developer</h5>
+                        </div>
+                        <div class="card-footer p-0">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        Projects <span class="float-right badge bg-primary">31</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        Tasks <span class="float-right badge bg-info">5</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        Completed Projects <span class="float-right badge bg-success">12</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        Followers <span class="float-right badge bg-danger">842</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                     <table class="table">
                         <thead>
                             <tr>
@@ -29,71 +63,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>@Model.Title</td>
-                              
-                                @foreach (var artist in Model.ArtistList)
-                                {
+                            @foreach (var artist in Model.ArtistList)
+                            {
                                 <tr>
-                                    <th>Song</th>
+                                    <th>@artist.Name</th>
                                     <th>Artists</th>
                                     <th>Duration</th>
                                     <th>ReleaseDate</th>
+                                    <td>
+                                        <a asp-action="Detail" asp-controller="Artist" asp-route-id="@artist.Id" class="mdi mdi-information-outline "></a>
+                                        <a asp-action="Edit" asp-controller="Artist" asp-route-id="@artist.Id" class="mdi mdi-border-color"></a>
+                                        <a asp-action="Delete" asp-controller="Artist" asp-route-id="@artist.Id" class="mdi mdi-delete "></a>
+                                    </td>
                                 </tr>
-                                }
+                            }
 
-                            </tr>
-                        </tbody>
-                    </table>
-                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary mr-2">Edit</a>
-                    <a asp-action="Index" class="btn btn-dark">Cancel</a>
-                </div>
-                <div class="card-body p-0">
-                    <table class="table table-hover">
-                        <tbody>
-                            <tr>
-                                <td class="border-0">183</td>
-                            </tr>
-                            <tr data-widget="expandable-table" aria-expanded="false">
-                                <td>
-                                    <i class="expandable-table-caret fas fa-caret-right fa-fw"></i>
-                                    219
-                                </td>
-                            </tr>
-                            <tr class="expandable-body d-none">
-                                <td>
-                                    <div class="p-0" style="display: none;">
-                                        <table class="table table-hover">
-                                            <tbody>
-                                                <tr data-widget="expandable-table" aria-expanded="false">
-                                                    <td>
-                                                        <i class="expandable-table-caret fas fa-caret-right fa-fw"></i>
-                                                        219-1
-                                                    </td>
-                                                </tr>
-                                                <tr class="expandable-body d-none">
-                                                    <td>
-                                                        <div class="p-0" style="display: none;">
-                                                            <table class="table table-hover">
-                                                                <tbody>
-                                                                    @foreach (var artist in Model.ArtistList)
-                                                                    {
-                                                                        <tr>
-                                                                            <td>artist.Name</td>
-
-                                                                        </tr>
-                                                                    }
-
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -102,5 +86,4 @@
     </div>
 </body>
 </html>
-
 

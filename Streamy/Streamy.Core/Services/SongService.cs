@@ -1,5 +1,6 @@
 ﻿
 
+using Microsoft.EntityFrameworkCore;
 using Streamy.Core.Contracts;
 using Streamy.Core.Models;
 using Streamy.Infrastructure.Data.Repositories;
@@ -29,17 +30,7 @@ namespace Streamy.Core.Services
             var artists = new List<Artist>();
             var playlists = new List<Playlist>();
 
-            var mappedSong = new Song()
-            {
-                Title = songModel.Title,
-                Duration = songModel.Duration,
-                ReleaseDate = songModel.ReleaseDate,
-                AlbumId = songModel.AlbumId,
-                GenreId = songModel.GenreId
-            };
-
-            var songArtistModel = new List<SongArtist>();
-            var songPlaylistModel = new List<SongPlaylist>();
+            var genre = await _repo.GetByIdAsync<Genre>(songModel.GenreId);
 
             foreach (Guid artistId in artistIds)
             {
@@ -50,11 +41,7 @@ namespace Streamy.Core.Services
                     throw new ArgumentNullException("There is no valid artist.");
                 }
 
-                songArtistModel.Add(new SongArtist()
-                {
-                    Song = mappedSong,
-                    Artist = artist
-                });
+                artists.Add(artist);
             }
 
             if (playlistIds != null)
@@ -68,17 +55,23 @@ namespace Streamy.Core.Services
                         throw new ArgumentNullException("There is no valid playlist.");
                     }
 
-                    songPlaylistModel.Add(new SongPlaylist()
-                    {
-                        Song = mappedSong,
-                        Playlist = playlist
-                    });
+                    playlists.Add(playlist);
                 }
             }
 
+            var mappedSong = new Song()
+            {
+                Title = songModel.Title,
+                Duration = songModel.Duration,
+                ReleaseDate = songModel.ReleaseDate,
+                AlbumId = songModel.AlbumId,
+                Genre = genre,
+                Artists = artists,
+                Playlists = playlists
+            };
+
+
             await _repo.AddAsync(mappedSong);
-            await _repo.AddRangeAsync(songArtistModel);
-            await _repo.AddRangeAsync(songPlaylistModel);
             _repo.SaveChanges();
         }
 
@@ -151,16 +144,25 @@ namespace Streamy.Core.Services
         {
             var guidId = CheckIdIsGuid(id);
 
-            var song = await GetSongByIdAsync(id);
+            var song = await _repo
+                .All<Song>()
+                .Include(s=>s.Artists)
+                .Include(s=>s.Playlists)
+                .Include(s=>s.Genre)
+                .Where(s => s.Id == guidId)
+                .FirstOrDefaultAsync();
 
-            //to do: get album, playlist and genre full info
+            if (song == null)
+            {
+                throw new ArgumentNullException("No song to display.");
+            }
 
             var mappedArtists = song.Artists
                 .Select(a => new ArtistViewModel()
                 {
-                    Id = a.Artist.Id.ToString(),
-                    Name = a.Artist.Name,
-                    Country = a.Artist.Country,
+                    Id = a.Id.ToString(),
+                    Name = a.Name,
+                    Country = a.Country,
                 })
                 .ToList();
 
@@ -191,7 +193,7 @@ namespace Streamy.Core.Services
 
         private Guid CheckIdIsGuid(string id)
         {
-            if (Guid.TryParse(id, out var guidId))
+            if (!Guid.TryParse(id, out var guidId))
             {
                 throw new InvalidCastException("Invalid id.");
             }
