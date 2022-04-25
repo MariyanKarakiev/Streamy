@@ -16,17 +16,19 @@ namespace Streamy.Infrastructure.Models
         public DateTime ReleaseDate { get; set; }
         public TimeSpan Duration { get; set; }
 
-        [ForeignKey(nameof(Album))]
         public Guid? AlbumId { get; set; }
+
+        [ForeignKey(nameof(AlbumId))]
         public Album? Album { get; set; }
 
         [Required]
-        [ForeignKey(nameof(Genre))]
         public short GenreId { get; set; }
+
+        [ForeignKey(nameof(GenreId))]
         public Genre Genre { get; set; }
 
-        public virtual ICollection<SongArtist> Artists { get; set; } = new HashSet<SongArtist>();
-        public virtual ICollection<SongPlaylist> Playlists { get; set; } = new HashSet<SongPlaylist>();
+        public virtual ICollection<Artist> Artists { get; set; } = new HashSet<Artist>();
+        public virtual ICollection<Playlist> Playlists { get; set; } = new HashSet<Playlist>();
 
     }
 }

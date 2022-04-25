@@ -14,7 +14,7 @@ namespace Streamy.Infrastructure.Models
         [StringLength(56)]
         public string Country { get; set; }
 
-        public virtual ICollection<SongArtist> Songs { get; set; } = new HashSet<SongArtist>();
+        public virtual ICollection<Song> Songs { get; set; } = new HashSet<Song>();
         public virtual ICollection<Album> Albums { get; set; } = new HashSet<Album>();
 
     }

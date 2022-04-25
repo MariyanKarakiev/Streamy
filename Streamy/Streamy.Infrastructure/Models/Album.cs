@@ -18,8 +18,9 @@ namespace Streamy.Infrastructure.Models
         public TimeSpan Duration { get; set; }
 
         [Required]
-        [ForeignKey(nameof(Genre))]
         public short GenreId { get; set; }
+       
+        [ForeignKey(nameof(GenreId))]
         public Genre Genre { get; set; }
 
         public virtual ICollection<Song> Songs { get; set; } = new HashSet<Song>();

@@ -11,6 +11,6 @@ namespace Streamy.Infrastructure.Models
         [StringLength(70)]
         public string Title { get; set; }
 
-        public virtual ICollection<SongPlaylist> Songs { get; set; } = new HashSet<SongPlaylist>();
+        public virtual ICollection<Song> Songs { get; set; } = new HashSet<Song>();
     }
 }
