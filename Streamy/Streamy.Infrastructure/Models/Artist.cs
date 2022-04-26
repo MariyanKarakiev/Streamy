@@ -5,7 +5,7 @@ namespace Streamy.Infrastructure.Models
     public class Artist
     {
         public Guid Id { get; set; } = Guid.NewGuid();
-      
+
         [Required]
         [StringLength(60)]
         public string Name { get; set; }

@@ -27,7 +27,7 @@ namespace Streamy.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(GenreViewModel genreModel)
+        public async Task<IActionResult> Create(GenreModel genreModel)
         {
             if (ModelState.IsValid)
             {
@@ -77,7 +77,7 @@ namespace Streamy.Controllers
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> Edit(GenreViewModel genreViewModel)
+        public async Task<IActionResult> Edit(GenreModel genreViewModel)
         {
            await _genreService.UpdateGenre(genreViewModel);
 

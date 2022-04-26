@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Streamy.Core.Models
 {
-    public class GenreViewModel
+    public class GenreModel
     {
         public short Id { get; set; }
 

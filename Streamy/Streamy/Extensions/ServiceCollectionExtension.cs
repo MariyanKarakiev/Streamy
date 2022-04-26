@@ -15,6 +15,8 @@ namespace Streamy.Extensions
             services.AddScoped<IApplicationDbRepository, ApplicationDbRepository>();
             services.AddScoped<IGenreService, GenreService>();
             services.AddScoped<ISongService, SongService>();
+            services.AddScoped<IAlbumService, AlbumService>();
+            services.AddScoped<IArtistService, ArtistService>();
 
             return services;
         }

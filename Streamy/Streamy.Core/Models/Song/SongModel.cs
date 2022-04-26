@@ -17,13 +17,13 @@ namespace Streamy.Core.Models
         public TimeSpan Duration { get; set; }
 
         public string? AlbumId { get; set; }
-        public AlbumViewModel Album { get; set; }
+        public AlbumModel Album { get; set; }
 
         public short GenreId { get; set; }
-        public GenreViewModel Genre { get; set; }
+        public GenreModel Genre { get; set; }
 
 
-        public List<ArtistViewModel> Artists { get; set; } = new List<ArtistViewModel>();
-        public List<PlaylistViewModel> Playlists { get; set; } = new List<PlaylistViewModel>();
+        public List<ArtistModel> Artists { get; set; } = new List<ArtistModel>();
+        public List<PlaylistModel> Playlists { get; set; } = new List<PlaylistModel>();
     }
 }

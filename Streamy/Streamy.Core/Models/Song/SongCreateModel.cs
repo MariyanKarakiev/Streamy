@@ -27,12 +27,12 @@ namespace Streamy.Core.Models.Song
         public string[] ArtistIds { get; set; }
         public string[] PlaylistIds { get; set; }
 
-        public List<ArtistViewModel> Artists { get; set; }
-        public List<PlaylistViewModel> Playlists { get; set; }
+        public List<ArtistModel> Artists { get; set; }
+        public List<PlaylistModel> Playlists { get; set; }
 
-        public List<GenreViewModel> Genres { get; set; } = new List<GenreViewModel>();
-        public List<AlbumViewModel> Albums { get; set; } = new List<AlbumViewModel>();
-        public List<ArtistViewModel> AllArtists { get; set; } = new List<ArtistViewModel>();
-        public List<PlaylistViewModel> AllPlaylists { get; set; } = new List<PlaylistViewModel>();
+        public List<GenreModel> Genres { get; set; } = new List<GenreModel>();
+        public List<AlbumModel> Albums { get; set; } = new List<AlbumModel>();
+        public List<ArtistModel> AllArtists { get; set; } = new List<ArtistModel>();
+        public List<PlaylistModel> AllPlaylists { get; set; } = new List<PlaylistModel>();
     }
 }

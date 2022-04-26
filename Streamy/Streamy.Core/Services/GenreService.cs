@@ -15,7 +15,7 @@ namespace Streamy.Core.Services
             _repo = repo;
         }
 
-        public async Task CreateGenre(GenreViewModel genreModel)
+        public async Task CreateGenre(GenreModel genreModel)
         {
             if (genreModel == null)
             {
@@ -43,7 +43,7 @@ namespace Streamy.Core.Services
             _repo.SaveChanges();
         }
 
-        public async Task<List<GenreViewModel>> GetAllGenres()
+        public async Task<List<GenreModel>> GetAllGenres()
         {
             var genres = await _repo.All<Genre>().ToListAsync();
 
@@ -52,10 +52,10 @@ namespace Streamy.Core.Services
                 throw new ArgumentNullException("There are no genres", nameof(genres));
             }
 
-            var genreModelList = new List<GenreViewModel>();
+            var genreModelList = new List<GenreModel>();
 
             genres.ForEach(g => genreModelList
-            .Add(new GenreViewModel
+            .Add(new GenreModel
             {
                 Id = g.Id,
                 Name = g.Name
@@ -64,11 +64,11 @@ namespace Streamy.Core.Services
             return genreModelList;
         }
 
-        public async Task<GenreViewModel> GetByIdAsync(short id)
+        public async Task<GenreModel> GetByIdAsync(short id)
         {
             var genre = await GetGenreByIdAsync(id);
 
-            var mappedGenre = new GenreViewModel()
+            var mappedGenre = new GenreModel()
             {
                 Id = genre.Id,
                 Name = genre.Name
@@ -89,22 +89,21 @@ namespace Streamy.Core.Services
             return genre;
         }
 
-        public async Task<GenreViewModel> GetGenreWithDetails(short id)
+        public async Task<GenreModel> GetGenreWithDetails(short id)
         {
             var genre = await GetGenreByIdAsync(id);
 
-            var mappedGenre = new GenreViewModel()
+            var mappedGenre = new GenreModel()
             {
                 Id = genre.Id,
                 Name = genre.Name,
-                Albums = genre.Albums.Count,
                 Songs = genre.Songs.Count,
             };
 
             return mappedGenre;
         }
 
-        public async Task UpdateGenre(GenreViewModel genreModel)
+        public async Task UpdateGenre(GenreModel genreModel)
         {
             if (genreModel == null)
             {

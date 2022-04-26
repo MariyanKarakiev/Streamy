@@ -10,9 +10,9 @@ namespace Streamy.Core.Models
     {
         public GenreListViewModel()
         {
-            Genres = new List<GenreViewModel>();
+            Genres = new List<GenreModel>();
         }
-        public List<GenreViewModel> Genres { get; set; }
+        public List<GenreModel> Genres { get; set; }
         public string Name { get; set; }
     }
 }

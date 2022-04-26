@@ -177,24 +177,24 @@ namespace Streamy.Core.Services
 
             return songListModel;
         }
-        public async Task<SongModel> GetByIdAsync(string id)
-        {
-            var song = await GetSongByIdAsync(id);
+        //public async Task<SongModel> GetByIdAsync(string id)
+        //{
+        //    var song = await GetSongByIdAsync(id);
 
-            var mappedSong = new SongModel()
-            {
-                Id = song.Id.ToString(),
-                Title = song.Title,
-                Duration = song.Duration,
-                ReleaseDate = song.ReleaseDate,
-                //  AlbumId = song.AlbumId,
-                GenreId = song.GenreId
-            };
+        //    var mappedSong = new SongModel()
+        //    {
+        //        Id = song.Id.ToString(),
+        //        Title = song.Title,
+        //        Duration = song.Duration,
+        //        ReleaseDate = song.ReleaseDate,
+        //        //  AlbumId = song.AlbumId,
+        //        GenreId = song.GenreId
+        //    };
 
-            return mappedSong;
-        }
+        //    return mappedSong;
+        //}
 
-        public async Task<SongCreateModel> GetByIdForCreateAsync(string id)
+        public async Task<SongCreateModel> GetByIdForUpdateAsync(string id)
         {
             var song = await GetSongWithDetails(id);
 
@@ -216,7 +216,7 @@ namespace Streamy.Core.Services
                 ReleaseDate = song.ReleaseDate,
 
                 Genres = allGenres
-                .Select(a => new GenreViewModel()
+                .Select(a => new GenreModel()
                 {
                     Id = a.Id,
                     Name = a.Name
@@ -224,7 +224,7 @@ namespace Streamy.Core.Services
                 .ToList(),
 
                 Albums = allAlbums
-                    .Select(a => new AlbumViewModel()
+                    .Select(a => new AlbumModel()
                     {
                         Id = a.Id.ToString(),
                         Title = a.Title,
@@ -234,7 +234,7 @@ namespace Streamy.Core.Services
                 .ToList(),
 
                 AllArtists = allArtists
-                 .Select(a => new ArtistViewModel()
+                 .Select(a => new ArtistModel()
                  {
                      Id = a.Id.ToString(),
                      Name = a.Name,
@@ -275,7 +275,7 @@ namespace Streamy.Core.Services
                 throw new ArgumentNullException("No song to display.");
             }
 
-            var mappedGenre = new GenreViewModel()
+            var mappedGenre = new GenreModel()
             {
                 Id = song.Genre.Id,
                 Name = song.Genre.Name,
@@ -283,18 +283,18 @@ namespace Streamy.Core.Services
 
             var mappedArtists = song
                 .Artists
-                .Select(a => new ArtistViewModel()
+                .Select(a => new ArtistModel()
                 {
                     Id = a.Id.ToString(),
                     Name = a.Name,
                 })
                 .ToList();
 
-            var mappedAlbum = new AlbumViewModel();
+            var mappedAlbum = new AlbumModel();
 
             if (song.Album != null)
             {
-                mappedAlbum = new AlbumViewModel()
+                mappedAlbum = new AlbumModel()
                 {
                     Id = song.Album.Id.ToString(),
                     Title = song.Album.Title,
@@ -302,7 +302,7 @@ namespace Streamy.Core.Services
             }
             var mappedPlaylists = song
                 .Playlists
-                .Select(a => new PlaylistViewModel()
+                .Select(a => new PlaylistModel()
                 {
                     Id = a.Id.ToString(),
                     Title = a.Title,

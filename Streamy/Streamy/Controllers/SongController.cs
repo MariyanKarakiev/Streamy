@@ -87,7 +87,7 @@ namespace Streamy.Controllers
                 return NotFound();
             }
 
-            var songToEdit = await _songService.GetByIdForCreateAsync(id);
+            var songToEdit = await _songService.GetByIdForUpdateAsync(id);
 
             return View(songToEdit);
         }
