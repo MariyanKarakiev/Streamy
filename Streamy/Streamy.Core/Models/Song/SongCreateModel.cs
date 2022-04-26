@@ -25,6 +25,7 @@ namespace Streamy.Core.Models.Song
         public short GenreId { get; set; }
 
         public string[] ArtistIds { get; set; }
+        public string[] PlaylistIds { get; set; }
 
         public List<ArtistViewModel> Artists { get; set; }
         public List<PlaylistViewModel> Playlists { get; set; }

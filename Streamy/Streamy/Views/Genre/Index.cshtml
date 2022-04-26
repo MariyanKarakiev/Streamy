@@ -1,5 +1,5 @@
 ﻿@using Streamy.Core.Models
-@model GenreListViewModel
+@model List<GenreViewModel>
 
 @{
     ViewData["Title"] = "Genres";
@@ -22,7 +22,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var genre in Model.Genres)
+                                @foreach (var genre in Model)
                                 {
                                     <tr>
                                         <td>@genre.Name</td>

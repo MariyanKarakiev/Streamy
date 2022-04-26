@@ -18,7 +18,7 @@ namespace Streamy.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var songs = _songService.GetAll();
+            var songs =await _songService.GetAll();
             return View(songs);
         }
 
@@ -46,11 +46,11 @@ namespace Streamy.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             var songModel = new SongCreateModel();
 
-            var genres = _genreService.GetAllGenres();
+            var genres =await _genreService.GetAllGenres();
 
             songModel.Genres = genres;
             return View(songModel);
@@ -93,9 +93,9 @@ namespace Streamy.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(SongCreateModel songModel)
+        public async Task<IActionResult> Edit(SongCreateModel songModel)
         {
-            _songService.UpdateSong(songModel);
+           await _songService.UpdateSong(songModel);
 
             return RedirectToAction("Index");
         }

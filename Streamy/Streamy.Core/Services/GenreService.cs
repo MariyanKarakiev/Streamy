@@ -1,4 +1,5 @@
-﻿using Streamy.Core.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using Streamy.Core.Contracts;
 using Streamy.Core.Models;
 using Streamy.Infrastructure.Data.Repositories;
 using Streamy.Infrastructure.Models;
@@ -28,7 +29,6 @@ namespace Streamy.Core.Services
 
             _repo.SaveChanges();
         }
-
         public async Task DeleteGenre(short id)
         {
             var genreToDelete = await GetGenreByIdAsync(id);
@@ -43,9 +43,9 @@ namespace Streamy.Core.Services
             _repo.SaveChanges();
         }
 
-        public List<GenreViewModel> GetAllGenres()
+        public async Task<List<GenreViewModel>> GetAllGenres()
         {
-            var genres = _repo.All<Genre>().ToList();
+            var genres = await _repo.All<Genre>().ToListAsync();
 
             if (genres == null)
             {
@@ -104,20 +104,24 @@ namespace Streamy.Core.Services
             return mappedGenre;
         }
 
-        public void UpdateGenre(GenreViewModel genreModel)
+        public async Task UpdateGenre(GenreViewModel genreModel)
         {
             if (genreModel == null)
             {
-                throw new ArgumentNullException("Genre not found", nameof(genreModel));
+                throw new ArgumentNullException("Invalid model.", nameof(genreModel));
             }
 
-            var updatedGenre = new Genre
-            {
-                Id = genreModel.Id,
-                Name = genreModel.Name
-            };
+            var genre = await _repo.All<Genre>().FirstOrDefaultAsync(g => g.Id == genreModel.Id);
 
-            _repo.Update(updatedGenre);
+            if (genre == null)
+            {
+                throw new ArgumentNullException("Genre not found", nameof(genre));
+            }
+
+            genre.Id = genreModel.Id;
+            genre.Name = genreModel.Name;
+
+            _repo.Update(genre);
             _repo.SaveChanges();
         }
     }

@@ -13,9 +13,9 @@ namespace Streamy.Controllers
         {
             _genreService = genreService;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var allGenres = _genreService.GetAllGenres();
+            var allGenres =await _genreService.GetAllGenres();
 
             return View(allGenres);
         }
@@ -77,9 +77,9 @@ namespace Streamy.Controllers
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public IActionResult Edit(GenreViewModel genreViewModel)
+        public async Task<IActionResult> Edit(GenreViewModel genreViewModel)
         {
-            _genreService.UpdateGenre(genreViewModel);
+           await _genreService.UpdateGenre(genreViewModel);
 
             return RedirectToAction("Index");
         }

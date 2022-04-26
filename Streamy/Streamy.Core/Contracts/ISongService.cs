@@ -11,7 +11,7 @@ namespace Streamy.Core.Contracts
 
         Task<SongModel> GetByIdAsync(string id);
         Task<SongCreateModel> GetByIdForCreateAsync(string id);
-        SongListModel GetAll();
+        Task<SongListModel> GetAll();
         Task<SongModel> GetSongWithDetails(string id);
     }
 }

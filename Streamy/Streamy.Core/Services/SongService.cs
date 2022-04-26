@@ -31,20 +31,20 @@ namespace Streamy.Core.Services
             var artists = new List<Artist>();
             var playlists = new List<Playlist>();
 
-            var genre = await _repo.GetByIdAsync<Genre>(songModel.GenreId);
-
-            foreach (Guid artistId in artistIds)
+            if (artistIds != null)
             {
-                var artist = await _repo.GetByIdAsync<Artist>((object)artistId);
-
-                if (artist == null)
+                foreach (Guid artistId in artistIds)
                 {
-                    throw new ArgumentNullException("There is no valid artist.");
+                    var artist = await _repo.GetByIdAsync<Artist>((object)artistId);
+
+                    if (artist == null)
+                    {
+                        throw new ArgumentNullException("There is no valid artist.");
+                    }
+
+                    artists.Add(artist);
                 }
-
-                artists.Add(artist);
             }
-
             if (playlistIds != null)
             {
                 foreach (Guid playlistId in playlistIds)
@@ -64,13 +64,15 @@ namespace Streamy.Core.Services
             {
                 Title = songModel.Title,
                 Duration = songModel.Duration,
-                ReleaseDate = songModel.ReleaseDate,
-                //  AlbumId = CheckIdIsGuid(songModel.AlbumId),
-                Genre = genre,
+                GenreId = songModel.GenreId,
                 Artists = artists,
                 Playlists = playlists
             };
 
+            if (songModel.AlbumId != null)
+            {
+                mappedSong.AlbumId = CheckIdIsGuid(songModel.AlbumId);
+            }
 
             await _repo.AddAsync(mappedSong);
             _repo.SaveChanges();
@@ -85,40 +87,72 @@ namespace Streamy.Core.Services
         }
         public async Task UpdateSong(SongCreateModel songModel)
         {
+            List<Guid> artistIds = new List<Guid>();
+            List<Guid> playlistIds = new List<Guid>();
+
             if (songModel == null)
             {
                 throw new ArgumentNullException("No valid model.");
             }
 
-            var ids =songModel
-                  .ArtistIds
-                     .Select(ai => CheckIdIsGuid(ai))
-                     .ToArray();
 
-            var artists =   _repo.All<Artist>()
-                .Where(a => ids.Contains(a.Id)).ToList();
+            if (songModel.ArtistIds != null)
+            {
+                artistIds = songModel
+                         .ArtistIds
+                         .Select(ai => CheckIdIsGuid(ai))
+                         .ToList();
+            }
 
-            var song = _repo.All<Song>()
-                .Include(s=>s.Artists)
-                .Include(s=>s.Playlists)
-                .Include(s=>s.Album)
-                .Include(s=>s.Genre)
-                 .FirstOrDefault(s => s.Id == CheckIdIsGuid(songModel.Id));
+            if (songModel.PlaylistIds != null)
+            {
+                playlistIds = songModel
+                         .PlaylistIds
+                         .Select(pi => CheckIdIsGuid(pi))
+                         .ToList();
+            }
+
+            var songId = CheckIdIsGuid(songModel.Id);
+
+            var artists = await _repo.All<Artist>()
+                .Where(a => artistIds.Contains(a.Id)).ToListAsync();
+
+            var playlist = _repo.All<Playlist>()
+                .Where(a => playlistIds.Contains(a.Id)).ToListAsync();
+
+            var song = await _repo.All<Song>()
+                .Include(a => a.Genre)
+                .Include(a => a.Album)
+                .Include(a => a.Artists)
+                .Include(a => a.Playlists)
+                .FirstOrDefaultAsync(s => s.Id == songId);
+
+            if (song == null)
+            {
+                throw new ArgumentNullException("No valid song.");
+            }
 
             song.Title = songModel.Title;
             song.Duration = songModel.Duration;
             song.ReleaseDate = songModel.ReleaseDate;
             song.GenreId = songModel.GenreId;
             song.Artists = artists;
-           // song.AlbumId = CheckIdIsGuid(songModel.AlbumId);
-            
+            // song.Playlists = playlist;
+
+            if (songModel.AlbumId != null)
+            {
+
+                song.AlbumId = CheckIdIsGuid(songModel.AlbumId);
+
+            }
+
             _repo.Update(song);
             _repo.SaveChanges();
         }
 
-        public SongListModel GetAll()
+        public async Task<SongListModel> GetAll()
         {
-            var songs = _repo.All<Song>().ToList();
+            var songs =await _repo.All<Song>().ToListAsync();
 
             if (songs == null)
             {
@@ -137,7 +171,6 @@ namespace Streamy.Core.Services
                         Title = s.Title,
                         Duration = s.Duration,
                         ReleaseDate = s.ReleaseDate,
-                      // AlbumId = s.AlbumId,
                         GenreId = s.GenreId
                     });
             }
@@ -176,12 +209,12 @@ namespace Streamy.Core.Services
                 Id = song.Id.ToString(),
                 AlbumId = song.AlbumId,
                 Duration = song.Duration,
-               // AlbumId = song.AlbumId,
-                GenreId= song.Genre.Id,
-               // Playlists = song.Playlists,
+                GenreId = song.Genre.Id,
+                Playlists = song.Playlists,
                 Artists = song.Artists,
                 Title = song.Title,
                 ReleaseDate = song.ReleaseDate,
+
                 Genres = allGenres
                 .Select(a => new GenreViewModel()
                 {
