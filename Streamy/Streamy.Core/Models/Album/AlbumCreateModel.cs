@@ -1,8 +1,13 @@
-﻿namespace Streamy.Core.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Streamy.Core.Models
 {
-    public class AlbumCreateModel
+    public class AlbumCreateModel 
     {
         public AlbumModel Album { get; set; }
-        public IEnumerable<ArtistModel> Artists { get; set; }
+
+        [Required]
+        public string[] SongIds { get; set; }
+
     }
 }
