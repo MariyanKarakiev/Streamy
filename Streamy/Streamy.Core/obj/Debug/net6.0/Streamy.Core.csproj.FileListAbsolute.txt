@@ -1,4 +1,5 @@
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\bin\Debug\net6.0\Streamy.Core.deps.json
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\bin\Debug\net6.0\Streamy.Core.runtimeconfig.json
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\bin\Debug\net6.0\Streamy.Core.dll
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\bin\Debug\net6.0\Streamy.Core.pdb
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\bin\Debug\net6.0\Streamy.Infrastructure.dll
@@ -12,6 +13,5 @@ D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\obj\Debug\net6.0\Streamy.Co
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\obj\Debug\net6.0\Streamy.Core.dll
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\obj\Debug\net6.0\refint\Streamy.Core.dll
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\obj\Debug\net6.0\Streamy.Core.pdb
-D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\obj\Debug\net6.0\ref\Streamy.Core.dll
-D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\bin\Debug\net6.0\Streamy.Core.runtimeconfig.json
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\obj\Debug\net6.0\Streamy.Core.genruntimeconfig.cache
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Core\obj\Debug\net6.0\ref\Streamy.Core.dll

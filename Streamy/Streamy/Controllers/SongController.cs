@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Streamy.Core.Contracts;
 using Streamy.Core.Models;
 using Streamy.Core.Models.Song;
@@ -9,16 +11,20 @@ namespace Streamy.Controllers
     {
         private readonly ISongService _songService;
         private readonly IGenreService _genreService;
+        private readonly IArtistService _artistService;
+        private readonly IAlbumService _albumService;
 
-        public SongController(ISongService songService, IGenreService genreService)
+        public SongController(ISongService songService, IGenreService genreService, IArtistService artistService, IAlbumService albumService)
         {
             _songService = songService;
-           _genreService = genreService;
+            _genreService = genreService;
+            _artistService = artistService;
+            _albumService = albumService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var songs =await _songService.GetAll();
+            var songs = await _songService.GetAll();
             return View(songs);
         }
 
@@ -50,34 +56,35 @@ namespace Streamy.Controllers
         {
             var songModel = new SongCreateModel();
 
-            var genres =await _genreService.GetAllGenres();
+            var genres = await _genreService.GetAllGenres();
+            var artists = await _artistService.GetAll();
+            var albums = await _albumService.GetAll();
 
-            songModel.Genres = genres;
+            ViewData["Artists"] = new SelectList(artists, "Id", "Name");
+            ViewData["Albums"] = new SelectList(albums, "Id", "Title");
+            ViewData["Genres"] = new SelectList(genres, "Id", "Name");
+
             return View(songModel);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(SongCreateModel songModel)
         {
-            if (songModel == null)
+            if (ModelState.IsValid)
             {
-                return NotFound();
+                await _songService.CreateSong(songModel);
+                return RedirectToAction(nameof(Index));
             }
 
-            //songModel.Artists = new List<ArtistViewModel>()
-            //    {
-            //        new ArtistViewModel()
-            //        {
-            //            Id = Guid.NewGuid().ToString(),
-            //        },
-            //        new ArtistViewModel()
-            //        {
-            //          Id = Guid.NewGuid().ToString(),
-            //        }
-            //    };
+            var genres = await _genreService.GetAllGenres();
+            var artists = await _artistService.GetAll();
+            var albums = await _albumService.GetAll();
 
-            await _songService.CreateSong(songModel);
-            return RedirectToAction(nameof(Index));
+            ViewData["Artists"] = new SelectList(artists, "Id", "Name");
+            ViewData["Albums"] = new SelectList(albums, "Id", "Title");
+            ViewData["Genres"] = new SelectList(genres, "Id", "Name");
+
+            return View(songModel);
         }
 
         public async Task<IActionResult> Edit(string? id)
@@ -87,6 +94,14 @@ namespace Streamy.Controllers
                 return NotFound();
             }
 
+            var genres = await _genreService.GetAllGenres();
+            var artists = await _artistService.GetAll();
+            var albums = await _albumService.GetAll();
+
+            ViewData["Artists"] = new SelectList(artists, "Id", "Name");
+            ViewData["Albums"] = new SelectList(albums, "Id", "Title");
+            ViewData["Genres"] = new SelectList(genres, "Id", "Name");
+
             var songToEdit = await _songService.GetByIdForUpdateAsync(id);
 
             return View(songToEdit);
@@ -95,9 +110,22 @@ namespace Streamy.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(SongCreateModel songModel)
         {
-           await _songService.UpdateSong(songModel);
+            if (ModelState.IsValid)
+            {
+                await _songService.UpdateSong(songModel);
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+
+            var genres = await _genreService.GetAllGenres();
+            var artists = await _artistService.GetAll();
+            var albums = await _albumService.GetAll();
+
+            ViewData["Artists"] = new SelectList(artists, "Id", "Name");
+            ViewData["Albums"] = new SelectList(albums, "Id", "Title");
+            ViewData["Genres"] = new SelectList(genres, "Id", "Name");
+
+            return View(songModel);
         }
     }
 }

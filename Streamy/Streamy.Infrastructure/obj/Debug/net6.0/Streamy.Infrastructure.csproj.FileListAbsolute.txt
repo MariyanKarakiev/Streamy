@@ -1,4 +1,5 @@
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Infrastructure\bin\Debug\net6.0\Streamy.Infrastructure.deps.json
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Infrastructure\bin\Debug\net6.0\Streamy.Infrastructure.runtimeconfig.json
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Infrastructure\bin\Debug\net6.0\Streamy.Infrastructure.dll
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Infrastructure\bin\Debug\net6.0\Streamy.Infrastructure.pdb
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Infrastructure\obj\Debug\net6.0\Streamy.Infrastructure.csproj.AssemblyReference.cache
@@ -9,6 +10,5 @@ D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Infrastructure\obj\Debug\net6.0\
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Infrastructure\obj\Debug\net6.0\Streamy.Infrastructure.dll
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Infrastructure\obj\Debug\net6.0\refint\Streamy.Infrastructure.dll
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Infrastructure\obj\Debug\net6.0\Streamy.Infrastructure.pdb
-D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Infrastructure\obj\Debug\net6.0\ref\Streamy.Infrastructure.dll
-D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Infrastructure\bin\Debug\net6.0\Streamy.Infrastructure.runtimeconfig.json
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Infrastructure\obj\Debug\net6.0\Streamy.Infrastructure.genruntimeconfig.cache
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy.Infrastructure\obj\Debug\net6.0\ref\Streamy.Infrastructure.dll

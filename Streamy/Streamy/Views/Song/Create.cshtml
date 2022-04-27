@@ -2,7 +2,7 @@
 @model SongCreateModel
 
 @{
-    ViewData["Title"] = "Add Song";
+    ViewData["Title"] = "Create Song";
 }
 
 <!DOCTYPE html>
@@ -23,29 +23,28 @@
 <body>
     <section class="content">
         <div class="container-fluid">
-            <!-- SELECT2 EXAMPLE -->
             <div class="card card-default">
                 <div class="card-header">
                     <h4 class="card-title">Add Song</h4>
-
-
                     <form class="forms-sample" asp-action="Create" asp-controller="Song" method="post">
                         <div class="row">
                             <div class="col-md-6">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <div class="form-group">
-                                    <label asp-for=@Model.Title></label>
-                                    <input asp-for=@Model.Title type="text" class="form-control" placeholder="Enter Title">
-                                    <span asp-validation-for=@Model.Title class="text-danger"></span>
+                                    <label asp-for=Title></label>
+                                    <input asp-for=Title type="text" class="form-control" placeholder="Enter Title">
+                                    <span asp-validation-for=Title class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
-                                    <label asp-for=@Model.Duration></label>
-                                    <input asp-for=@Model.Duration type="text" class="form-control" placeholder="">
-                                    <span asp-validation-for=@Model.Duration class="text-danger"></span>
+                                    <label asp-for=Duration></label>
+                                    <input asp-for=Duration type="text" class="form-control" placeholder="">
+                                    <span asp-validation-for=Duration class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
-                                    <label asp-for=@Model.ReleaseDate></label>
-                                    <input asp-for=@Model.ReleaseDate type="datetime" class="form-control" placeholder="okok">
+                                    <label asp-for=ReleaseDate></label>
+                                    <input asp-for=ReleaseDate type="datetime" class="form-control" placeholder="okok">
+                                    <span asp-validation-for=ReleaseDate class="text-danger"></span>
+
                                 </div>
                                 <div class="form-group">
                                     <label>File upload</label>
@@ -60,33 +59,22 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label asp-for=@Model.GenreId></label>
-                                    <select class="form-control" placeholder=" ">
-                                        @foreach (var genre in Model.Genres)
-                                        {
-                                            <option value=@genre.Id>@genre.Name</option>
-                                        }
-                                    </select>
+                                    <select asp-for=GenreId asp-items=@((SelectList)ViewData["Genres"]) class="form-control" placeholder="Select Artist"></select>
+                                    <span asp-validation-for=GenreId class="text-danger"></span>
+                              
                                 </div>
                                 <div class="form-group">
-                                    <label asp-for=@Model.AlbumId></label>
-                                    <select class="select2 form-control" multiple="multiple" style="width:100%">
-                                        @foreach (var album in Model.Albums)
-                                        {
-                                            <option>@album</option>
-                                        }
-
+                                    <label asp-for=AlbumId></label>
+                                    <select asp-for=AlbumId asp-items=@((SelectList)ViewData["Albums"]) class="select2 form-control" multiple="multiple" style="width:100%">
                                     </select>
-                                    <span asp-validation-for=@Model.AlbumId class="text-danger"></span>
+                                    <span asp-validation-for=AlbumId class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Artist</label>
-                                    <select class="select2" multiple="multiple" data-placeholder="Select a State" data-dropdown-css-class="select2-purple" style="width: 100%;">
-                                        @foreach (var artist in Model.Artists)
-                                        {
-                                            <option value=@artist.Id>@artist.Name</option>
-                                        }
+                                    <select asp-for=@Model.ArtistIds asp-items=@((SelectList)ViewData["Artists"]) class="select2" multiple="multiple" data-placeholder="Select a State" data-dropdown-css-class="select2-purple" style="width: 100%;">
                                     </select>
+                                    <span asp-validation-for=ArtistIds class="text-danger"></span>
+
                                 </div>
 
                             </div>
