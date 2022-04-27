@@ -15,6 +15,7 @@ namespace Streamy.Core.Services
             _repo = repo;
         }
 
+        //Checked, ready, works
         public async Task CreateGenre(GenreModel genreModel)
         {
             if (genreModel == null)
@@ -29,20 +30,15 @@ namespace Streamy.Core.Services
 
             _repo.SaveChanges();
         }
+       
+        //Checked, ready, works
         public async Task DeleteGenre(short id)
         {
-            var genreToDelete = await GetGenreByIdAsync(id);
-
-            if (genreToDelete == null)
-            {
-                throw new ArgumentNullException("Genre not found", nameof(genreToDelete));
-            }
-
-            await _repo.DeleteAsync<Genre>(genreToDelete.Id);
-
-            _repo.SaveChanges();
+            await _repo.DeleteAsync<Genre>(id);
+            await _repo.SaveChangesAsync();
         }
 
+        //Ok
         public async Task<List<GenreModel>> GetAllGenres()
         {
             var genres = await _repo.All<Genre>().ToListAsync();
@@ -64,10 +60,11 @@ namespace Streamy.Core.Services
             return genreModelList;
         }
 
+        //Ok
         public async Task<GenreModel> GetByIdAsync(short id)
         {
-            var genre = await GetGenreByIdAsync(id);
-
+            var genre = await _repo.GetByIdAsync<Genre>(id);
+           
             var mappedGenre = new GenreModel()
             {
                 Id = genre.Id,
@@ -77,22 +74,18 @@ namespace Streamy.Core.Services
             return mappedGenre;
         }
 
-        private async Task<Genre> GetGenreByIdAsync(short id)
+        //Checked, ready, works
+        public async Task<GenreModel> GetGenreWithDetails(short id)
         {
-            var genre = await _repo.GetByIdAsync<Genre>(id);
+            var genre = await _repo
+                .All<Genre>()
+                .Include(g => g.Songs)
+                .FirstOrDefaultAsync(g => g.Id == id);
 
             if (genre == null)
             {
-                throw new ArgumentNullException("Genre not found", nameof(genre));
+                throw new ArgumentNullException("No genre found.");
             }
-
-            return genre;
-        }
-
-        public async Task<GenreModel> GetGenreWithDetails(short id)
-        {
-            var genre = await GetGenreByIdAsync(id);
-
             var mappedGenre = new GenreModel()
             {
                 Id = genre.Id,
@@ -103,6 +96,7 @@ namespace Streamy.Core.Services
             return mappedGenre;
         }
 
+        //Checked, ready, works
         public async Task UpdateGenre(GenreModel genreModel)
         {
             if (genreModel == null)

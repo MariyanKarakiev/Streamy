@@ -21,6 +21,7 @@ namespace Streamy.Core.Services
             _repo = repo;
         }
 
+        //Checked works
         public async Task CreateAlbum(AlbumCreateModel albumModel)
         {
             if (albumModel == null)
@@ -28,16 +29,28 @@ namespace Streamy.Core.Services
                 throw new ArgumentNullException("No valid model.");
             }
 
+            if (albumModel.SongIds.Count() == 0)
+            {
+                throw new ArgumentException("You must add at least one song to the album.");
+            }
+            Guid[] songIds = albumModel.SongIds.Select(s => CheckIdIsGuid(s)).ToArray();
+
+            var songs = await _repo
+                .All<Song>()
+                .Where(s => songIds.Contains(s.Id))
+                .ToListAsync();
+
+            var duration = new TimeSpan(
+              songs
+              .Sum(s => s.Duration.Ticks));
+
             var albumToCreate = new Album()
             {
-                Id = CheckIdIsGuid(albumModel.Album.Id),
                 Title = albumModel.Album.Title,
-                Duration = new TimeSpan(
-                albumModel.Album
-               .Songs
-               .Sum(s => s.Duration.Ticks)),
+                Duration = duration,
                 ReleaseDate = albumModel.Album.ReleaseDate,
-                ArtistId = albumModel.Album.ArtistId,
+                ArtistId = CheckIdIsGuid(albumModel.Album.ArtistId),
+                Songs = songs
             };
 
             await _repo.AddAsync(albumToCreate);
@@ -61,6 +74,7 @@ namespace Streamy.Core.Services
         {
             var albums = await _repo
                 .All<Album>()
+                .Include(a => a.Artist)
                 .ToListAsync();
 
             if (albums == null)
@@ -75,6 +89,10 @@ namespace Streamy.Core.Services
                     Title = s.Title,
                     ReleaseDate = s.ReleaseDate,
                     Duration = s.Duration,
+                    Artist = new ArtistModel()
+                    {
+                        Name = s.Artist.Name,
+                    },
                     Songs = s.Songs
                         .Select(s => new SongModel()
                         {

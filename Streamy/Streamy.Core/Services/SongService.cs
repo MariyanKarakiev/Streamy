@@ -18,6 +18,7 @@ namespace Streamy.Core.Services
             _repo = repo;
         }
 
+        //AlbumId to add
         public async Task CreateSong(SongCreateModel songModel)
         {
             if (songModel == null)
@@ -25,8 +26,7 @@ namespace Streamy.Core.Services
                 throw new ArgumentNullException("There is no song to create.");
             }
 
-            Guid[] artistIds = songModel.Artists.Select(a => Guid.Parse(a.Id)).ToArray();
-            Guid[] playlistIds = songModel.Playlists.Select(p => Guid.Parse(p.Id)).ToArray();
+            Guid[] artistIds = songModel.ArtistIds.Select(a => CheckIdIsGuid(a)).ToArray();
 
             var artists = new List<Artist>();
             var playlists = new List<Playlist>();
@@ -43,20 +43,6 @@ namespace Streamy.Core.Services
                     }
 
                     artists.Add(artist);
-                }
-            }
-            if (playlistIds != null)
-            {
-                foreach (Guid playlistId in playlistIds)
-                {
-                    var playlist = await _repo.GetByIdAsync<Playlist>((object)playlistId);
-
-                    if (playlist == null)
-                    {
-                        throw new ArgumentNullException("There is no valid playlist.");
-                    }
-
-                    playlists.Add(playlist);
                 }
             }
 
@@ -85,6 +71,8 @@ namespace Streamy.Core.Services
             _repo.Delete(songToDelete);
             _repo.SaveChanges();
         }
+
+        //Ready, tested, works
         public async Task UpdateSong(SongCreateModel songModel)
         {
             List<Guid> artistIds = new List<Guid>();
@@ -104,27 +92,15 @@ namespace Streamy.Core.Services
                          .ToList();
             }
 
-            if (songModel.PlaylistIds != null)
-            {
-                playlistIds = songModel
-                         .PlaylistIds
-                         .Select(pi => CheckIdIsGuid(pi))
-                         .ToList();
-            }
-
             var songId = CheckIdIsGuid(songModel.Id);
 
             var artists = await _repo.All<Artist>()
                 .Where(a => artistIds.Contains(a.Id)).ToListAsync();
 
-            var playlist = _repo.All<Playlist>()
-                .Where(a => playlistIds.Contains(a.Id)).ToListAsync();
-
             var song = await _repo.All<Song>()
                 .Include(a => a.Genre)
                 .Include(a => a.Album)
                 .Include(a => a.Artists)
-                .Include(a => a.Playlists)
                 .FirstOrDefaultAsync(s => s.Id == songId);
 
             if (song == null)
@@ -137,7 +113,6 @@ namespace Streamy.Core.Services
             song.ReleaseDate = songModel.ReleaseDate;
             song.GenreId = songModel.GenreId;
             song.Artists = artists;
-            // song.Playlists = playlist;
 
             if (songModel.AlbumId != null)
             {
@@ -150,21 +125,21 @@ namespace Streamy.Core.Services
             _repo.SaveChanges();
         }
 
-        public async Task<SongListModel> GetAll()
+        //Ready
+        public async Task<List<SongModel>> GetAll()
         {
-            var songs =await _repo.All<Song>().ToListAsync();
+            var songs = await _repo.All<Song>().ToListAsync();
 
             if (songs == null)
             {
                 throw new ArgumentNullException("There are no songs", nameof(songs));
             }
 
-            var songListModel = new SongListModel();
+            var songModelList = new List<SongModel>();
 
             foreach (var s in songs)
             {
-                songListModel
-                    .Songs
+                songModelList
                     .Add(new SongModel
                     {
                         Id = s.Id.ToString(),
@@ -175,36 +150,15 @@ namespace Streamy.Core.Services
                     });
             }
 
-            return songListModel;
+            return songModelList;
         }
-        //public async Task<SongModel> GetByIdAsync(string id)
-        //{
-        //    var song = await GetSongByIdAsync(id);
-
-        //    var mappedSong = new SongModel()
-        //    {
-        //        Id = song.Id.ToString(),
-        //        Title = song.Title,
-        //        Duration = song.Duration,
-        //        ReleaseDate = song.ReleaseDate,
-        //        //  AlbumId = song.AlbumId,
-        //        GenreId = song.GenreId
-        //    };
-
-        //    return mappedSong;
-        //}
-
+       
+        //Works?
         public async Task<SongCreateModel> GetByIdForUpdateAsync(string id)
         {
             var song = await GetSongWithDetails(id);
 
-            var allGenres = await _repo.All<Genre>().ToListAsync();
-            var allAlbums = await _repo.All<Album>().ToListAsync();
-            var allArtists = await _repo.All<Artist>().ToListAsync();
-
-
-            //a lot of mapping...needs to be improved
-            var mappedSong = new SongCreateModel()
+            var mappedSongCreateModel = new SongCreateModel()
             {
                 Id = song.Id.ToString(),
                 AlbumId = song.AlbumId,
@@ -214,36 +168,9 @@ namespace Streamy.Core.Services
                 Artists = song.Artists,
                 Title = song.Title,
                 ReleaseDate = song.ReleaseDate,
-
-                Genres = allGenres
-                .Select(a => new GenreModel()
-                {
-                    Id = a.Id,
-                    Name = a.Name
-                })
-                .ToList(),
-
-                Albums = allAlbums
-                    .Select(a => new AlbumModel()
-                    {
-                        Id = a.Id.ToString(),
-                        Title = a.Title,
-                        Duration = a.Duration,
-                        ReleaseDate = a.ReleaseDate
-                    })
-                .ToList(),
-
-                AllArtists = allArtists
-                 .Select(a => new ArtistModel()
-                 {
-                     Id = a.Id.ToString(),
-                     Name = a.Name,
-                     Country = a.Country,
-                 })
-                .ToList(),
             };
 
-            return mappedSong;
+            return mappedSongCreateModel;
         }
         private async Task<Song> GetSongByIdAsync(string id)
         {
@@ -258,12 +185,15 @@ namespace Streamy.Core.Services
 
             return song;
         }
+       
+        //To be cheked
         public async Task<SongModel> GetSongWithDetails(string id)
         {
             var guidId = CheckIdIsGuid(id);
 
             var song = await _repo
                 .All<Song>()
+                .Include(s => s.Album)
                 .Include(s => s.Artists)
                 .Include(s => s.Playlists)
                 .Include(s => s.Genre)
