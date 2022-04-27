@@ -31,7 +31,7 @@ namespace Streamy.Core.Services
             _repo.SaveChanges();
         }
        
-        //Checked, ready, works
+        //Checked, Cascade delete needs to be resolved
         public async Task DeleteGenre(short id)
         {
             await _repo.DeleteAsync<Genre>(id);

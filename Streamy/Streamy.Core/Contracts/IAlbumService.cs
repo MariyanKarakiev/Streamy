@@ -9,13 +9,13 @@ namespace Streamy.Core.Contracts
 {
     public interface IAlbumService
     {
-        Task CreateAlbum(AlbumCreateModel albumModel);
-        Task UpdateAlbum(AlbumCreateModel albumModel);
+        Task CreateAlbum(AlbumModel albumModel);
+        Task UpdateAlbum(AlbumModel albumModel);
         Task DeleteAlbum(string id);
 
 
-        Task<AlbumCreateModel> GetByIdForCreateAsync(string id);
+        Task<AlbumModel> GetByIdForUpdateAsync(string id);
         Task<List<AlbumModel>> GetAll();
-        Task<AlbumModel> GetWithDetails(string id);
+        Task<AlbumModel> GetForDetail(string id);
     }
 }

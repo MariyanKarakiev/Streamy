@@ -14,12 +14,11 @@ namespace Streamy.Core.Models
         public DateTime ReleaseDate { get; set; }
         public TimeSpan Duration { get; set; }
 
-        public short GenreId { get; set; }
-        public GenreModel? Genre { get; set; }
-
         public string ArtistId { get; set; }
         public ArtistModel? Artist { get; set; }
 
         public List<SongModel>? Songs { get; set; }
+
+        public string[] SongIds { get; set; }
     }
 }

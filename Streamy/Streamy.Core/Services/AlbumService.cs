@@ -22,7 +22,7 @@ namespace Streamy.Core.Services
         }
 
         //Checked works
-        public async Task CreateAlbum(AlbumCreateModel albumModel)
+        public async Task CreateAlbum(AlbumModel albumModel)
         {
             if (albumModel == null)
             {
@@ -46,10 +46,10 @@ namespace Streamy.Core.Services
 
             var albumToCreate = new Album()
             {
-                Title = albumModel.Album.Title,
+                Title = albumModel.Title,
                 Duration = duration,
-                ReleaseDate = albumModel.Album.ReleaseDate,
-                ArtistId = CheckIdIsGuid(albumModel.Album.ArtistId),
+                ReleaseDate = albumModel.ReleaseDate,
+                ArtistId = CheckIdIsGuid(albumModel.ArtistId),
                 Songs = songs
             };
 
@@ -57,19 +57,55 @@ namespace Streamy.Core.Services
             await _repo.SaveChangesAsync();
         }
 
+        //Checked, works
         public async Task DeleteAlbum(string id)
         {
-            var albumToDelete = await _repo.GetByIdAsync<Album>(id);
+            var guidId = CheckIdIsGuid(id);
 
-            if (albumToDelete == null)
-            {
-                throw new ArgumentNullException("No valid album found.");
-            }
+            var album = await _repo
+                .All<Album>()
+                .Include(s => s.Songs)
+                .Where(s => s.Id == guidId)
+                .FirstOrDefaultAsync();
 
-            await _repo.DeleteAsync<Album>(albumToDelete);
+             _repo.Delete(album);
             await _repo.SaveChangesAsync();
         }
 
+        //Works
+        public async Task UpdateAlbum(AlbumModel songModel)
+        {
+            if (songModel == null)
+            {
+                throw new ArgumentNullException("No valid model.");
+            }
+
+            var album = await _repo.All<Album>()
+                .Include(a => a.Songs)
+                .FirstOrDefaultAsync(s => s.Id == CheckIdIsGuid(songModel.Id));
+
+            if (album == null)
+            {
+                throw new ArgumentNullException("No valid album.");
+            }
+
+            var songIds = songModel.SongIds.Select(s => CheckIdIsGuid(s));
+
+            var songs = await _repo.All<Song>()
+                .Where(a => songIds.Contains(a.Id)).ToListAsync();
+
+            album.Title = songModel.Title;
+            album.Duration = songModel.Duration;
+            album.ReleaseDate = songModel.ReleaseDate;
+            album.ArtistId = CheckIdIsGuid(songModel.ArtistId);
+            album.Songs = songs;
+
+
+            _repo.Update(album);
+            _repo.SaveChanges();
+        }
+
+        //Checked, works
         public async Task<List<AlbumModel>> GetAll()
         {
             var albums = await _repo
@@ -110,20 +146,85 @@ namespace Streamy.Core.Services
             return mappedAlbums;
         }
 
-        public Task<AlbumCreateModel> GetByIdForCreateAsync(string id)
+        public async Task<AlbumModel> GetByIdForUpdateAsync(string id)
         {
-            throw new NotImplementedException();
+            var guidId = CheckIdIsGuid(id);
+
+            var album = await _repo
+                .All<Album>()
+                .Include(a=>a.Artist)
+                .Include(s => s.Songs)
+                .Where(s => s.Id == guidId)
+                .FirstOrDefaultAsync();
+
+            if (album == null)
+            {
+                throw new ArgumentNullException("Album not found.");
+            }
+
+            var artist = new ArtistModel()
+            {
+                Id = album.Artist.Id.ToString(),
+                Name = album.Artist.Name
+            };
+
+            var songs = album.Songs
+                .Select(s => new SongModel()
+                {
+                    Id = s.Id.ToString(),
+                    Title = s.Title
+                })
+                .ToList();
+
+            var mappedAlbum = new AlbumModel()
+            {
+                Id = album.Id.ToString(),
+                Title = album.Title,
+
+                Duration = album.Duration,
+                ReleaseDate = album.ReleaseDate,
+            };
+
+            return mappedAlbum;
+
         }
 
-        public Task<AlbumModel> GetWithDetails(string id)
+        public async Task<AlbumModel> GetForDetail(string id)
         {
-            throw new NotImplementedException();
+            var guidId = CheckIdIsGuid(id);
+
+            var album = await _repo
+                .All<Album>()
+                .Include(s => s.Songs)
+                .Where(s => s.Id == guidId)
+                .FirstOrDefaultAsync();
+
+            if (album == null)
+            {
+                throw new ArgumentNullException("Album not found.");
+            }
+
+            var mappedAlbum = new AlbumModel()
+            {
+                Id = album.Id.ToString(),
+                Title = album.Title,
+                Artist = new ArtistModel()
+                {
+                    Name = album.Artist.Name
+                },
+                Duration = album.Duration,
+                ReleaseDate = album.ReleaseDate,
+                Songs = album.Songs
+                .Select(s => new SongModel()
+                {
+                    Title = s.Title
+                })
+                .ToList(),
+            };
+
+            return mappedAlbum;
         }
 
-        public Task UpdateAlbum(AlbumCreateModel songModel)
-        {
-            throw new NotImplementedException();
-        }
 
         private Guid CheckIdIsGuid(string id)
         {

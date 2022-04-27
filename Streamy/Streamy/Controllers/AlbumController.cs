@@ -27,7 +27,7 @@ namespace Streamy.Controllers
 
         public async Task<IActionResult> Create()
         {
-            var albumModel = new AlbumCreateModel();
+            var albumModel = new AlbumModel();
 
             var artists = await _artistService.GetAll();
             var songs = await _songService.GetAll();
@@ -42,7 +42,7 @@ namespace Streamy.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(AlbumCreateModel albumModel)
+        public async Task<IActionResult> Create(AlbumModel albumModel)
         {
             if (ModelState.IsValid)
             {
@@ -50,6 +50,37 @@ namespace Streamy.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            var artists = await _artistService.GetAll();
+            var songs = await _songService.GetAll();
+
+            ViewData["Artists"] = new SelectList(artists, "Id", "Name");
+            ViewData["Songs"] = new SelectList(songs, "Id", "Title");
+
+            return View(albumModel);
+        }
+        public async Task<IActionResult> Edit(string? id)
+        {
+
+            var genreToEdit = await _albumService.GetByIdForUpdateAsync(id);
+
+            var artists = await _artistService.GetAll();
+            var songs = await _songService.GetAll();
+
+            ViewData["Artists"] = new SelectList(artists, "Id", "Name");
+            ViewData["Songs"] = new SelectList(songs, "Id", "Title");
+
+            return View(genreToEdit);
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> Edit(AlbumModel albumModel)
+        {
+            if (ModelState.IsValid)
+            {
+                await _albumService.UpdateAlbum(albumModel);
+                return RedirectToAction("Index");
+            }
             var artists = await _artistService.GetAll();
             var songs = await _songService.GetAll();
 
