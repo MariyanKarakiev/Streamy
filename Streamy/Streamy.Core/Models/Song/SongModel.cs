@@ -5,7 +5,7 @@ namespace Streamy.Core.Models
 {
     public class SongModel
     {
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
        
         public string Title { get; set; }
@@ -17,10 +17,10 @@ namespace Streamy.Core.Models
         public TimeSpan Duration { get; set; }
 
         public string? AlbumId { get; set; }
-        public AlbumModel Album { get; set; }
+        public AlbumModel? Album { get; set; }
 
         public short GenreId { get; set; }
-        public GenreModel Genre { get; set; }
+        public GenreModel? Genre { get; set; }
 
 
         public List<ArtistModel> Artists { get; set; } = new List<ArtistModel>();
