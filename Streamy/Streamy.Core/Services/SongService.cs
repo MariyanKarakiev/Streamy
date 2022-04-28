@@ -107,6 +107,7 @@ namespace Streamy.Core.Services
             {
                 throw new ArgumentNullException("No valid song.");
             }
+          
 
             song.Title = songModel.Title;
             song.Duration = songModel.Duration;
@@ -128,7 +129,10 @@ namespace Streamy.Core.Services
         //Ready
         public async Task<List<SongModel>> GetAll()
         {
-            var songs = await _repo.All<Song>().ToListAsync();
+            var songs = await _repo
+                .All<Song>()
+                .Include(s=>s.Artists)
+                .ToListAsync();
 
             if (songs == null)
             {
@@ -146,13 +150,20 @@ namespace Streamy.Core.Services
                         Title = s.Title,
                         Duration = s.Duration,
                         ReleaseDate = s.ReleaseDate,
-                        GenreId = s.GenreId
+                        GenreId = s.GenreId,
+                        Artists = s.Artists
+                        .Select(x => new ArtistModel()
+                        {
+                            Id = x.Id.ToString(),
+                            Name = x.Name
+                        })
+                        .ToList()
                     });
             }
 
             return songModelList;
         }
-       
+
         //Works?
         public async Task<SongCreateModel> GetByIdForUpdateAsync(string id)
         {
@@ -185,7 +196,7 @@ namespace Streamy.Core.Services
 
             return song;
         }
-       
+
         //To be cheked
         public async Task<SongModel> GetSongWithDetails(string id)
         {

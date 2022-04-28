@@ -68,7 +68,11 @@ namespace Streamy.Core.Services
                 .Where(s => s.Id == guidId)
                 .FirstOrDefaultAsync();
 
-             _repo.Delete(album);
+            if (album == null)
+            {
+                throw new ArgumentNullException(nameof(album));
+            }
+            _repo.Delete(album);
             await _repo.SaveChangesAsync();
         }
 
@@ -94,15 +98,19 @@ namespace Streamy.Core.Services
             var songs = await _repo.All<Song>()
                 .Where(a => songIds.Contains(a.Id)).ToListAsync();
 
+            var duration = new TimeSpan(
+            songs
+            .Sum(s => s.Duration.Ticks));
+
             album.Title = songModel.Title;
-            album.Duration = songModel.Duration;
+            album.Duration = duration;
             album.ReleaseDate = songModel.ReleaseDate;
             album.ArtistId = CheckIdIsGuid(songModel.ArtistId);
             album.Songs = songs;
 
 
             _repo.Update(album);
-            _repo.SaveChanges();
+            await _repo.SaveChangesAsync();
         }
 
         //Checked, works
@@ -152,7 +160,7 @@ namespace Streamy.Core.Services
 
             var album = await _repo
                 .All<Album>()
-                .Include(a=>a.Artist)
+                .Include(a => a.Artist)
                 .Include(s => s.Songs)
                 .Where(s => s.Id == guidId)
                 .FirstOrDefaultAsync();
