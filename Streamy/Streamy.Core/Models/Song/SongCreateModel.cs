@@ -9,6 +9,7 @@ namespace Streamy.Core.Models.Song
 {
     public class SongCreateModel : SongModel
     {
+        [Required]
         public string[]? ArtistIds { get; set; }
     }
 }
