@@ -1,0 +1,47 @@
+﻿@using Streamy.Core.Models
+@model List<PlaylistModel>
+
+@{
+    ViewData["Title"] = "Playlist";
+
+}
+
+<html>
+<div class="col-lg-auto">
+    <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">@ViewData["Title"]</h4>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Songs</th>
+                                    <th>Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var playlist in Model)
+                                {
+                                    <tr>
+                                        <td>@playlist.Title</td>
+                                        <td>@playlist.Songs.Count</td>
+                                        <td>
+                                            <a asp-action="Detail" asp-route-id="@playlist.Id" class="mdi mdi-information-outline "></a>
+                                            <a asp-action="Edit" asp-route-id="@playlist.Id" class="mdi mdi-border-color"></a>
+                                            <a asp-action="Delete" asp-route-id="@playlist.Id" class="mdi mdi-delete "></a>
+                                        </td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+                        <a asp-action="Create" class="btn btn-outline-primary">Add</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</html>
