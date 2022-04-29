@@ -1,0 +1,64 @@
+﻿@using Streamy.Core.Models
+@model ArtistModel
+
+@{
+    ViewData["Title"] = "Create Artist";
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+
+    <link rel="stylesheet" href="~/Plugins/select2/css/select2.css">
+    <link rel="stylesheet" href="~/Plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="~/Plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+    <link rel="stylesheet" href="~/Plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <link rel="stylesheet" href="~/Plugins/bs-stepper/css/bs-stepper.min.css">
+
+</head>
+
+<body>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card card-default">
+                <div class="card-header">
+                    <h4 class="card-title">@ViewData["Title"]</h4>
+                    <form class="forms-sample" asp-action="Create" asp-controller="Artist" method="post">
+                        <div class="form-group">
+                            <label asp-for=Name></label>
+                            <input asp-for=Name type="datetime" class="form-control" placeholder="okok">
+                            <span asp-validation-for=Name class="text-danger"></span>
+
+                        </div>
+                        <div class="form-group">
+                            <label asp-for=Country></label>
+                            <input asp-for=Country type="datetime" class="form-control" placeholder="okok">
+                            <span asp-validation-for=Country class="text-danger"></span>
+
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary">Create</button>
+                        <button class="btn btn-outline-behance" asp-action="Index">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @section Scripts{
+    <script src="~/js/adminlte.js"></script>
+    <script src="~/Plugins/jquery/jquery.js"></script>
+    <script src="~/Plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Plugins/select2/js/select2.full.min.js"></script>
+    <script src="~/Plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="~/assets/js/file-upload.js"></script>
+    }
+</body>
+</html>
+
+
+
+

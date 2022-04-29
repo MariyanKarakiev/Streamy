@@ -1,4 +1,6 @@
+using CloudinaryDotNet;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.EntityFrameworkCore;
 using Streamy.Core.Services;
 using Streamy.Extensions;
@@ -29,8 +31,28 @@ builder.Services.AddAuthentication()
         options.ClientSecret = builder.Configuration.GetValue<string>("Google:ClientSecret");
     });
 ;
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    //.AddMvcOptions(o =>
+    //{
+    //    o.ModelBinderProviders.Insert(0, new DateTimeModelBinder())
+    //})
+    ;
 
+var cloudinaryCloudName = builder.Configuration.GetValue<string>("Cloudinary:CloudName");
+var cloudinaryKey = builder.Configuration.GetValue<string>("Cloudinary:Key");
+var cloudinarySecret = builder.Configuration.GetValue<string>("Cloudinary:Secret");
+
+
+Account cloudinaryAccount = new Account(
+        cloudinaryCloudName,
+        cloudinaryKey,
+        cloudinarySecret);
+
+Cloudinary cloudinary = new Cloudinary(cloudinaryAccount);
+cloudinary.Api.Secure = true;
+
+builder.Services.AddSingleton(cloudinary);
+   
 builder.Services.AddApplicationServices();
 
 var app = builder.Build();

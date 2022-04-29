@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
 namespace Streamy.Core.Models
 {
@@ -18,6 +19,11 @@ namespace Streamy.Core.Models
         public ArtistModel? Artist { get; set; }
 
         public List<SongModel>? Songs { get; set; }
+
+        public IFormFile Image { get; set; }
+        public string ImageUrl { get; set; }
+
+        public string UserId { get; set; }
 
         public string[] SongIds { get; set; }
     }

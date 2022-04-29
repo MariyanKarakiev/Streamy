@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "pHeqMsASqcy+F7hu0OTyEf9ntM7kTDlzrWOWy2Ip7Ygc/M88y3nS1b3FamrJYBWYn76H6kJog37jOwHp4FZdCA==",
+  "dgSpecHash": "b66Pq1yOTtBr/StxG4pyiVcr9J4xJ7UbNlNJLDaqf4rKgCx4/wz4dyBo6vgNffxKCosBxRzwRtBu2eu9djD2bA==",
   "success": true,
   "projectFilePath": "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy\\Streamy.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mariq\\.nuget\\packages\\automapper\\10.0.0\\automapper.10.0.0.nupkg.sha512",
+    "C:\\Users\\mariq\\.nuget\\packages\\cloudinarydotnet\\1.17.0\\cloudinarydotnet.1.17.0.nupkg.sha512",
     "C:\\Users\\mariq\\.nuget\\packages\\duende.identityserver\\5.2.0\\duende.identityserver.5.2.0.nupkg.sha512",
     "C:\\Users\\mariq\\.nuget\\packages\\duende.identityserver.aspnetidentity\\5.2.0\\duende.identityserver.aspnetidentity.5.2.0.nupkg.sha512",
     "C:\\Users\\mariq\\.nuget\\packages\\duende.identityserver.entityframework\\5.2.0\\duende.identityserver.entityframework.5.2.0.nupkg.sha512",
@@ -24,6 +25,7 @@
     "C:\\Users\\mariq\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\6.0.3\\microsoft.aspnetcore.cryptography.keyderivation.6.0.3.nupkg.sha512",
     "C:\\Users\\mariq\\.nuget\\packages\\microsoft.aspnetcore.dataprotection.abstractions\\5.0.0\\microsoft.aspnetcore.dataprotection.abstractions.5.0.0.nupkg.sha512",
     "C:\\Users\\mariq\\.nuget\\packages\\microsoft.aspnetcore.diagnostics.entityframeworkcore\\6.0.3\\microsoft.aspnetcore.diagnostics.entityframeworkcore.6.0.3.nupkg.sha512",
+    "C:\\Users\\mariq\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\mariq\\.nuget\\packages\\microsoft.aspnetcore.http\\2.2.2\\microsoft.aspnetcore.http.2.2.2.nupkg.sha512",
     "C:\\Users\\mariq\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\mariq\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.15\\microsoft.aspnetcore.http.features.5.0.15.nupkg.sha512",
@@ -77,6 +79,7 @@
     "C:\\Users\\mariq\\.nuget\\packages\\microsoft.extensions.objectpool\\2.2.0\\microsoft.extensions.objectpool.2.2.0.nupkg.sha512",
     "C:\\Users\\mariq\\.nuget\\packages\\microsoft.extensions.options\\6.0.0\\microsoft.extensions.options.6.0.0.nupkg.sha512",
     "C:\\Users\\mariq\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
+    "C:\\Users\\mariq\\.nuget\\packages\\microsoft.extensions.webencoders\\5.0.3\\microsoft.extensions.webencoders.5.0.3.nupkg.sha512",
     "C:\\Users\\mariq\\.nuget\\packages\\microsoft.identity.client\\4.21.1\\microsoft.identity.client.4.21.1.nupkg.sha512",
     "C:\\Users\\mariq\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\6.10.0\\microsoft.identitymodel.jsonwebtokens.6.10.0.nupkg.sha512",
     "C:\\Users\\mariq\\.nuget\\packages\\microsoft.identitymodel.logging\\6.10.0\\microsoft.identitymodel.logging.6.10.0.nupkg.sha512",

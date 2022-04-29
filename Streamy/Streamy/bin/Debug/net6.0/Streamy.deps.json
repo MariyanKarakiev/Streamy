@@ -36,6 +36,20 @@
           }
         }
       },
+      "CloudinaryDotNet/1.17.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Html.Abstractions": "2.2.0",
+          "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
+          "Microsoft.Extensions.WebEncoders": "5.0.3",
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/CloudinaryDotNet.dll": {
+            "assemblyVersion": "1.17.0.0",
+            "fileVersion": "1.17.0.0"
+          }
+        }
+      },
       "Duende.IdentityServer/5.2.0": {
         "dependencies": {
           "Duende.IdentityServer.Storage": "5.2.0",
@@ -232,6 +246,11 @@
             "assemblyVersion": "6.0.3.0",
             "fileVersion": "6.0.322.12401"
           }
+        }
+      },
+      "Microsoft.AspNetCore.Html.Abstractions/2.2.0": {
+        "dependencies": {
+          "System.Text.Encodings.Web": "5.0.1"
         }
       },
       "Microsoft.AspNetCore.Http/2.2.2": {
@@ -1270,6 +1289,12 @@
       "Microsoft.Extensions.Primitives/6.0.0": {
         "dependencies": {
           "System.Runtime.CompilerServices.Unsafe": "6.0.0"
+        }
+      },
+      "Microsoft.Extensions.WebEncoders/5.0.3": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0",
+          "Microsoft.Extensions.Options": "6.0.0"
         }
       },
       "Microsoft.Identity.Client/4.21.1": {
@@ -2493,6 +2518,7 @@
       },
       "Streamy.Core/1.0.0": {
         "dependencies": {
+          "CloudinaryDotNet": "1.17.0",
           "Microsoft.AspNetCore.Http": "2.2.2",
           "Microsoft.AspNetCore.Http.Features": "5.0.15",
           "Microsoft.EntityFrameworkCore": "6.0.3",
@@ -2527,6 +2553,13 @@
       "sha512": "sha512-T09NoqMZBqw0/JEauXulxnmmerl0Zj03e0r6VCcJ0LURWBIaYxZPPoiDv8bHf5Y4x2xcXJp4JPXoCaeOMJfHEA==",
       "path": "automapper/10.0.0",
       "hashPath": "automapper.10.0.0.nupkg.sha512"
+    },
+    "CloudinaryDotNet/1.17.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-W0dkJ/oW1LruIHO1pGDUJPHhmqBHim5fTL1qZZD9OXyszMpo0hVnueO5OYeLj4OyrZB6RnH0oSKXde88IxIOoA==",
+      "path": "cloudinarydotnet/1.17.0",
+      "hashPath": "cloudinarydotnet.1.17.0.nupkg.sha512"
     },
     "Duende.IdentityServer/5.2.0": {
       "type": "package",
@@ -2660,6 +2693,13 @@
       "sha512": "sha512-sba0OFsscmCi7CepYxKf5J3ENrUSY+UGmc4SZH3jX3EmSx9aqMypBnzNEvzgQaQFnfuedfpaAhu2S2ygSoo9Mg==",
       "path": "microsoft.aspnetcore.diagnostics.entityframeworkcore/6.0.3",
       "hashPath": "microsoft.aspnetcore.diagnostics.entityframeworkcore.6.0.3.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Html.Abstractions/2.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Y4rs5aMEXY8G7wJo5S3EEt6ltqyOTr/qOeZzfn+hw/fuQj5GppGckMY5psGLETo1U9hcT5MmAhaT5xtusM1b5g==",
+      "path": "microsoft.aspnetcore.html.abstractions/2.2.0",
+      "hashPath": "microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Http/2.2.2": {
       "type": "package",
@@ -3031,6 +3071,13 @@
       "sha512": "sha512-9+PnzmQFfEFNR9J2aDTfJGGupShHjOuGw4VUv+JB044biSHrnmCIMD+mJHmb2H7YryrfBEXDurxQ47gJZdCKNQ==",
       "path": "microsoft.extensions.primitives/6.0.0",
       "hashPath": "microsoft.extensions.primitives.6.0.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.WebEncoders/5.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-NF5xPPZYJZNXIoHULq+hS6jIrkQt5X5qIMnH8Gz/uXsLVJCArrmP9ef5XuPkbCmTMepD+Ly8Qma+jwxqOPeHwQ==",
+      "path": "microsoft.extensions.webencoders/5.0.3",
+      "hashPath": "microsoft.extensions.webencoders.5.0.3.nupkg.sha512"
     },
     "Microsoft.Identity.Client/4.21.1": {
       "type": "package",

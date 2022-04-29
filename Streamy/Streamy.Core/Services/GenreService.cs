@@ -111,9 +111,6 @@ namespace Streamy.Core.Services
                 throw new ArgumentNullException("Genre not found", nameof(genre));
             }
 
-            genre.Id = genreModel.Id;
-            genre.Name = genreModel.Name;
-
             _repo.Update(genre);
             _repo.SaveChanges();
         }

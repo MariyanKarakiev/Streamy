@@ -14,38 +14,110 @@ namespace Streamy.Core.Services
     public class ArtistService : IArtistService
     {
         private readonly IApplicationDbRepository _repo;
-       
+
         public ArtistService(IApplicationDbRepository repo)
         {
-                _repo = repo;
+            _repo = repo;
         }
 
-        public Task CreateArtist(ArtistModel albumModel)
+        public async Task CreateArtist(ArtistModel artistModel)
         {
-            throw new NotImplementedException();
+            if (artistModel == null)
+            {
+                throw new ArgumentNullException("There is no artist to create.");
+            }
+
+            await _repo.AddAsync(new Artist
+            {
+                Name = artistModel.Name,
+                Country = artistModel.Country,
+                UserId = artistModel.UserId,
+            });
+
+            _repo.SaveChanges();
+        }
+        public async Task DeleteArtist(string id)
+        {
+            var artist = await _repo
+               .All<Artist>()
+               .Include(a => a.Songs)
+               .FirstOrDefaultAsync(a => a.Id == CheckIdIsGuid(id));
+
+            _repo.Delete<Artist>(artist);
+            await _repo.SaveChangesAsync();
+        }
+        public async Task UpdateArtist(ArtistModel artistModel)
+        {
+            if (artistModel == null)
+            {
+                throw new ArgumentNullException("Invalid model.", nameof(artistModel));
+            }
+
+            var artist = await _repo.All<Artist>().FirstOrDefaultAsync(a => a.Id == CheckIdIsGuid(artistModel.Id));
+
+            if (artist == null)
+            {
+                throw new ArgumentNullException("Artist not found", nameof(artist));
+            }
+
+            artist.Name = artistModel.Name;
+            artist.Country = artistModel.Country;
+
+            _repo.Update(artist);
+            _repo.SaveChanges();
         }
 
-        public Task DeleteArtist(string id)
+        public async Task<ArtistModel> GetArtistWithDetails(string id)
         {
-            throw new NotImplementedException();
-        }
+            var artist = await _repo
+                .All<Artist>()
+                .Include(a => a.Songs)
+                .FirstOrDefaultAsync(a => a.Id == CheckIdIsGuid(id));
 
-        public async Task<List<ArtistModel>> GetAll()
+            if (artist == null)
+            {
+                throw new ArgumentNullException("No artist found.");
+            }
+
+            var mappedArtist = new ArtistModel()
+            {
+                Id = artist.Id.ToString(),
+                Name = artist.Name,
+                Country = artist.Country
+            };
+
+            return mappedArtist;
+        }
+        public async Task<ArtistModel> GetByIdAsync(string id)
         {
-            var artists = await _repo.All<Artist>().ToListAsync();
+            var artist = await _repo.GetByIdAsync<Artist>(id);
+
+            var mappedArtist = new ArtistModel()
+            {
+                Id = artist.Id.ToString(),
+                Name = artist.Name,
+                Country = artist.Country
+            };
+
+            return mappedArtist;
+        }
+        public async Task<List<ArtistModel>> GetAll(string? userId)
+        {
+            var artists = await _repo.All<Artist>()
+                .Where(a => a.UserId == userId)
+                .ToListAsync();
 
             if (artists == null)
             {
                 throw new AbandonedMutexException(nameof(artists));
             }
 
-
             var mappedArtists = artists
                 .Select(s => new ArtistModel()
                 {
-                  Id = s.Id.ToString(),
-                  Name = s.Name,
-                  Country = s.Country,
+                    Id = s.Id.ToString(),
+                    Name = s.Name,
+                    Country = s.Country,
                 })
                 .ToList();
 
@@ -56,21 +128,43 @@ namespace Streamy.Core.Services
 
             return mappedArtists;
         }
-    
 
-        public Task<ArtistModel> GetByIdForCreateAsync(string id)
+        private Guid CheckIdIsGuid(string id)
         {
-            throw new NotImplementedException();
+            if (!Guid.TryParse(id, out var guidId))
+            {
+                throw new InvalidCastException("Invalid id.");
+            }
+
+            return guidId;
         }
 
-        public Task<ArtistModel> GetWithDetails(string id)
+        public async Task<ArtistModel> GetByIdForEditAsync(string? id)
         {
-            throw new NotImplementedException();
+            var artist = await _repo.GetByIdAsync<Artist>(id);
+
+            var mappedArtist = new ArtistModel()
+            {
+                Id = artist.Id.ToString(),
+                Name = artist.Name,
+                Country = artist.Country
+            };
+
+            return mappedArtist;
         }
 
-        public Task UpdateArtist(ArtistModel albumModel)
+        public async Task<ArtistModel> GetForDetails(string? id)
         {
-            throw new NotImplementedException();
+            var artist = await _repo.GetByIdAsync<Artist>(id);
+
+            var mappedArtist = new ArtistModel()
+            {
+                Id = artist.Id.ToString(),
+                Name = artist.Name,
+                Country = artist.Country
+            };
+
+            return mappedArtist;
         }
     }
 }

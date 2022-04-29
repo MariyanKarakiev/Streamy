@@ -273,7 +273,6 @@ D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\obj\Debug\net6.0\Streamy.RazorAs
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\obj\Debug\net6.0\staticwebassets.build.json
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\obj\Debug\net6.0\staticwebassets.development.json
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
-D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\obj\Debug\net6.0\scopedcss\Views\Shared\_LayoutOld.cshtml.rz.scp.css
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\obj\Debug\net6.0\scopedcss\bundle\Streamy.styles.css
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\obj\Debug\net6.0\scopedcss\projectbundle\Streamy.bundle.scp.css
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\obj\Debug\net6.0\Streamy.dll
@@ -288,3 +287,4 @@ D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\bin\Debug\net6.0\Streamy.pdb
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\obj\Debug\net6.0\Streamy.csproj.CopyComplete
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\obj\Debug\net6.0\Streamy.genruntimeconfig.cache
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\obj\Debug\net6.0\ref\Streamy.dll
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\bin\Debug\net6.0\CloudinaryDotNet.dll
