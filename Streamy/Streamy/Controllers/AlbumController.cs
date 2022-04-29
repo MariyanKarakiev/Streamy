@@ -37,8 +37,8 @@ namespace Streamy.Controllers
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var artists = await _artistService.GetAll(userId);
-            var songs = await _songService.GetAll();
+            var artists = await _artistService.GetAll();
+            var songs = await _songService.GetAll(userId);
 
             ViewData["Artists"] = new SelectList(artists, "Id", "Name");
             ViewData["Songs"] = new SelectList(songs, "Id", "Title");
@@ -49,10 +49,15 @@ namespace Streamy.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(AlbumModel albumModel)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+           
             if (ModelState.IsValid)
             {
                 if (albumModel.Image != null)
                 {
+
+                    albumModel.UserId = userId;
+
                     var imageUrl = await ImageUploadService.UploadImageAsync(_cloudinary, albumModel.Image);
                     albumModel.ImageUrl = imageUrl;
                 }
@@ -60,11 +65,8 @@ namespace Streamy.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-
-            var artists = await _artistService.GetAll(userId);
-            var songs = await _songService.GetAll();
+            var artists = await _artistService.GetAll();
+            var songs = await _songService.GetAll(userId);
 
             ViewData["Artists"] = new SelectList(artists, "Id", "Name");
             ViewData["Songs"] = new SelectList(songs, "Id", "Title");
@@ -74,8 +76,8 @@ namespace Streamy.Controllers
         public async Task<IActionResult> Edit(string? id)
         {
 
-            var genreToEdit = await _albumService.GetByIdForUpdateAsync(id);
-            
+            var albumToEdit = await _albumService.GetByIdForUpdateAsync(id);
+
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var artists = await _artistService.GetAll(userId);
@@ -84,29 +86,30 @@ namespace Streamy.Controllers
             ViewData["Artists"] = new SelectList(artists, "Id", "Name");
             ViewData["Songs"] = new SelectList(songs, "Id", "Title");
 
-            return View(genreToEdit);
+            return View(albumToEdit);
         }
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Edit(AlbumModel albumModel)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             if (ModelState.IsValid)
             {
                 if (albumModel.Image != null)
                 {
-                    var imageUrl = await ImageUploadService.UploadImageAsync(_cloudinary, albumModel.Image);
+                    albumModel.UserId = userId;
+
+                    var imageUrl = await ImageUploadService.UploadImageAsync(_cloudinary, albumModel.Image); 
                     albumModel.ImageUrl = imageUrl;
                 }
-
                 await _albumService.UpdateAlbum(albumModel);
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
 
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var artists = await _artistService.GetAll(userId);
-            var songs = await _songService.GetAll();
+            var artists = await _artistService.GetAll();
+            var songs = await _songService.GetAll(userId);
 
             ViewData["Artists"] = new SelectList(artists, "Id", "Name");
             ViewData["Songs"] = new SelectList(songs, "Id", "Title");
