@@ -15,9 +15,7 @@ namespace Streamy.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-          
-            var allArtists = await _artistService.GetAll(userId);
+            var allArtists = await _artistService.GetAll();
 
             return View(allArtists);
         }
@@ -76,7 +74,7 @@ namespace Streamy.Controllers
                 return NotFound();
             }
 
-            var artistToEdit = await _artistService.GetByIdForEditAsync(id);
+            var artistToEdit = await _artistService.GetByIdForUpdateAsync(id);
 
             return View(artistToEdit);
         }
@@ -85,6 +83,10 @@ namespace Streamy.Controllers
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Edit(ArtistModel artistViewModel)
         {
+            if (artistViewModel == null)
+            {
+                return NotFound();
+            }
             await _artistService.UpdateArtist(artistViewModel);
 
             return RedirectToAction("Index");
