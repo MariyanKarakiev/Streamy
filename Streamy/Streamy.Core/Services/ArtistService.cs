@@ -67,39 +67,32 @@ namespace Streamy.Core.Services
             _repo.SaveChanges();
         }
 
-        public async Task<ArtistModel> GetArtistWithDetails(string id)
-        {
-            var artist = await _repo
-                .All<Artist>()
-                .Include(a => a.Songs)
-                .FirstOrDefaultAsync(a => a.Id == CheckIdIsGuid(id));
 
-            if (artist == null)
+        public async Task<List<ArtistModel>> GetAll()
+        {
+            var artists = await _repo.All<Artist>()
+                .ToListAsync();
+
+            if (artists == null)
             {
-                throw new ArgumentNullException("No artist found.");
+                throw new AbandonedMutexException(nameof(artists));
             }
 
-            var mappedArtist = new ArtistModel()
+            var mappedArtists = artists
+                .Select(s => new ArtistModel()
+                {
+                    Id = s.Id.ToString(),
+                    Name = s.Name,
+                    Country = s.Country,
+                })
+                .ToList();
+
+            if (mappedArtists == null)
             {
-                Id = artist.Id.ToString(),
-                Name = artist.Name,
-                Country = artist.Country
-            };
+                throw new ArgumentNullException("No valid artist models.");
+            }
 
-            return mappedArtist;
-        }
-        public async Task<ArtistModel> GetByIdAsync(string id)
-        {
-            var artist = await _repo.GetByIdAsync<Artist>(id);
-
-            var mappedArtist = new ArtistModel()
-            {
-                Id = artist.Id.ToString(),
-                Name = artist.Name,
-                Country = artist.Country
-            };
-
-            return mappedArtist;
+            return mappedArtists;
         }
         public async Task<List<ArtistModel>> GetAll(string? userId)
         {
@@ -128,31 +121,6 @@ namespace Streamy.Core.Services
 
             return mappedArtists;
         }
-
-        private Guid CheckIdIsGuid(string id)
-        {
-            if (!Guid.TryParse(id, out var guidId))
-            {
-                throw new InvalidCastException("Invalid id.");
-            }
-
-            return guidId;
-        }
-
-        public async Task<ArtistModel> GetByIdForEditAsync(string? id)
-        {
-            var artist = await _repo.GetByIdAsync<Artist>(id);
-
-            var mappedArtist = new ArtistModel()
-            {
-                Id = artist.Id.ToString(),
-                Name = artist.Name,
-                Country = artist.Country
-            };
-
-            return mappedArtist;
-        }
-
         public async Task<ArtistModel> GetForDetails(string? id)
         {
             var artist = await _repo.GetByIdAsync<Artist>(id);
@@ -166,5 +134,35 @@ namespace Streamy.Core.Services
 
             return mappedArtist;
         }
+        public async Task<ArtistModel> GetByIdForUpdateAsync(string? id)
+        {
+            var artist = await _repo.GetByIdAsync<Artist>(id);
+
+            if (artist == null)
+            {
+                throw new ArgumentNullException("no artist.");
+            }
+
+            var mappedArtist = new ArtistModel()
+            {
+                Id = artist.Id.ToString(),
+                Name = artist.Name,
+                Country = artist.Country
+            };
+
+            return mappedArtist;
+        }
+
+        private Guid CheckIdIsGuid(string id)
+        {
+            if (!Guid.TryParse(id, out var guidId))
+            {
+                throw new InvalidCastException("Invalid id.");
+            }
+
+            return guidId;
+        }
+
+     
     }
 }

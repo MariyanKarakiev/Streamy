@@ -15,7 +15,7 @@ namespace Streamy.Core.Services
             _repo = repo;
         }
 
-        //Checked, ready, works
+
         public async Task CreateGenre(GenreModel genreModel)
         {
             if (genreModel == null)
@@ -26,12 +26,11 @@ namespace Streamy.Core.Services
             await _repo.AddAsync(new Genre
             {
                 Name = genreModel.Name,
+                UserId = genreModel.UserId,
             });
 
             _repo.SaveChanges();
         }
-       
-        //Checked, Cascade delete needs to be resolved
         public async Task DeleteGenre(short id)
         {
             await _repo.DeleteAsync<Genre>(id);
