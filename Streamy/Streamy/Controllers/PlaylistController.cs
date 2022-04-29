@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CloudinaryDotNet;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Streamy.Core.Contracts;
 using Streamy.Core.Models;
+using System.Security.Claims;
 
 namespace Streamy.Controllers
 {
@@ -9,11 +11,16 @@ namespace Streamy.Controllers
     {
         private readonly IPlaylistService _playlistService;
         private readonly ISongService _songService;
+        private readonly Cloudinary _cloudinary;
 
-        public PlaylistController(IPlaylistService playlistService, ISongService songService)
+        public PlaylistController(
+            IPlaylistService playlistService,
+            ISongService songService,
+            Cloudinary cloudinary)
         {
             _playlistService = playlistService;
             _songService = songService;
+            _cloudinary = cloudinary;
         }
 
         public async Task<IActionResult> Index()
@@ -39,6 +46,10 @@ namespace Streamy.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                playlistModel.UserId = userId;
+
                 await _playlistService.CreatePlaylist(playlistModel);
                 return RedirectToAction(nameof(Index));
             }
@@ -66,6 +77,10 @@ namespace Streamy.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                playlistModel.UserId = userId;
+
                 await _playlistService.UpdatePlaylist(playlistModel);
                 return RedirectToAction("Index");
             }
