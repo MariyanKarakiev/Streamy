@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CloudinaryDotNet;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Streamy.Core.Contracts;
 using Streamy.Core.Models;
+using Streamy.Core.Services;
+using System.Security.Claims;
 
 namespace Streamy.Controllers
 {
@@ -10,12 +13,15 @@ namespace Streamy.Controllers
         private readonly IAlbumService _albumService;
         private readonly IArtistService _artistService;
         private readonly ISongService _songService;
+        private readonly Cloudinary _cloudinary;
 
-        public AlbumController(IAlbumService albumService, IArtistService artistService, ISongService songService)
+
+        public AlbumController(IAlbumService albumService, IArtistService artistService, ISongService songService, Cloudinary cloudinary)
         {
             _albumService = albumService;
             _artistService = artistService;
             _songService = songService;
+            _cloudinary = cloudinary;
         }
 
         public async Task<IActionResult> Index()
@@ -29,14 +35,13 @@ namespace Streamy.Controllers
         {
             var albumModel = new AlbumModel();
 
-            var artists = await _artistService.GetAll();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var artists = await _artistService.GetAll(userId);
             var songs = await _songService.GetAll();
 
             ViewData["Artists"] = new SelectList(artists, "Id", "Name");
             ViewData["Songs"] = new SelectList(songs, "Id", "Title");
-
-
-            // var songs = await _songService.GetAll();
 
             return View(albumModel);
         }
@@ -46,11 +51,19 @@ namespace Streamy.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (albumModel.Image != null)
+                {
+                    var imageUrl = await ImageUploadService.UploadImageAsync(_cloudinary, albumModel.Image);
+                    albumModel.ImageUrl = imageUrl;
+                }
                 await _albumService.CreateAlbum(albumModel);
                 return RedirectToAction(nameof(Index));
             }
 
-            var artists = await _artistService.GetAll();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+
+            var artists = await _artistService.GetAll(userId);
             var songs = await _songService.GetAll();
 
             ViewData["Artists"] = new SelectList(artists, "Id", "Name");
@@ -62,8 +75,10 @@ namespace Streamy.Controllers
         {
 
             var genreToEdit = await _albumService.GetByIdForUpdateAsync(id);
+            
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var artists = await _artistService.GetAll();
+            var artists = await _artistService.GetAll(userId);
             var songs = await _songService.GetAll();
 
             ViewData["Artists"] = new SelectList(artists, "Id", "Name");
@@ -78,10 +93,19 @@ namespace Streamy.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (albumModel.Image != null)
+                {
+                    var imageUrl = await ImageUploadService.UploadImageAsync(_cloudinary, albumModel.Image);
+                    albumModel.ImageUrl = imageUrl;
+                }
+
                 await _albumService.UpdateAlbum(albumModel);
                 return RedirectToAction("Index");
             }
-            var artists = await _artistService.GetAll();
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var artists = await _artistService.GetAll(userId);
             var songs = await _songService.GetAll();
 
             ViewData["Artists"] = new SelectList(artists, "Id", "Name");

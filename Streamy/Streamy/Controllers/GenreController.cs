@@ -79,7 +79,8 @@ namespace Streamy.Controllers
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Edit(GenreModel genreViewModel)
         {
-           await _genreService.UpdateGenre(genreViewModel);
+          
+            await _genreService.UpdateGenre(genreViewModel);
 
             return RedirectToAction("Index");
         }

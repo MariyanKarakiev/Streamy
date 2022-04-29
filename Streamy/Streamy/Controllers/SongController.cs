@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Streamy.Core.Contracts;
 using Streamy.Core.Models;
 using Streamy.Core.Models.Song;
+using System.Security.Claims;
 
 namespace Streamy.Controllers
 {
@@ -56,8 +57,10 @@ namespace Streamy.Controllers
         {
             var songModel = new SongCreateModel();
 
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             var genres = await _genreService.GetAllGenres();
-            var artists = await _artistService.GetAll();
+            var artists = await _artistService.GetAll(userId);
             var albums = await _albumService.GetAll();
 
             ViewData["Artists"] = new SelectList(artists, "Id", "Name");
@@ -76,8 +79,10 @@ namespace Streamy.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             var genres = await _genreService.GetAllGenres();
-            var artists = await _artistService.GetAll();
+            var artists = await _artistService.GetAll(userId);
             var albums = await _albumService.GetAll();
 
             ViewData["Artists"] = new SelectList(artists, "Id", "Name");
@@ -94,8 +99,10 @@ namespace Streamy.Controllers
                 return NotFound();
             }
 
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             var genres = await _genreService.GetAllGenres();
-            var artists = await _artistService.GetAll();
+            var artists = await _artistService.GetAll(userId);
             var albums = await _albumService.GetAll();
 
             ViewData["Artists"] = new SelectList(artists, "Id", "Name");
@@ -117,8 +124,10 @@ namespace Streamy.Controllers
                 return RedirectToAction("Index");
             }
 
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             var genres = await _genreService.GetAllGenres();
-            var artists = await _artistService.GetAll();
+            var artists = await _artistService.GetAll(userId);
             var albums = await _albumService.GetAll();
 
             ViewData["Artists"] = new SelectList(artists, "Id", "Name");
