@@ -8,9 +8,9 @@ namespace Streamy.Core.Contracts
         Task UpdateSong(SongModel songModel);
         Task DeleteSong(string id);
 
-        Task<ArtistModel> GetByIdForUpdateAsync(string? id);
-        Task<List<ArtistModel>> GetAll();
-        Task<List<ArtistModel>> GetAll(string? userId);
-        Task<ArtistModel> GetForDetails(string? id);
+        Task<SongModel> GetByIdForUpdateAsync(string? id);
+        Task<List<SongModel>> GetAll();
+        Task<List<SongModel>> GetAll(string? userId);
+        Task<SongModel> GetForDetails(string? id);
     }
 }
