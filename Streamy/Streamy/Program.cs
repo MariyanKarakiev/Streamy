@@ -39,8 +39,8 @@ builder.Services.AddControllersWithViews()
     ;
 
 var cloudinaryCloudName = builder.Configuration.GetValue<string>("Cloudinary:CloudName");
-var cloudinaryKey = builder.Configuration.GetValue<string>("Cloudinary:Key");
-var cloudinarySecret = builder.Configuration.GetValue<string>("Cloudinary:Secret");
+var cloudinaryKey = builder.Configuration.GetValue<string>("Cloudinary:ApiKey");
+var cloudinarySecret = builder.Configuration.GetValue<string>("Cloudinary:ApiSecret");
 
 
 Account cloudinaryAccount = new Account(

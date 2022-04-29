@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Streamy.Core.Contracts
 {
-    public interface IAlbumService : IUserAssignable
+    public interface IAlbumService
     {
         Task CreateAlbum(AlbumModel albumModel);
         Task UpdateAlbum(AlbumModel albumModel);
