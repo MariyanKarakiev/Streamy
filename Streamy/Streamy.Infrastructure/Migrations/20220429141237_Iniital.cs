@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Streamy.Infrastructure.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Iniital : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,7 +15,8 @@ namespace Streamy.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(56)", maxLength: 56, nullable: false)
+                    Country = table.Column<string>(type: "nvarchar(56)", maxLength: 56, nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -67,7 +68,8 @@ namespace Streamy.Infrastructure.Migrations
                 {
                     Id = table.Column<short>(type: "smallint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -79,11 +81,36 @@ namespace Streamy.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false)
+                    Title = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Playlists", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Albums",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    ReleaseDate = table.Column<DateTime>(type: "date", nullable: false),
+                    Duration = table.Column<TimeSpan>(type: "time", nullable: false),
+                    ArtistId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Albums", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Albums_Artists_ArtistId",
+                        column: x => x.ArtistId,
+                        principalTable: "Artists",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -193,42 +220,17 @@ namespace Streamy.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Albums",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Duration = table.Column<TimeSpan>(type: "time", nullable: false),
-                    GenreId = table.Column<short>(type: "smallint", nullable: false),
-                    ArtistId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Albums", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Albums_Artists_ArtistId",
-                        column: x => x.ArtistId,
-                        principalTable: "Artists",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Albums_Genres_GenreId",
-                        column: x => x.GenreId,
-                        principalTable: "Genres",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Songs",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ReleaseDate = table.Column<DateTime>(type: "date", nullable: false),
                     Duration = table.Column<TimeSpan>(type: "time", nullable: false),
-                    AlbumId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    GenreId = table.Column<short>(type: "smallint", nullable: false)
+                    AlbumId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    GenreId = table.Column<short>(type: "smallint", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -237,8 +239,7 @@ namespace Streamy.Infrastructure.Migrations
                         name: "FK_Songs_Albums_AlbumId",
                         column: x => x.AlbumId,
                         principalTable: "Albums",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Songs_Genres_GenreId",
                         column: x => x.GenreId,
@@ -248,48 +249,48 @@ namespace Streamy.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SongArtists",
+                name: "ArtistSong",
                 columns: table => new
                 {
-                    SongId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ArtistId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ArtistsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SongsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SongArtists", x => new { x.ArtistId, x.SongId });
+                    table.PrimaryKey("PK_ArtistSong", x => new { x.ArtistsId, x.SongsId });
                     table.ForeignKey(
-                        name: "FK_SongArtists_Artists_ArtistId",
-                        column: x => x.ArtistId,
+                        name: "FK_ArtistSong_Artists_ArtistsId",
+                        column: x => x.ArtistsId,
                         principalTable: "Artists",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SongArtists_Songs_SongId",
-                        column: x => x.SongId,
+                        name: "FK_ArtistSong_Songs_SongsId",
+                        column: x => x.SongsId,
                         principalTable: "Songs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "SongPlaylists",
+                name: "PlaylistSong",
                 columns: table => new
                 {
-                    SongId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PlaylistId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    PlaylistsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SongsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SongPlaylists", x => new { x.PlaylistId, x.SongId });
+                    table.PrimaryKey("PK_PlaylistSong", x => new { x.PlaylistsId, x.SongsId });
                     table.ForeignKey(
-                        name: "FK_SongPlaylists_Playlists_PlaylistId",
-                        column: x => x.PlaylistId,
+                        name: "FK_PlaylistSong_Playlists_PlaylistsId",
+                        column: x => x.PlaylistsId,
                         principalTable: "Playlists",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SongPlaylists_Songs_SongId",
-                        column: x => x.SongId,
+                        name: "FK_PlaylistSong_Songs_SongsId",
+                        column: x => x.SongsId,
                         principalTable: "Songs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -301,9 +302,9 @@ namespace Streamy.Infrastructure.Migrations
                 column: "ArtistId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Albums_GenreId",
-                table: "Albums",
-                column: "GenreId");
+                name: "IX_ArtistSong_SongsId",
+                table: "ArtistSong",
+                column: "SongsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -345,14 +346,9 @@ namespace Streamy.Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SongArtists_SongId",
-                table: "SongArtists",
-                column: "SongId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SongPlaylists_SongId",
-                table: "SongPlaylists",
-                column: "SongId");
+                name: "IX_PlaylistSong_SongsId",
+                table: "PlaylistSong",
+                column: "SongsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Songs_AlbumId",
@@ -367,6 +363,9 @@ namespace Streamy.Infrastructure.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "ArtistSong");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -383,10 +382,7 @@ namespace Streamy.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "SongArtists");
-
-            migrationBuilder.DropTable(
-                name: "SongPlaylists");
+                name: "PlaylistSong");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -404,10 +400,10 @@ namespace Streamy.Infrastructure.Migrations
                 name: "Albums");
 
             migrationBuilder.DropTable(
-                name: "Artists");
+                name: "Genres");
 
             migrationBuilder.DropTable(
-                name: "Genres");
+                name: "Artists");
         }
     }
 }

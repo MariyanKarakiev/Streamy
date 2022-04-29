@@ -17,6 +17,11 @@ namespace Streamy.Infrastructure.Models
         [StringLength(60)]
         public string Name { get; set; }
 
+        [Required]
+        [StringLength(450)]
+        public string UserId { get; set; }
+
+
         public virtual ICollection<Song> Songs { get; set; } = new HashSet<Song>();
     }
 }

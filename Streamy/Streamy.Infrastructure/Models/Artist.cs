@@ -2,7 +2,7 @@
 
 namespace Streamy.Infrastructure.Models
 {
-    public class Artist
+    public class Artist 
     {
         public Guid Id { get; set; } = Guid.NewGuid();
 
@@ -13,6 +13,11 @@ namespace Streamy.Infrastructure.Models
         [Required]
         [StringLength(56)]
         public string Country { get; set; }
+
+        [Required]
+        [StringLength(450)]
+        public string UserId { get; set; }
+
 
         public virtual ICollection<Song> Songs { get; set; } = new HashSet<Song>();
         public virtual ICollection<Album> Albums { get; set; } = new HashSet<Album>();

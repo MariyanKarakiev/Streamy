@@ -12,8 +12,8 @@ using Streamy.Infrastructure.Data;
 namespace Streamy.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220426171638_RemoveGenreIdFromAlbum")]
-    partial class RemoveGenreIdFromAlbum
+    [Migration("20220429144221_Initial2")]
+    partial class Initial2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -268,8 +268,10 @@ namespace Streamy.Infrastructure.Migrations
                     b.Property<TimeSpan>("Duration")
                         .HasColumnType("time");
 
-                    b.Property<short?>("GenreId")
-                        .HasColumnType("smallint");
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("date");
@@ -279,11 +281,14 @@ namespace Streamy.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ArtistId");
-
-                    b.HasIndex("GenreId");
 
                     b.ToTable("Albums");
                 });
@@ -304,6 +309,11 @@ namespace Streamy.Infrastructure.Migrations
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Artists");
@@ -322,6 +332,11 @@ namespace Streamy.Infrastructure.Migrations
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Genres");
@@ -333,10 +348,20 @@ namespace Streamy.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(70)
                         .HasColumnType("nvarchar(70)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -358,6 +383,11 @@ namespace Streamy.Infrastructure.Migrations
                     b.Property<short>("GenreId")
                         .HasColumnType("smallint");
 
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("date");
 
@@ -365,6 +395,11 @@ namespace Streamy.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -464,10 +499,6 @@ namespace Streamy.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Streamy.Infrastructure.Models.Genre", null)
-                        .WithMany("Albums")
-                        .HasForeignKey("GenreId");
-
                     b.Navigation("Artist");
                 });
 
@@ -500,8 +531,6 @@ namespace Streamy.Infrastructure.Migrations
 
             modelBuilder.Entity("Streamy.Infrastructure.Models.Genre", b =>
                 {
-                    b.Navigation("Albums");
-
                     b.Navigation("Songs");
                 });
 #pragma warning restore 612, 618

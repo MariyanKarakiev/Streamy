@@ -27,6 +27,13 @@ namespace Streamy.Infrastructure.Models
         [ForeignKey(nameof(GenreId))]
         public Genre Genre { get; set; }
 
+        [StringLength(80)]
+        public string ImageUrl { get; set; }
+
+        [Required]
+        [StringLength(450)]
+        public string UserId { get; set; }
+
         public virtual ICollection<Artist> Artists { get; set; } = new HashSet<Artist>();
         public virtual ICollection<Playlist> Playlists { get; set; } = new HashSet<Playlist>();
 
