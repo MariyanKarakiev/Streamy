@@ -104,11 +104,51 @@ namespace Streamy.Core.Services
             await _repo.SaveChangesAsync();
         }
 
+        public async Task<List<AlbumModel>> GetAll()
+        {
+            var albums = await _repo
+                .All<Album>()
+                .Include(a => a.Artist)
+                .ToListAsync();
+
+            if (albums == null)
+            {
+                throw new ArgumentNullException("No albums.");
+            }
+
+            var mappedAlbums = albums
+                .Select(s => new AlbumModel()
+                {
+                    Id = s.Id.ToString(),
+                    Title = s.Title,
+                    ReleaseDate = s.ReleaseDate,
+                    Duration = s.Duration,
+                    Artist = new ArtistModel()
+                    {
+                        Name = s.Artist.Name,
+                    },
+                    Songs = s.Songs
+                        .Select(s => new SongModel()
+                        {
+                            Id = s.Id.ToString(),
+                            Title = s.Title,
+                        }).ToList()
+                })
+                .ToList();
+
+            if (albums == null)
+            {
+                throw new ArgumentNullException("No valid album models.");
+            }
+
+            return mappedAlbums;
+        }
         public async Task<List<AlbumModel>> GetAll(string? userId)
         {
             var albums = await _repo
                 .All<Album>()
                 .Include(a => a.Artist)
+                .Where(a => a.UserId == userId)
                 .ToListAsync();
 
             if (albums == null)
