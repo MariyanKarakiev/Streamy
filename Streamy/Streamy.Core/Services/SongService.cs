@@ -53,6 +53,7 @@ namespace Streamy.Core.Services
                 Artists = artists,
                 Playlists = playlists,
                 UserId = songModel.UserId,
+                ImageUrl = songModel.ImageUrl
             };
 
             if (songModel.AlbumId != null)
@@ -77,7 +78,6 @@ namespace Streamy.Core.Services
             _repo.Delete(song);
             _repo.SaveChanges();
         }
-
         public async Task UpdateSong(SongModel songModel)
         {
             List<Guid> artistIds = new List<Guid>();
@@ -131,7 +131,6 @@ namespace Streamy.Core.Services
             _repo.SaveChanges();
         }
 
-        //Ready
         public async Task<List<SongModel>> GetAll()
         {
             var songs = await _repo

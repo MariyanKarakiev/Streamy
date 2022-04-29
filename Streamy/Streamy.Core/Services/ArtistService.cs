@@ -31,7 +31,7 @@ namespace Streamy.Core.Services
             {
                 Name = artistModel.Name,
                 Country = artistModel.Country,
-                UserId = artistModel.UserId,
+                UserId = artistModel.UserId
             });
 
             _repo.SaveChanges();

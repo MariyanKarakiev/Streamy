@@ -49,6 +49,7 @@ namespace Streamy.Core.Services
                 Title = playlistModel.Title,
                 Songs = songs,
                 UserId = playlistModel.UserId,
+                ImageUrl = playlistModel.ImageUrl
             };
 
             await _repo.AddAsync(playlistToCreate);

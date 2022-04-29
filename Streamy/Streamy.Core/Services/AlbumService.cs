@@ -46,6 +46,7 @@ namespace Streamy.Core.Services
                 ArtistId = CheckIdIsGuid(albumModel.ArtistId),
                 Songs = songs,
                 UserId = albumModel.UserId,
+                ImageUrl = albumModel.ImageUrl,
             };
 
             await _repo.AddAsync(albumToCreate);
