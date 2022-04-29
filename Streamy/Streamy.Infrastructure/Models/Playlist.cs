@@ -11,7 +11,7 @@ namespace Streamy.Infrastructure.Models
         [StringLength(70)]
         public string Title { get; set; }
       
-        [StringLength(80)]
+        [StringLength(2083)]
         public string ImageUrl { get; set; }
         
         [Required]

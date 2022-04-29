@@ -14,7 +14,8 @@ namespace Streamy.Core.Contracts
         Task DeleteArtist(string id);
 
 
-        Task<ArtistModel> GetByIdForEditAsync(string? id);
+        Task<ArtistModel> GetByIdForUpdateAsync(string? id);
+        Task<List<ArtistModel>> GetAll();
         Task<List<ArtistModel>> GetAll(string? userId);
         Task<ArtistModel> GetForDetails(string? id);
     }

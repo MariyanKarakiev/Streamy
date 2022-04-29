@@ -27,7 +27,7 @@ namespace Streamy.Infrastructure.Models
         [ForeignKey(nameof(GenreId))]
         public Genre Genre { get; set; }
 
-        [StringLength(80)]
+        [StringLength(2083)]
         public string ImageUrl { get; set; }
 
         [Required]

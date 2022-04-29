@@ -23,7 +23,7 @@ namespace Streamy.Infrastructure.Models
         [ForeignKey(nameof(ArtistId))]
         public Artist Artist { get; set; }
 
-        [StringLength(450)]
+        [StringLength(2083)]
         public string ImageUrl { get; set; }
 
         [Required]

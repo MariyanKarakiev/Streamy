@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+
 using Streamy.Core.Contracts;
 using Streamy.Core.Models;
 using Streamy.Infrastructure.Data.Repositories;
@@ -15,7 +16,6 @@ namespace Streamy.Core.Services
             _repo = repo;
         }
 
-        //Checked works
         public async Task CreateAlbum(AlbumModel albumModel)
         {
             if (albumModel == null)
@@ -44,14 +44,13 @@ namespace Streamy.Core.Services
                 Duration = duration,
                 ReleaseDate = albumModel.ReleaseDate,
                 ArtistId = CheckIdIsGuid(albumModel.ArtistId),
-                Songs = songs
+                Songs = songs,
+                UserId = albumModel.UserId,
             };
 
             await _repo.AddAsync(albumToCreate);
             await _repo.SaveChangesAsync();
         }
-
-        //Checked, works
         public async Task DeleteAlbum(string id)
         {
             var guidId = CheckIdIsGuid(id);
@@ -69,8 +68,6 @@ namespace Streamy.Core.Services
             _repo.Delete(album);
             await _repo.SaveChangesAsync();
         }
-
-        //Works
         public async Task UpdateAlbum(AlbumModel songModel)
         {
             if (songModel == null)
@@ -107,8 +104,7 @@ namespace Streamy.Core.Services
             await _repo.SaveChangesAsync();
         }
 
-        //Checked, works
-        public async Task<List<AlbumModel>> GetAll()
+        public async Task<List<AlbumModel>> GetAll(string? userId)
         {
             var albums = await _repo
                 .All<Album>()
@@ -147,8 +143,7 @@ namespace Streamy.Core.Services
 
             return mappedAlbums;
         }
-
-        public async Task<AlbumModel> GetByIdForUpdateAsync(string id)
+        public async Task<AlbumModel> GetByIdForUpdateAsync(string? id)
         {
             var guidId = CheckIdIsGuid(id);
 
@@ -190,8 +185,7 @@ namespace Streamy.Core.Services
             return mappedAlbum;
 
         }
-
-        public async Task<AlbumModel> GetForDetail(string id)
+        public async Task<AlbumModel> GetForDetails(string? id)
         {
             var guidId = CheckIdIsGuid(id);
 

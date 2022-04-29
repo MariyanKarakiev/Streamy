@@ -1,4 +1,5 @@
-﻿using Streamy.Infrastructure.Models;
+﻿using Microsoft.AspNetCore.Http;
+using Streamy.Infrastructure.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace Streamy.Core.Models
@@ -18,7 +19,6 @@ namespace Streamy.Core.Models
         [DisplayFormat(DataFormatString = "{0:hh\\:mm\\:ss}", ApplyFormatInEditMode = true)]
         public TimeSpan Duration { get; set; }
 
-        [Required]
         public string? AlbumId { get; set; }
         public AlbumModel? Album { get; set; }
 
@@ -26,8 +26,17 @@ namespace Streamy.Core.Models
         public short GenreId { get; set; }
         public GenreModel? Genre { get; set; }
 
+        [Required]
+        public IFormFile Image { get; set; }
+        public string? ImageUrl { get; set; }
 
-        public List<ArtistModel> Artists { get; set; } = new List<ArtistModel>();
-        public List<PlaylistModel> Playlists { get; set; } = new List<PlaylistModel>();
+        public string? UserId { get; set; }
+
+        [Required]
+        public string[]? ArtistIds { get; set; }
+
+
+        public List<ArtistModel>? Artists { get; set; }
+        public List<PlaylistModel>? Playlists { get; set; }
     }
 }

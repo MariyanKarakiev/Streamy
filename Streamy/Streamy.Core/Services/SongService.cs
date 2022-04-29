@@ -3,7 +3,7 @@
 using Microsoft.EntityFrameworkCore;
 using Streamy.Core.Contracts;
 using Streamy.Core.Models;
-using Streamy.Core.Models.Song;
+
 using Streamy.Infrastructure.Data.Repositories;
 using Streamy.Infrastructure.Models;
 
@@ -165,11 +165,11 @@ namespace Streamy.Core.Services
         }
 
         //Works?
-        public async Task<SongCreateModel> GetByIdForUpdateAsync(string id)
+        public async Task<SongModel> GetByIdForUpdateAsync(string id)
         {
             var song = await GetSongWithDetails(id);
 
-            var mappedSongCreateModel = new SongCreateModel()
+            var mappedSongCreateModel = new SongModel()
             {
                 Id = song.Id.ToString(),
                 AlbumId = song.AlbumId,
