@@ -36,9 +36,26 @@ namespace Streamy.Core.Services
             await _repo.DeleteAsync<Genre>(id);
             await _repo.SaveChangesAsync();
         }
+        public async Task UpdateGenre(GenreModel genreModel)
+        {
+            if (genreModel == null)
+            {
+                throw new ArgumentNullException("Invalid model.", nameof(genreModel));
+            }
 
-        //Ok
-        public async Task<List<GenreModel>> GetAllGenres()
+            var genre = await _repo.All<Genre>().FirstOrDefaultAsync(g => g.Id == genreModel.Id);
+
+            if (genre == null)
+            {
+                throw new ArgumentNullException("Genre not found", nameof(genre));
+            }
+
+            _repo.Update(genre);
+            _repo.SaveChanges();
+        }
+
+
+        public async Task<List<GenreModel>> GetAll()
         {
             var genres = await _repo.All<Genre>().ToListAsync();
 
@@ -58,9 +75,30 @@ namespace Streamy.Core.Services
 
             return genreModelList;
         }
+        public async Task<List<GenreModel>> GetAll(string? userId)
+        {
+            var genres = await _repo
+                .All<Genre>()
+                .Where(g => g.UserId == userId)
+                .ToListAsync();
 
-        //Ok
-        public async Task<GenreModel> GetByIdAsync(short id)
+            if (genres == null)
+            {
+                throw new ArgumentNullException("There are no genres", nameof(genres));
+            }
+
+            var genreModelList = new List<GenreModel>();
+
+            genres.ForEach(g => genreModelList
+            .Add(new GenreModel
+            {
+                Id = g.Id,
+                Name = g.Name
+            }));
+
+            return genreModelList;
+        }
+        public async Task<GenreModel> GetByIdForUpdateAsync(short? id)
         {
             var genre = await _repo.GetByIdAsync<Genre>(id);
            
@@ -72,9 +110,7 @@ namespace Streamy.Core.Services
 
             return mappedGenre;
         }
-
-        //Checked, ready, works
-        public async Task<GenreModel> GetGenreWithDetails(short id)
+        public async Task<GenreModel> GetForDetails(short? id)
         {
             var genre = await _repo
                 .All<Genre>()
@@ -95,23 +131,7 @@ namespace Streamy.Core.Services
             return mappedGenre;
         }
 
-        //Checked, ready, works
-        public async Task UpdateGenre(GenreModel genreModel)
-        {
-            if (genreModel == null)
-            {
-                throw new ArgumentNullException("Invalid model.", nameof(genreModel));
-            }
+       
 
-            var genre = await _repo.All<Genre>().FirstOrDefaultAsync(g => g.Id == genreModel.Id);
-
-            if (genre == null)
-            {
-                throw new ArgumentNullException("Genre not found", nameof(genre));
-            }
-
-            _repo.Update(genre);
-            _repo.SaveChanges();
-        }
     }
 }
