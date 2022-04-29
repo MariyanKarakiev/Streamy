@@ -21,9 +21,9 @@ namespace Streamy.Core.Models
         public List<SongModel>? Songs { get; set; }
 
         public IFormFile Image { get; set; }
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
 
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
 
         public string[] SongIds { get; set; }
     }

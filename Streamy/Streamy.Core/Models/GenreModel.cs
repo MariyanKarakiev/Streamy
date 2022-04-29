@@ -14,5 +14,7 @@ namespace Streamy.Core.Models
         public string Name { get; set; }
         public int? Albums { get; set; }
         public int? Songs { get; set; }
+
+        public string? UserId { get; set; }
     }
 }

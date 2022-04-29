@@ -14,5 +14,7 @@ namespace Streamy.Core.Models
         [StringLength(56, MinimumLength = 2)]
         public string Country { get; set; }
 
+        public string? UserId { get; set; }
+
     }
 }
