@@ -12,8 +12,8 @@ using Streamy.Infrastructure.Data;
 namespace Streamy.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220429144221_Initial2")]
-    partial class Initial2
+    [Migration("20220429210925_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -270,8 +270,8 @@ namespace Streamy.Infrastructure.Migrations
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(2083)
+                        .HasColumnType("nvarchar(2083)");
 
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("date");
@@ -350,8 +350,8 @@ namespace Streamy.Infrastructure.Migrations
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
-                        .HasMaxLength(80)
-                        .HasColumnType("nvarchar(80)");
+                        .HasMaxLength(2083)
+                        .HasColumnType("nvarchar(2083)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -385,11 +385,16 @@ namespace Streamy.Infrastructure.Migrations
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
-                        .HasMaxLength(80)
-                        .HasColumnType("nvarchar(80)");
+                        .HasMaxLength(2083)
+                        .HasColumnType("nvarchar(2083)");
 
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("date");
+
+                    b.Property<string>("SongUrl")
+                        .IsRequired()
+                        .HasMaxLength(2083)
+                        .HasColumnType("nvarchar(2083)");
 
                     b.Property<string>("Title")
                         .IsRequired()

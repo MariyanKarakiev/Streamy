@@ -1,11 +1,15 @@
 ﻿
 using CloudinaryDotNet;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+
 using Streamy.Core.Contracts;
 using Streamy.Core.Models;
-using Streamy.Core.Models.Song;
 using Streamy.Core.Services;
+using System.Net;
+using System.Net.Http.Headers;
+using System.Net.Mime;
 using System.Security.Claims;
 
 namespace Streamy.Controllers
@@ -46,8 +50,8 @@ namespace Streamy.Controllers
             {
                 return NotFound();
             }
-
-            var genreToDetail = await _songService.GetForDetails((id));
+          //  await StreamAudioAsync(id);
+            var genreToDetail = await _songService.GetForDetails(id);
 
             return View(genreToDetail);
         }
@@ -82,20 +86,29 @@ namespace Streamy.Controllers
         }
 
         [HttpPost]
+
         public async Task<IActionResult> Create(SongModel songModel)
         {
+
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (ModelState.IsValid)
             {
+                if (songModel.Song != null)
+                {
+                    var songUrl = await SongUploadService.UploadSongAsync(_cloudinary, songModel.Song);
+                    songModel.SongUrl = songUrl;
+                }
+
                 if (songModel.Image != null)
                 {
-
-                    songModel.UserId = userId;
-
                     var imageUrl = await ImageUploadService.UploadImageAsync(_cloudinary, songModel.Image);
                     songModel.ImageUrl = imageUrl;
                 }
+
+
+                songModel.UserId = userId;
+
                 await _songService.CreateSong(songModel);
                 return RedirectToAction(nameof(Index));
             }
@@ -165,5 +178,83 @@ namespace Streamy.Controllers
 
             return View(songModel);
         }
+
+        //public async Task<IActionResult> StreamAudioAsync(string? id)
+        //{
+        //    var song = await _songService.GetForDetails(id);
+
+        //    Stream stream = null;
+
+        //    //This controls how many bytes to read at a time and send to the client
+        //    int bytesToRead = 10000;
+
+        //    // Buffer to read bytes in chunk size specified above
+        //    byte[] buffer = new Byte[bytesToRead];
+
+        //    var ms = new MemoryStream();
+            
+        //        // The number of bytes read
+        //        try
+        //        {
+        //            //Create a WebRequest to get the file
+        //            HttpWebRequest fileReq = (HttpWebRequest)HttpWebRequest.Create(song.SongUrl);
+
+        //            //Create a response for this request
+        //            HttpWebResponse fileResp = (HttpWebResponse)fileReq.GetResponse();
+
+        //            if (fileReq.ContentLength > 0)
+        //                fileResp.ContentLength = fileReq.ContentLength;
+
+
+        //            fileReq.GetRequestStream().CopyTo(ms);
+
+        //            // Use the memory stream.
+
+        //            // prepare the response to the client. resp is the client Response
+        //            var resp = HttpContext.Response;
+
+        //            //Indicate the type of data being sent
+        //            resp.ContentType = "application/octet-stream";
+
+        //            //Name the file 
+        //            resp.Headers.Add("Content-Disposition", "attachment; filename=test.zip");
+        //            resp.Headers.Add("Content-Length", fileResp.ContentLength.ToString());
+
+        //            int length;
+        //            do
+        //            {
+        //                // Verify that the client is connected.
+        //                if (!HttpContext.RequestAborted.IsCancellationRequested)
+        //                {
+        //                    // Read data into the buffer.
+        //                    length = stream.Read(buffer, 0, bytesToRead);
+
+        //                    // and write it out to the response's output stream
+        //                    resp.Body.Write(buffer, 0, length);
+
+
+        //                    //Clear the buffer
+        //                    buffer = new Byte[bytesToRead];
+        //                }
+        //                else
+        //                {
+        //                    // cancel the download if client has disconnected
+        //                    length = -1;
+        //                }
+        //            } while (length > 0); //Repeat until no data is read
+        //        }
+        //        finally
+        //        {
+        //            if (ms != null)
+        //            {
+        //            //Close the input stream
+        //            ms.Close();
+        //            }
+        //        }
+
+        //        return new FileStreamResult(stream, "audio/mpeg");
+        //    }
+        }
     }
-}
+
+

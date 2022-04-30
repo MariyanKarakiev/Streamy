@@ -9,40 +9,52 @@
 <html>
 <div class="col-lg-auto">
     <div class="row">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">@ViewData["Title"]</h4>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Song</th>
-                            <th>Artists</th>
-                            <th>Duration</th>
-                            <th>ReleaseDate</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var song in Model)
-                        {
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">@ViewData["Title"]</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
                             <tr>
-                                <td>@song.Title</td>
-                                <td>@song.Artists.Count</td>
-                                <td>@song.Duration</td>
-                                <td>@song.ReleaseDate</td>
-                                <td>
-                                    <a asp-action="Detail" asp-route-id="@song.Id" class="mdi mdi-information-outline "></a>
-                                    <a asp-action="Edit" asp-route-id="@song.Id" class="mdi mdi-border-color"></a>
-                                    <a asp-action="Delete" asp-route-id="@song.Id" class="mdi mdi-delete "></a>
-                                </td>
+                                <th>#</th>
+                                <th>Song</th>
+                                <th>Artists</th>
+                                <th>Duration</th>
+                                <th>ReleaseDate</th>
+                                <th></th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
-                <a asp-action="Create" asp-controller="Song" class="btn btn-outline-primary">Create</a>
+                        </thead>
+                        <tbody>
+                            @foreach (var song in Model)
+                            {
+                                <tr>
+                                    <td><img href=@song.ImageUrl class="img-circle elevation-2" /></td>
+                                    <td>@song.Title</td>
+                                    <td>@song.Artists.Count</td>
+                                    <td>@song.Duration</td>
+                                    <td>@song.ReleaseDate</td>
+                                    <td>
+                                        <a asp-action="Detail" asp-route-id="@song.Id" class="mdi mdi-information-outline "></a>
+                                        <a asp-action="Edit" asp-route-id="@song.Id" class="mdi mdi-border-color"></a>
+                                        <a asp-action="Delete" asp-route-id="@song.Id" class="mdi mdi-delete "></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <a asp-action="Create" asp-controller="Song" class="btn btn-outline-primary">Create</a>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts{
+<script src="~/js/adminlte.js"></script>
+<script src="~/Plugins/jquery/jquery.js"></script>
+<script src="~/Plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/Plugins/select2/js/select2.full.min.js"></script>
+<script src="~/Plugins/daterangepicker/daterangepicker.js"></script>
+<script src="~/assets/js/file-upload.js"></script>
+    }
 </html>

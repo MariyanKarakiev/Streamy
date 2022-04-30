@@ -124,6 +124,7 @@ namespace Streamy.Core.Services
                     Title = s.Title,
                     ReleaseDate = s.ReleaseDate,
                     Duration = s.Duration,
+                    ImageUrl = s.ImageUrl,
                     Artist = new ArtistModel()
                     {
                         Name = s.Artist.Name,

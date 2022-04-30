@@ -30,6 +30,9 @@ namespace Streamy.Infrastructure.Models
         [StringLength(2083)]
         public string ImageUrl { get; set; }
 
+        [StringLength(2083)]
+        public string SongUrl { get; set; }
+
         [Required]
         [StringLength(450)]
         public string UserId { get; set; }

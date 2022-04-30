@@ -1,5 +1,6 @@
 ﻿
 
+using CloudinaryDotNet;
 using Microsoft.EntityFrameworkCore;
 using Streamy.Core.Contracts;
 using Streamy.Core.Models;
@@ -18,66 +19,6 @@ namespace Streamy.Core.Services
             _repo = repo;
         }
 
-        public async Task CreateSong(SongModel songModel)
-        {
-            if (songModel == null)
-            {
-                throw new ArgumentNullException("There is no song to create.");
-            }
-
-            Guid[] artistIds = songModel.ArtistIds.Select(a => CheckIdIsGuid(a)).ToArray();
-
-            var artists = new List<Artist>();
-            var playlists = new List<Playlist>();
-
-            if (artistIds != null)
-            {
-                foreach (Guid artistId in artistIds)
-                {
-                    var artist = await _repo.GetByIdAsync<Artist>((object)artistId);
-
-                    if (artist == null)
-                    {
-                        throw new ArgumentNullException("There is no valid artist.");
-                    }
-
-                    artists.Add(artist);
-                }
-            }
-
-            var mappedSong = new Song()
-            {
-                Title = songModel.Title,
-                Duration = songModel.Duration,
-                GenreId = songModel.GenreId,
-                Artists = artists,
-                Playlists = playlists,
-                UserId = songModel.UserId,
-                ImageUrl = songModel.ImageUrl
-            };
-
-            if (songModel.AlbumId != null)
-            {
-                mappedSong.AlbumId = CheckIdIsGuid(songModel.AlbumId);
-            }
-
-            await _repo.AddAsync(mappedSong);
-            _repo.SaveChanges();
-        }
-        public async Task DeleteSong(string id)
-        {
-            var song = await _repo
-                .All<Song>()
-                .FirstOrDefaultAsync(s => s.Id == CheckIdIsGuid(id));
-
-            if (song == null)
-            {
-                throw new Exception();
-            }
-
-            _repo.Delete(song);
-            _repo.SaveChanges();
-        }
         public async Task UpdateSong(SongModel songModel)
         {
             List<Guid> artistIds = new List<Guid>();
@@ -130,6 +71,67 @@ namespace Streamy.Core.Services
             _repo.Update(song);
             _repo.SaveChanges();
         }
+        public async Task DeleteSong(string id)
+        {
+            var song = await _repo
+                .All<Song>()
+                .FirstOrDefaultAsync(s => s.Id == CheckIdIsGuid(id));
+
+            if (song == null)
+            {
+                throw new Exception();
+            }
+
+            _repo.Delete(song);
+            _repo.SaveChanges();
+        }
+        public async Task CreateSong(SongModel songModel)
+        {
+            if (songModel == null)
+            {
+                throw new ArgumentNullException("There is no song to create.");
+            }
+
+            Guid[] artistIds = songModel.ArtistIds.Select(a => CheckIdIsGuid(a)).ToArray();
+
+            var artists = new List<Artist>();
+            var playlists = new List<Playlist>();
+
+            if (artistIds != null)
+            {
+                foreach (Guid artistId in artistIds)
+                {
+                    var artist = await _repo.GetByIdAsync<Artist>((object)artistId);
+
+                    if (artist == null)
+                    {
+                        throw new ArgumentNullException("There is no valid artist.");
+                    }
+
+                    artists.Add(artist);
+                }
+            }
+
+            var mappedSong = new Song()
+            {
+                Title = songModel.Title,
+                Duration = songModel.Duration,
+                GenreId = songModel.GenreId,
+                Artists = artists,
+                Playlists = playlists,
+                UserId = songModel.UserId,
+                ImageUrl = songModel.ImageUrl,
+                SongUrl = songModel.SongUrl
+            };
+
+            if (songModel.AlbumId != null)
+            {
+                mappedSong.AlbumId = CheckIdIsGuid(songModel.AlbumId);
+            }
+
+            await _repo.AddAsync(mappedSong);
+            _repo.SaveChanges();
+        }
 
         public async Task<List<SongModel>> GetAll()
         {
@@ -155,6 +157,8 @@ namespace Streamy.Core.Services
                         Duration = s.Duration,
                         ReleaseDate = s.ReleaseDate,
                         GenreId = s.GenreId,
+                        SongUrl = s.SongUrl,
+                        ImageUrl = s.ImageUrl,
                         Artists = s.Artists
                         .Select(x => new ArtistModel()
                         {
@@ -193,6 +197,8 @@ namespace Streamy.Core.Services
                         ReleaseDate = s.ReleaseDate,
                         GenreId = s.GenreId,
                         UserId = userId,
+                        SongUrl = s.SongUrl,
+                        ImageUrl = s.ImageUrl,
                         Artists = s.Artists
                         .Select(x => new ArtistModel()
                         {
@@ -207,7 +213,7 @@ namespace Streamy.Core.Services
         }
         public async Task<SongModel> GetByIdForUpdateAsync(string? id)
         {
-            var song = await GetSongWithDetails(id);
+            var song = await GetForDetails(id);
 
             var mappedSongCreateModel = new SongModel()
             {
@@ -218,6 +224,8 @@ namespace Streamy.Core.Services
                 Playlists = song.Playlists,
                 Artists = song.Artists,
                 Title = song.Title,
+                SongUrl = song.SongUrl,
+                ImageUrl = song.ImageUrl,
                 ReleaseDate = song.ReleaseDate,
             };
 
@@ -285,7 +293,9 @@ namespace Streamy.Core.Services
                 Album = mappedAlbum,
                 Genre = mappedGenre,
                 Artists = mappedArtists,
-                Playlists = mappedPlaylists
+                Playlists = mappedPlaylists,
+                SongUrl = song.SongUrl,
+                ImageUrl = song.ImageUrl,
             };
 
             return mappedSong;

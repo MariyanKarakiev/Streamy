@@ -9,22 +9,21 @@ using Microsoft.AspNetCore.Http;
 
 namespace Streamy.Core.Services
 {
-    public static class ImageUploadService
+    public static class SongUploadService
     {
-        public static async Task<string> UploadImageAsync(Cloudinary cloudinary, IFormFile image)
+        public static async Task<string> UploadSongAsync(Cloudinary cloudinary, IFormFile song)
         {
-            byte[] imageBytes;
-            string imageUrl;
+            byte[] songBytes;
+            string songUrl;
 
             using (var memoryStream = new MemoryStream())
             {
-                await image.CopyToAsync(memoryStream);
-                imageBytes = memoryStream.ToArray();
-
+                await song.CopyToAsync(memoryStream);
+                songBytes = memoryStream.ToArray();
 
             }
 
-            using (var memoryStream = new MemoryStream(imageBytes))
+            using (var memoryStream = new MemoryStream(songBytes))
             {
                 var uploadParams = new RawUploadParams()
                 {
@@ -33,10 +32,10 @@ namespace Streamy.Core.Services
 
                 var result = await cloudinary.UploadAsync(uploadParams);
 
-                imageUrl = result.Url.AbsoluteUri;
+                songUrl = result.Url.AbsoluteUri;
             }
 
-            return imageUrl;
+            return songUrl;
         }
     }
 }

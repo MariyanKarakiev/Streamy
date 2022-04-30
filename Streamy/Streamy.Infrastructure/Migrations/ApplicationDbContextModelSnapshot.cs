@@ -268,8 +268,8 @@ namespace Streamy.Infrastructure.Migrations
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(2083)
+                        .HasColumnType("nvarchar(2083)");
 
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("date");
@@ -348,8 +348,8 @@ namespace Streamy.Infrastructure.Migrations
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
-                        .HasMaxLength(80)
-                        .HasColumnType("nvarchar(80)");
+                        .HasMaxLength(2083)
+                        .HasColumnType("nvarchar(2083)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -383,11 +383,16 @@ namespace Streamy.Infrastructure.Migrations
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
-                        .HasMaxLength(80)
-                        .HasColumnType("nvarchar(80)");
+                        .HasMaxLength(2083)
+                        .HasColumnType("nvarchar(2083)");
 
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("date");
+
+                    b.Property<string>("SongUrl")
+                        .IsRequired()
+                        .HasMaxLength(2083)
+                        .HasColumnType("nvarchar(2083)");
 
                     b.Property<string>("Title")
                         .IsRequired()

@@ -22,7 +22,7 @@
                     <div class="card card-widget widget-user-2">
                         <div class="widget-user-header bg-warning">
                             <div class="widget-user-image">
-                                <img class="img-circle elevation-2" src="../dist/img/user7-128x128.jpg" alt="User Avatar">
+                                <img class="img-circle elevation-2" src=@Model.ImageUrl alt="User Avatar">
                             </div>
                             <!-- /.widget-user-image -->
                             <h3 class="widget-user-username">Nadia Carmichael</h3>
@@ -66,10 +66,12 @@
                             @foreach (var artist in Model.Artists)
                             {
                                 <tr>
+                                    <th> <audio src=@Model.SongUrl controls preload="auto"></audio>
+                         
                                     <th>@artist.Name</th>
                                     <th>@artist.Country</th>
                                     <td>
-                                        <a asp-action="Detail" asp-controller="Artist" asp-route-id="@artist.Id" class="mdi mdi-information-outline "></a>
+                                        <a asp-action="Details" asp-controller="Song" asp-route-id="@artist.Id" class="mdi mdi-information-outline "></a>
                                         <a asp-action="Edit" asp-controller="Artist" asp-route-id="@artist.Id" class="mdi mdi-border-color"></a>
                                         <a asp-action="Delete" asp-controller="Artist" asp-route-id="@artist.Id" class="mdi mdi-delete "></a>
                                     </td>

@@ -30,6 +30,10 @@ namespace Streamy.Core.Models
         public IFormFile Image { get; set; }
         public string? ImageUrl { get; set; }
 
+        [Required]
+        public IFormFile Song { get; set; }
+        public string? SongUrl { get; set; }
+
         public string? UserId { get; set; }
 
         [Required]

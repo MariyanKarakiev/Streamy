@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Streamy.Infrastructure.Migrations
 {
-    public partial class Iniital : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -82,7 +82,7 @@ namespace Streamy.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(2083)", maxLength: 2083, nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false)
                 },
                 constraints: table =>
@@ -99,7 +99,7 @@ namespace Streamy.Infrastructure.Migrations
                     ReleaseDate = table.Column<DateTime>(type: "date", nullable: false),
                     Duration = table.Column<TimeSpan>(type: "time", nullable: false),
                     ArtistId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(2083)", maxLength: 2083, nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false)
                 },
                 constraints: table =>
@@ -229,7 +229,8 @@ namespace Streamy.Infrastructure.Migrations
                     Duration = table.Column<TimeSpan>(type: "time", nullable: false),
                     AlbumId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     GenreId = table.Column<short>(type: "smallint", nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(2083)", maxLength: 2083, nullable: false),
+                    SongUrl = table.Column<string>(type: "nvarchar(2083)", maxLength: 2083, nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false)
                 },
                 constraints: table =>

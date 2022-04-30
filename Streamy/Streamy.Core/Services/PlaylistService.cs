@@ -134,38 +134,8 @@ namespace Streamy.Core.Services
             }
 
             return mappedPlaylists;
-            public async Task<List<PlaylistModel>> GetAll()
-            {
-                var playlists = await _repo.All<Playlist>()
-                     .Include(a => a.Songs)
-                     .ToListAsync();
-
-                if (playlists == null)
-                {
-                    throw new ArgumentNullException("No playlists.");
-                }
-
-                var mappedPlaylists = playlists
-                    .Select(s => new PlaylistModel()
-                    {
-                        Id = s.Id.ToString(),
-                        Title = s.Title,
-                        Songs = s.Songs
-                            .Select(s => new SongModel()
-                            {
-                                Title = s.Title,
-                            }).ToList()
-                    })
-                    .ToList();
-
-                if (mappedPlaylists == null)
-                {
-                    throw new ArgumentNullException("No valid playlists models.");
-                }
-
-                return mappedPlaylists;
-            }
         }
+
         public async Task<List<PlaylistModel>> GetAll(string? userId)
         {
             var playlists = await _repo.All<Playlist>()

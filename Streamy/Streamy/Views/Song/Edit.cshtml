@@ -1,6 +1,5 @@
 ﻿@using Streamy.Core.Models
-@using Streamy.Core.Models.Song
-@model SongCreateModel
+@model SongModel
 
 @{
     ViewData["Title"] = "Edit Song";
@@ -27,7 +26,7 @@
 
             <div class="card card-default">
                 <div class="card-header">
-                    <h4 class="card-title">Add Song</h4>
+                    <h4 class="card-title">@ViewData["Title"]</h4>
 
                     <form class="forms-sample" asp-action="Edit" asp-controller="Song" method="post">
                         <div class="row">
