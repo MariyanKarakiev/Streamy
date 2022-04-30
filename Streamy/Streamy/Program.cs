@@ -17,6 +17,7 @@ builder.Services.AddApplicationDbContexts(builder.Configuration);
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
         options.SignIn.RequireConfirmedAccount = true
 )
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddAuthentication()
@@ -52,7 +53,7 @@ Cloudinary cloudinary = new Cloudinary(cloudinaryAccount);
 cloudinary.Api.Secure = true;
 
 builder.Services.AddSingleton(cloudinary);
-   
+
 builder.Services.AddApplicationServices();
 
 var app = builder.Build();
@@ -76,6 +77,10 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "Area",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",

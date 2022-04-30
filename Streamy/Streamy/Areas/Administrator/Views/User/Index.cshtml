@@ -1,0 +1,51 @@
+﻿@using Streamy.Core.Models
+@model List<UserModel>
+
+@{
+    ViewData["Title"] = "Genres";
+
+}
+
+<html>
+<div class="col-lg-auto">
+    <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">@ViewData["Title"]</h4>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Email</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var user in Model)
+                                {
+                                    <tr>
+                                        <td>@user.UserName</td>
+                                        <td>@user.Email</td>
+                                        <td>
+                                            <a asp-area="Administrator" asp-action="Edit" asp-controller="User" asp-route-id="@user.Id" class="btn btn-block btn-outline-info btn-xs">Edit</a>
+                                            <a asp-area="Administrator" asp-action="Roles" asp-controller="User" asp-route-id="@user.Id" class="btn btn-block btn-outline-warning btn-xs">Roles</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    </tbody>
+                    </table>
+                    <a asp-action="Create" class="btn btn-outline-primary">Add</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

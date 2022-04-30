@@ -33,60 +33,80 @@ namespace Streamy.Controllers
 
         public async Task<IActionResult> Create()
         {
-            var albumModel = new AlbumModel();
+            try
+            {
+                var albumModel = new AlbumModel();
 
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var artists = await _artistService.GetAll();
-            var songs = await _songService.GetAll(userId);
+                var artists = await _artistService.GetAll();
+                var songs = await _songService.GetAll(userId);
 
-            ViewData["Artists"] = new SelectList(artists, "Id", "Name");
-            ViewData["Songs"] = new SelectList(songs, "Id", "Title");
-
-            return View(albumModel);
+                ViewData["Artists"] = new SelectList(artists, "Id", "Name");
+                ViewData["Songs"] = new SelectList(songs, "Id", "Title");
+               
+                return View(albumModel);
+            }
+            catch (Exception ex)
+            {
+                return View("505");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(AlbumModel albumModel)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-           
-            if (ModelState.IsValid)
+            try
             {
-                if (albumModel.Image != null)
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                if (ModelState.IsValid)
                 {
+                    if (albumModel.Image != null)
+                    {
 
-                    albumModel.UserId = userId;
+                        albumModel.UserId = userId;
 
-                    var imageUrl = await ImageUploadService.UploadImageAsync(_cloudinary, albumModel.Image);
-                    albumModel.ImageUrl = imageUrl;
+                        var imageUrl = await ImageUploadService.UploadImageAsync(_cloudinary, albumModel.Image);
+                        albumModel.ImageUrl = imageUrl;
+                    }
+                    await _albumService.CreateAlbum(albumModel);
+                    return RedirectToAction(nameof(Index));
                 }
-                await _albumService.CreateAlbum(albumModel);
-                return RedirectToAction(nameof(Index));
+
+                var artists = await _artistService.GetAll();
+                var songs = await _songService.GetAll(userId);
+
+                ViewData["Artists"] = new SelectList(artists, "Id", "Name");
+                ViewData["Songs"] = new SelectList(songs, "Id", "Title");
+
+                return View(albumModel);
             }
-
-            var artists = await _artistService.GetAll();
-            var songs = await _songService.GetAll(userId);
-
-            ViewData["Artists"] = new SelectList(artists, "Id", "Name");
-            ViewData["Songs"] = new SelectList(songs, "Id", "Title");
-
-            return View(albumModel);
+            catch (Exception ex)
+            {
+                return View("505");
+            }
         }
         public async Task<IActionResult> Edit(string? id)
         {
+            try
+            {
+                var albumToEdit = await _albumService.GetByIdForUpdateAsync(id);
 
-            var albumToEdit = await _albumService.GetByIdForUpdateAsync(id);
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var artists = await _artistService.GetAll(userId);
+                var songs = await _songService.GetAll();
 
-            var artists = await _artistService.GetAll(userId);
-            var songs = await _songService.GetAll();
+                ViewData["Artists"] = new SelectList(artists, "Id", "Name");
+                ViewData["Songs"] = new SelectList(songs, "Id", "Title");
 
-            ViewData["Artists"] = new SelectList(artists, "Id", "Name");
-            ViewData["Songs"] = new SelectList(songs, "Id", "Title");
-
-            return View(albumToEdit);
+                return View(albumToEdit);
+            }
+            catch (Exception ex)
+            {
+                return View("505");
+            }
         }
 
         [HttpPost]
@@ -101,7 +121,7 @@ namespace Streamy.Controllers
                 {
                     albumModel.UserId = userId;
 
-                    var imageUrl = await ImageUploadService.UploadImageAsync(_cloudinary, albumModel.Image); 
+                    var imageUrl = await ImageUploadService.UploadImageAsync(_cloudinary, albumModel.Image);
                     albumModel.ImageUrl = imageUrl;
                 }
                 await _albumService.UpdateAlbum(albumModel);

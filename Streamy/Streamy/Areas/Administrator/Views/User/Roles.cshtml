@@ -1,0 +1,56 @@
+﻿@using Streamy.Core.Models
+@model UserModel
+
+@{
+    ViewData["Title"] = "Add Genre";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ViewData["Title"]</title>
+</head>
+
+<body>
+    <div class="col-lg-auto">
+        <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Add Genre</h4>
+
+                        <form asp-action=Roles id="roles" method="post">
+                            <input type="hidden" name="UserId" value="@Model.Id" />
+                            <input type="hidden" name="Name" value="@Model.UserName" />
+
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-floating">
+                                <h3>User: @Html.DisplayFor(m => m.UserName)</h3>
+                            </div>
+                            <div class="form-floating">
+                                <div class="form-group">
+                                    <label>User Roles</label>
+                                    <select asp-for=@Model.Roles asp-items=@((SelectList)ViewData["Roles"]) class="select2" multiple="multiple" data-placeholder="Select a State" data-dropdown-css-class="select2-purple" style="width: 100%;">
+                            </select>
+                                </div>
+                            </div>
+                            <div class="row">&nbsp;</div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <button id="login-submit" type="submit" class="btn btn-primary btn-block">Submit</button>
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+

@@ -288,3 +288,7 @@ D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\obj\Debug\net6.0\Streamy.csproj.
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\obj\Debug\net6.0\Streamy.genruntimeconfig.cache
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\obj\Debug\net6.0\ref\Streamy.dll
 D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\bin\Debug\net6.0\CloudinaryDotNet.dll
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\bin\Debug\net6.0\Microsoft.OpenApi.dll
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\SoftUni\SoftUni\ASP.NET Core\Streamy\Streamy\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll

@@ -1,0 +1,46 @@
+﻿@using Streamy.Core.Models
+@model UserModel
+
+@{
+    ViewData["Title"] = "Edit User";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+</head>
+
+<body>
+    <div class="col-lg-auto">
+        <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">@ViewData["Title"]</h4>
+                        <form class="forms-sample" asp-area="Administration" asp-action="Roles" asp-controller="User" method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="UserName"></label>
+                                <input asp-for="UserName" type="text" class="form-control" id="exampleInputUsername1" placeholder="Genre">
+                                <span asp-validation-for="UserName" class="text-danger"></span>
+                            </div>
+
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="Email"></label>
+                                <input asp-for="Email" type="text" class="form-control" id="exampleInputUsername1" placeholder="Genre">
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <button type="submit" class="btn btn-outline-primary">Edit</button>
+                            <button asp-action="Index" class="btn btn-outline-primary">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

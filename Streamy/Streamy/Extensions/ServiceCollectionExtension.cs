@@ -18,6 +18,7 @@ namespace Streamy.Extensions
             services.AddScoped<IAlbumService, AlbumService>();
             services.AddScoped<IArtistService, ArtistService>();
             services.AddScoped<IPlaylistService, PlaylistService>();
+            services.AddScoped<IUserService, UserService>();
 
             return services;
         }

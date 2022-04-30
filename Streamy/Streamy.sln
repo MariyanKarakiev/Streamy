@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Streamy.Core", "Streamy.Cor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Streamy.Infrastructure", "Streamy.Infrastructure\Streamy.Infrastructure.csproj", "{9880CF92-87EF-4945-BACF-F67ACCA4F0E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Streamy", "Streamy\Streamy.csproj", "{4BEB7225-73B2-47E9-A375-990099F3576D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Streamy", "Streamy\Streamy.csproj", "{4BEB7225-73B2-47E9-A375-990099F3576D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
