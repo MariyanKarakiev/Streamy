@@ -9,7 +9,7 @@ using Streamy.Core.Models;
 
 namespace Streamy.Controllers
 {
-    [Authorize(Roles = RolesConstants.Roles.Administrator)]
+    [Authorize]
     [Area("Administrator")]
     public class UserController : Controller
     {

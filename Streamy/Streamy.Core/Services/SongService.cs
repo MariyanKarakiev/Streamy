@@ -251,7 +251,6 @@ namespace Streamy.Core.Services
 
             var mappedGenre = new GenreModel()
             {
-                Id = song.Genre.Id,
                 Name = song.Genre.Name,
             };
 
@@ -259,7 +258,6 @@ namespace Streamy.Core.Services
                 .Artists
                 .Select(a => new ArtistModel()
                 {
-                    Id = a.Id.ToString(),
                     Name = a.Name,
                 })
                 .ToList();

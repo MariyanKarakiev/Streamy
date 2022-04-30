@@ -203,6 +203,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1cQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/SoftUni/SoftUni/ASP.NET Core/Streamy/Streamy/Views/Album/Detail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1cRGV0YWlsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/SoftUni/SoftUni/ASP.NET Core/Streamy/Streamy/Views/Album/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1cRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

@@ -33,13 +33,11 @@
                             <span asp-validation-for=Title class="text-danger"></span>
 
                         </div>
-
-                        <div class="form-group">
-                            <label asp-for=ReleaseDate></label>
-                            <input asp-for=ReleaseDate type="datetime" class="form-control" placeholder="okok">
-                            <span asp-validation-for=ReleaseDate class="text-danger"></span>
-
-                        </div>
+                       <div class="form-group">
+                                    <label asp-for=ReleaseDate></label>
+                                    <input asp-for=ReleaseDate type="date" class="form-control">
+                                    <span asp-validation-for=ReleaseDate class="text-danger"></span>
+                                </div>
                         <div class="form-group">
                             <label asp-for=ArtistId></label>
                             <select asp-for=ArtistId asp-items=@((SelectList)ViewData["Artists"]) class="form-control" placeholder="Select Artist">
@@ -72,7 +70,7 @@
         </div>
     </section>
 
-    @section Scripts{
+     @section Scripts{
     <script src="~/js/adminlte.js"></script>
     <script src="~/Plugins/jquery/jquery.js"></script>
     <script src="~/Plugins/bootstrap/js/bootstrap.bundle.min.js"></script>

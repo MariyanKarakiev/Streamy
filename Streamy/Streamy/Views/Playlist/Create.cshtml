@@ -39,16 +39,16 @@
                             </select>
                             <span asp-validation-for=@Model.SongIds class="text-danger"></span>
                         </div>
-                         <div class="form-group">
-                                    <label>File upload</label>
-                                    <input asp-for=Image type="file" class="file-upload-default">
-                                    <div class="input-group col-xs-12">
-                                        <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
-                                        <span class="input-group-append">
-                                            <button class="file-upload-browse btn btn-primary" id="OpenImgUpload" type="button">Upload</button>
-                                        </span>
-                                    </div>
-                                </div>
+                        <div class="form-group">
+                            <label>Image upload</label>
+                            <input asp-for=Image type="file" class="file-upload-default">
+                            <div class="input-group col-xs-12">
+                                <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                                <span class="input-group-append">
+                                    <button class="file-upload-browse btn btn-primary" id="OpenImgUpload" type="button">Upload</button>
+                                </span>
+                            </div>
+                        </div>
                         <button type="submit" class="btn btn-outline-primary">Create</button>
                         <button class="btn btn-outline-behance" asp-action="Index">Cancel</button>
                     </form>
@@ -57,19 +57,15 @@
         </div>
     </section>
 
-    <script src="~/Plugins/select2/js/select2.js"></script>
-    <script src="~/Plugins/select2/js/select2.min.js"></script>
+    @section Scripts{
     <script src="~/js/adminlte.js"></script>
     <script src="~/Plugins/jquery/jquery.js"></script>
     <script src="~/Plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="~/Plugins/select2/js/select2.full.min.js"></script>
-    <script src="~/Plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
-    <script src="~/Plugins/moment/moment.min.js"></script>
-    <script src="~/Plugins/inputmask/jquery.inputmask.min.js"></script>
     <script src="~/Plugins/daterangepicker/daterangepicker.js"></script>
-    <script src="~/Plugins/bs-stepper/js/bs-stepper.min.js"></script>
+    <script src="~/assets/js/file-upload.js"></script>
 
-      <script>
+    <script>
              $(function () {
           //Initialize Select2 Elements
           $('.select2').select2()
@@ -77,73 +73,6 @@
           //Initialize Select2 Elements
           $('.select2bs4').select2({
             theme: 'bootstrap4'
-          })
-
-          $('#OpenImgUpload').click(function(){ $('#imgupload').trigger('click'); });
-
-          //Datemask dd/mm/yyyy
-          $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-          //Datemask2 mm/dd/yyyy
-          $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
-          //Money Euro
-          $('[data-mask]').inputmask()
-
-          //Date picker
-          $('#reservationdate').datetimepicker({
-              format: 'L'
-          });
-
-          //Date and time picker
-          $('#reservationdatetime').datetimepicker({ icons: { time: 'far fa-clock' } });
-
-          //Date range picker
-          $('#reservation').daterangepicker()
-          //Date range picker with time picker
-          $('#reservationtime').daterangepicker({
-            timePicker: true,
-            timePickerIncrement: 30,
-            locale: {
-              format: 'MM/DD/YYYY hh:mm A'
-            }
-          })
-          //Date range as a button
-          $('#daterange-btn').daterangepicker(
-            {
-              ranges   : {
-                'Today'       : [moment(), moment()],
-                'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-                'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-              },
-              startDate: moment().subtract(29, 'days'),
-              endDate  : moment()
-            },
-            function (start, end) {
-              $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-            }
-          )
-
-          //Timepicker
-          $('#timepicker').datetimepicker({
-            format: 'LT'
-          })
-
-          //Bootstrap Duallistbox
-          $('.duallistbox').bootstrapDualListbox()
-
-          //Colorpicker
-          $('.my-colorpicker1').colorpicker()
-          //color picker with addon
-          $('.my-colorpicker2').colorpicker()
-
-          $('.my-colorpicker2').on('colorpickerChange', function(event) {
-            $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
-          })
-
-          $("input[data-bootstrap-switch]").each(function(){
-            $(this).bootstrapSwitch('state', $(this).prop('checked'));
           })
 
         })
@@ -177,34 +106,8 @@
           file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file) }
         })
 
-        // Update the total progress bar
-        myDropzone.on("totaluploadprogress", function(progress) {
-          document.querySelector("#total-progress .progress-bar").style.width = progress + "%"
-        })
-
-        myDropzone.on("sending", function(file) {
-          // Show the total progress bar when upload starts
-          document.querySelector("#total-progress").style.opacity = "1"
-          // And disable the start button
-          file.previewElement.querySelector(".start").setAttribute("disabled", "disabled")
-        })
-
-        // Hide the total progress bar when nothing's uploading anymore
-        myDropzone.on("queuecomplete", function(progress) {
-          document.querySelector("#total-progress").style.opacity = "0"
-        })
-
-        // Setup the buttons for all transfers
-        // The "add files" button doesn't need to be setup because the config
-        // `clickable` has already been specified.
-        document.querySelector("#actions .start").onclick = function() {
-          myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED))
-        }
-        document.querySelector("#actions .cancel").onclick = function() {
-          myDropzone.removeAllFiles(true)
-        }
-        // DropzoneJS Demo Code End
     </script>
+    }
 </body>
 </html>
 

@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Streamy.Common;
 using Streamy.Core.Contracts;
 using Streamy.Core.Models;
 using System.Security.Claims;
 
 namespace Streamy.Controllers
 {
-    public class ArtistController : Controller
+    [Authorize(Roles = RolesConstants.Roles.Administrator)]
+    public class ArtistController : BaseController
     {
         private readonly IArtistService _artistService;
 
@@ -15,9 +18,16 @@ namespace Streamy.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var allArtists = await _artistService.GetAll();
+            try
+            {
+                var allArtists = await _artistService.GetAll();
 
-            return View(allArtists);
+                return View(allArtists);
+            }
+            catch (Exception ex)
+            {
+                return View("505");
+            }
         }
 
         public IActionResult Create()
@@ -29,67 +39,101 @@ namespace Streamy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ArtistModel artistModel)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (ModelState.IsValid)
+                {
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-                artistModel.UserId = userId;
+                    artistModel.UserId = userId;
 
-                await _artistService.CreateArtist(artistModel);
-                return RedirectToAction(nameof(Index));
+                    await _artistService.CreateArtist(artistModel);
+                    return RedirectToAction(nameof(Index));
+                }
+
+                return View(artistModel);
             }
-
-            return View(artistModel);
-
+            catch (Exception ex)
+            {
+                return View("505");
+            }
         }
 
         public async Task<IActionResult> Detail(string? id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
+                if (id == null)
+                {
+                    return NotFound();
+                }
+
+                var artistToDetail = await _artistService.GetForDetails(id);
+
+                return View(artistToDetail);
             }
-
-            var artistToDetail = await _artistService.GetForDetails(id);
-
-            return View(artistToDetail);
+            catch (Exception ex)
+            {
+                return View("505");
+            }
         }
 
         public async Task<IActionResult> Delete(string? id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
+                if (id == null)
+                {
+                    return NotFound();
+                }
+
+                await _artistService.DeleteArtist(id);
+
+                return RedirectToAction("Index");
             }
-
-            await _artistService.DeleteArtist(id);
-
-            return RedirectToAction("Index");
+            catch (Exception ex)
+            {
+                return View("505");
+            }
         }
 
         public async Task<IActionResult> Edit(string? id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
+                if (id == null)
+                {
+                    return NotFound();
+                }
+
+                var artistToEdit = await _artistService.GetByIdForUpdateAsync(id);
+
+                return View(artistToEdit);
             }
-
-            var artistToEdit = await _artistService.GetByIdForUpdateAsync(id);
-
-            return View(artistToEdit);
+            catch (Exception ex)
+            {
+                return View("505");
+            }
         }
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Edit(ArtistModel artistViewModel)
         {
-            if (artistViewModel == null)
+            try
             {
-                return NotFound();
-            }
-            await _artistService.UpdateArtist(artistViewModel);
+                if (artistViewModel == null)
+                {
+                    return NotFound();
+                }
+                await _artistService.UpdateArtist(artistViewModel);
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return View("505");
+            }
         }
     }
 }

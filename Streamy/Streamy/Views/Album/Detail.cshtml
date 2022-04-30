@@ -1,5 +1,5 @@
 ﻿@using Streamy.Core.Models
-@model SongModel
+@model AlbumModel
 
 @{
     ViewData["Title"] = "Details";
@@ -29,25 +29,21 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Play</th>
-                                <th>Name</th>
+                                <th>Title</th>
+                                <th>Artist</th>
                                 <th>ReleaseDate</th>
                                 <th>Genre</th>
-                                <th>Artists</th>
+                                <th>Artist</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <th> <audio src=@Model.SongUrl controls preload="auto"></audio>      </th>
                                 <th>@Model.Title</th>
+                                <th>@Model.Artist.Name</th>
                                 <th>@Model.ReleaseDate</th>
-                                <th>@Model.Genre.Name</th>
-                                <th>
-                                       @string.Join(", ",Model.Artists.Select(a=>a.Name))
-                                </th>
+                                <th>@Model.Duration</th>
+                                <th>@Model.Artist.Name</th>
                             </tr>
-                            
-
                         </tbody>
                     </table>
                 </div>

@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace Streamy.Areas.Admin.Controllers
 {
-    [Authorize(Roles = RolesConstants.Roles.Administrator)]
+    [Authorize]
     [Area("Administrator")]
     public class HomeController : Controller
     {

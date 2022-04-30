@@ -1,4 +1,5 @@
 ﻿using CloudinaryDotNet;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Streamy.Core.Contracts;
@@ -8,7 +9,7 @@ using System.Security.Claims;
 
 namespace Streamy.Controllers
 {
-    public class AlbumController : Controller
+    public class AlbumController : BaseController
     {
         private readonly IAlbumService _albumService;
         private readonly IArtistService _artistService;
@@ -24,6 +25,7 @@ namespace Streamy.Controllers
             _cloudinary = cloudinary;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var albums = await _albumService.GetAll();
@@ -44,7 +46,7 @@ namespace Streamy.Controllers
 
                 ViewData["Artists"] = new SelectList(artists, "Id", "Name");
                 ViewData["Songs"] = new SelectList(songs, "Id", "Title");
-               
+
                 return View(albumModel);
             }
             catch (Exception ex)
@@ -113,35 +115,67 @@ namespace Streamy.Controllers
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Edit(AlbumModel albumModel)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            if (ModelState.IsValid)
+            try
             {
-                if (albumModel.Image != null)
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                if (ModelState.IsValid)
                 {
-                    albumModel.UserId = userId;
+                    if (albumModel.Image != null)
+                    {
+                        albumModel.UserId = userId;
 
-                    var imageUrl = await ImageUploadService.UploadImageAsync(_cloudinary, albumModel.Image);
-                    albumModel.ImageUrl = imageUrl;
+                        var imageUrl = await ImageUploadService.UploadImageAsync(_cloudinary, albumModel.Image);
+                        albumModel.ImageUrl = imageUrl;
+                    }
+                    await _albumService.UpdateAlbum(albumModel);
+                    return RedirectToAction(nameof(Index));
                 }
-                await _albumService.UpdateAlbum(albumModel);
-                return RedirectToAction(nameof(Index));
+
+                var artists = await _artistService.GetAll();
+                var songs = await _songService.GetAll(userId);
+
+                ViewData["Artists"] = new SelectList(artists, "Id", "Name");
+                ViewData["Songs"] = new SelectList(songs, "Id", "Title");
+
+                return View(albumModel);
             }
-
-            var artists = await _artistService.GetAll();
-            var songs = await _songService.GetAll(userId);
-
-            ViewData["Artists"] = new SelectList(artists, "Id", "Name");
-            ViewData["Songs"] = new SelectList(songs, "Id", "Title");
-
-            return View(albumModel);
+            catch (Exception ex)
+            {
+                return View("505");
+            }
         }
+        public async Task<IActionResult> Detail(string? id)
+        {
+            try
+            {
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
+                var songToDetail = await _songService.GetForDetails(id);
+
+                return View(songToDetail);
+            }
+            catch (Exception ex)
+            {
+                return View("505");
+            }
+        }
         public async Task<IActionResult> Delete(string? id)
         {
-            await _albumService.DeleteAlbum(id);
+            try
+            {
+                await _albumService.DeleteAlbum(id);
 
-            return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                return View("505");
+            }
         }
     }
 }
+

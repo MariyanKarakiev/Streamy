@@ -8,11 +8,12 @@ namespace Streamy.Core.Models
     {
         public string? Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Title is required")]
+        [StringLength(100, MinimumLength = 2)]
         public string Title { get; set; }
 
-
-        [Required]
+        [Required(ErrorMessage = "Release date is required")]
+        [DataType(DataType.Date)]
         public DateTime ReleaseDate { get; set; }
 
         [Required]
@@ -22,23 +23,23 @@ namespace Streamy.Core.Models
         public string? AlbumId { get; set; }
         public AlbumModel? Album { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Genre is required")]
         public short GenreId { get; set; }
         public GenreModel? Genre { get; set; }
 
-        [Required]
         public IFormFile Image { get; set; }
         public string? ImageUrl { get; set; }
 
-        [Required]
+
+
         public IFormFile Song { get; set; }
         public string? SongUrl { get; set; }
-
-        public string? UserId { get; set; }
 
         [Required]
         public string[]? ArtistIds { get; set; }
 
+
+        public string? UserId { get; set; }
 
         public List<ArtistModel>? Artists { get; set; }
         public List<PlaylistModel>? Playlists { get; set; }

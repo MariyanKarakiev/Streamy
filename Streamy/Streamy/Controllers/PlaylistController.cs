@@ -1,13 +1,15 @@
 ﻿using CloudinaryDotNet;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Streamy.Core.Contracts;
 using Streamy.Core.Models;
+using Streamy.Core.Services;
 using System.Security.Claims;
 
 namespace Streamy.Controllers
 {
-    public class PlaylistController : Controller
+    public class PlaylistController : BaseController
     {
         private readonly IPlaylistService _playlistService;
         private readonly ISongService _songService;
@@ -23,80 +25,129 @@ namespace Streamy.Controllers
             _cloudinary = cloudinary;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            var albums = await _playlistService.GetAll();
+            try
+            {
+                var albums = await _playlistService.GetAll();
 
-            return View(albums);
+                return View(albums);
+            }
+            catch (Exception ex)
+            {
+                return View("505");
+            }
         }
 
         public async Task<IActionResult> Create()
         {
-            var playlistModel = new PlaylistModel();
+            try
+            {
+                var playlistModel = new PlaylistModel();
 
-            var songs = await _songService.GetAll();
+                var songs = await _songService.GetAll();
 
-            ViewData["Songs"] = new SelectList(songs, "Id", "Title");
+                ViewData["Songs"] = new SelectList(songs, "Id", "Title");
 
-            return View(playlistModel);
+                return View(playlistModel);
+            }
+            catch (Exception ex)
+            {
+                return View("505");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(PlaylistModel playlistModel)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (ModelState.IsValid)
+                {
+                    if (playlistModel.Image != null)
+                    {
+                        var imageUrl = await ImageUploadService.UploadImageAsync(_cloudinary, playlistModel.Image);
+                        playlistModel.ImageUrl = imageUrl;
+                    }
 
-                playlistModel.UserId = userId;
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-                await _playlistService.CreatePlaylist(playlistModel);
-                return RedirectToAction(nameof(Index));
+                    playlistModel.UserId = userId;
+
+                    await _playlistService.CreatePlaylist(playlistModel);
+                    return RedirectToAction(nameof(Index));
+                }
+
+                var songs = await _songService.GetAll();
+
+                ViewData["Songs"] = new SelectList(songs, "Id", "Title");
+
+                return View(playlistModel);
             }
-
-            var songs = await _songService.GetAll();
-
-            ViewData["Songs"] = new SelectList(songs, "Id", "Title");
-
-            return View(playlistModel);
+            catch (Exception ex)
+            {
+                return View("505");
+            }
         }
         public async Task<IActionResult> Edit(string? id)
         {
-            var playlistToEdit = await _playlistService.GetByIdForUpdateAsync(id);
+            try
+            {
+                var playlistToEdit = await _playlistService.GetByIdForUpdateAsync(id);
 
-            var songs = await _songService.GetAll();
+                var songs = await _songService.GetAll();
 
-            ViewData["Songs"] = new SelectList(songs, "Id", "Title");
+                ViewData["Songs"] = new SelectList(songs, "Id", "Title");
 
-            return View(playlistToEdit);
+                return View(playlistToEdit);
+            }
+            catch (Exception ex)
+            {
+                return View("505");
+            }
         }
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Edit(PlaylistModel playlistModel)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (ModelState.IsValid)
+                {
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-                playlistModel.UserId = userId;
+                    playlistModel.UserId = userId;
 
-                await _playlistService.UpdatePlaylist(playlistModel);
-                return RedirectToAction("Index");
+                    await _playlistService.UpdatePlaylist(playlistModel);
+                    return RedirectToAction("Index");
+                }
+
+                var songs = await _songService.GetAll();
+
+                ViewData["Songs"] = new SelectList(songs, "Id", "Title");
+
+                return View(playlistModel);
             }
-
-            var songs = await _songService.GetAll();
-
-            ViewData["Songs"] = new SelectList(songs, "Id", "Title");
-
-            return View(playlistModel);
+            catch (Exception ex)
+            {
+                return View("505");
+            }
         }
 
         public async Task<IActionResult> Delete(string? id)
         {
-            await _playlistService.DeletePlaylist(id);
+            try
+            {
+                await _playlistService.DeletePlaylist(id);
 
-            return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                return View("505");
+            }
         }
     }
 }
