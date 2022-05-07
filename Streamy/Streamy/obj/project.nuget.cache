@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "aGpyd4oJ+cQYP2fIx+v6lIaVSBLfY8+wtnT0x9nV6wz3IQZhTkf5TDBfu+Z+4AyQZaB8ZpjDSo9wod9ebZU/dg==",
+  "dgSpecHash": "OTiR83vAD4y8iqUt/XixhyIESSzQbKEw6gkc/IpENU/z2aCKnc/fsiP7Q1kPX5EJJzVcrpxIEpFzcoRrk9qKxA==",
   "success": true,
-  "projectFilePath": "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy\\Streamy.csproj",
+  "projectFilePath": "D:\\SoftUni\\Streamy\\ASP.NET Core\\Streamy\\Streamy\\Streamy.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mariq\\.nuget\\packages\\automapper\\10.0.0\\automapper.10.0.0.nupkg.sha512",
     "C:\\Users\\mariq\\.nuget\\packages\\cloudinarydotnet\\1.17.0\\cloudinarydotnet.1.17.0.nupkg.sha512",
