@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy.Core\\Streamy.Core.csproj": {}
+    "D:\\SoftUni\\SoftUni.origin\\ASP.NET Core\\Streamy\\Streamy.Core\\Streamy.Core.csproj": {}
   },
   "projects": {
-    "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy.Core\\Streamy.Core.csproj": {
+    "D:\\SoftUni\\SoftUni.origin\\ASP.NET Core\\Streamy\\Streamy.Core\\Streamy.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy.Core\\Streamy.Core.csproj",
+        "projectUniqueName": "D:\\SoftUni\\SoftUni.origin\\ASP.NET Core\\Streamy\\Streamy.Core\\Streamy.Core.csproj",
         "projectName": "Streamy.Core",
-        "projectPath": "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy.Core\\Streamy.Core.csproj",
+        "projectPath": "D:\\SoftUni\\SoftUni.origin\\ASP.NET Core\\Streamy\\Streamy.Core\\Streamy.Core.csproj",
         "packagesPath": "C:\\Users\\mariq\\.nuget\\packages\\",
-        "outputPath": "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy.Core\\obj\\",
+        "outputPath": "D:\\SoftUni\\SoftUni.origin\\ASP.NET Core\\Streamy\\Streamy.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -33,8 +33,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy.Infrastructure\\Streamy.Infrastructure.csproj": {
-                "projectPath": "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy.Infrastructure\\Streamy.Infrastructure.csproj"
+              "D:\\SoftUni\\SoftUni.origin\\ASP.NET Core\\Streamy\\Streamy.Infrastructure\\Streamy.Infrastructure.csproj": {
+                "projectPath": "D:\\SoftUni\\SoftUni.origin\\ASP.NET Core\\Streamy\\Streamy.Infrastructure\\Streamy.Infrastructure.csproj"
               }
             }
           }
@@ -101,14 +101,14 @@
         }
       }
     },
-    "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy.Infrastructure\\Streamy.Infrastructure.csproj": {
+    "D:\\SoftUni\\SoftUni.origin\\ASP.NET Core\\Streamy\\Streamy.Infrastructure\\Streamy.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy.Infrastructure\\Streamy.Infrastructure.csproj",
+        "projectUniqueName": "D:\\SoftUni\\SoftUni.origin\\ASP.NET Core\\Streamy\\Streamy.Infrastructure\\Streamy.Infrastructure.csproj",
         "projectName": "Streamy.Infrastructure",
-        "projectPath": "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy.Infrastructure\\Streamy.Infrastructure.csproj",
+        "projectPath": "D:\\SoftUni\\SoftUni.origin\\ASP.NET Core\\Streamy\\Streamy.Infrastructure\\Streamy.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\mariq\\.nuget\\packages\\",
-        "outputPath": "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy.Infrastructure\\obj\\",
+        "outputPath": "D:\\SoftUni\\SoftUni.origin\\ASP.NET Core\\Streamy\\Streamy.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
