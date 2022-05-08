@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "J0hHGHjqH6h5dPB0lci7sLYDeK5nf5rPu3fzV2+Yf1qZvqZmJ6A51ZjEB06KYWeXW5EqPyJTjkogoF+O+KhThw==",
+  "dgSpecHash": "XNGFAJs7T59J9vLD8pkZs5JAqp7pRFHZB0/eP70tIX3dIykovtUrjM09MOEr4aqj80/C/xp1gEZ5MS8qDWRZXA==",
   "success": true,
-  "projectFilePath": "D:\\SoftUni\\Streamy\\ASP.NET Core\\Streamy\\Streamy.Infrastructure\\Streamy.Infrastructure.csproj",
+  "projectFilePath": "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy.Infrastructure\\Streamy.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mariq\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\mariq\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.3\\microsoft.aspnetcore.cryptography.internal.6.0.3.nupkg.sha512",
