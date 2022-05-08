@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "e7PcDG1GKl5V4Op84aGM4hyi/23JKr/BzqhAkC6g6BF2y7drR7M7LidV/UbGm+lpOA/gs9sdc0+8+9QhYwKytQ==",
+  "dgSpecHash": "Hq5czNVFF1+w25LCD3vTVsaoq52i1SlQCnQIbaWlE6iya7KYGlI0ACVIcRaWMpPBCgYvHtvj5tTOiF/er3+G6g==",
   "success": true,
-  "projectFilePath": "D:\\SoftUni\\Streamy\\ASP.NET Core\\Streamy\\Streamy.Core\\Streamy.Core.csproj",
+  "projectFilePath": "D:\\SoftUni\\SoftUni\\ASP.NET Core\\Streamy\\Streamy.Core\\Streamy.Core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mariq\\.nuget\\packages\\cloudinarydotnet\\1.17.0\\cloudinarydotnet.1.17.0.nupkg.sha512",
     "C:\\Users\\mariq\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
