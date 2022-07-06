@@ -10952,11 +10952,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\SoftUni\\testingclone\\Streamy\\Streamy\\Streamy.csproj",
+      "projectUniqueName": "D:\\SoftUni\\Streamy\\Streamy\\Streamy\\Streamy.csproj",
       "projectName": "Streamy",
-      "projectPath": "D:\\SoftUni\\testingclone\\Streamy\\Streamy\\Streamy.csproj",
+      "projectPath": "D:\\SoftUni\\Streamy\\Streamy\\Streamy\\Streamy.csproj",
       "packagesPath": "C:\\Users\\mariq\\.nuget\\packages\\",
-      "outputPath": "D:\\SoftUni\\testingclone\\Streamy\\Streamy\\obj\\",
+      "outputPath": "D:\\SoftUni\\Streamy\\Streamy\\Streamy\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -10978,8 +10978,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\SoftUni\\testingclone\\Streamy\\Streamy.Core\\Streamy.Core.csproj": {
-              "projectPath": "D:\\SoftUni\\testingclone\\Streamy\\Streamy.Core\\Streamy.Core.csproj"
+            "D:\\SoftUni\\Streamy\\Streamy\\Streamy.Core\\Streamy.Core.csproj": {
+              "projectPath": "D:\\SoftUni\\Streamy\\Streamy\\Streamy.Core\\Streamy.Core.csproj"
             }
           }
         }

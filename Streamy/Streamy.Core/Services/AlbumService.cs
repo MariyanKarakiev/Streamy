@@ -27,6 +27,7 @@ namespace Streamy.Core.Services
             {
                 throw new ArgumentException("You must add at least one song to the album.");
             }
+
             Guid[] songIds = albumModel.SongIds.Select(s => CheckIdIsGuid(s)).ToArray();
 
             var songs = await _repo
@@ -52,6 +53,7 @@ namespace Streamy.Core.Services
             await _repo.AddAsync(albumToCreate);
             await _repo.SaveChangesAsync();
         }
+
         public async Task DeleteAlbum(string id)
         {
             var guidId = CheckIdIsGuid(id);
@@ -69,6 +71,7 @@ namespace Streamy.Core.Services
             _repo.Delete(album);
             await _repo.SaveChangesAsync();
         }
+
         public async Task UpdateAlbum(AlbumModel songModel)
         {
             if (songModel == null)
@@ -76,7 +79,8 @@ namespace Streamy.Core.Services
                 throw new ArgumentNullException("No valid model.");
             }
 
-            var album = await _repo.All<Album>()
+            var album = await _repo
+                .All<Album>()
                 .Include(a => a.Songs)
                 .FirstOrDefaultAsync(s => s.Id == CheckIdIsGuid(songModel.Id));
 
@@ -85,14 +89,19 @@ namespace Streamy.Core.Services
                 throw new ArgumentNullException("No valid album.");
             }
 
-            var songIds = songModel.SongIds.Select(s => CheckIdIsGuid(s));
+            var songIds = songModel
+                .SongIds
+                .Select(s => CheckIdIsGuid(s));
 
-            var songs = await _repo.All<Song>()
+            var songs = await _repo
+                .All<Song>()
                 .Where(a => songIds.Contains(a.Id)).ToListAsync();
 
             var duration = new TimeSpan(
             songs
             .Sum(s => s.Duration.Ticks));
+
+
 
             album.Title = songModel.Title;
             album.Duration = duration;
