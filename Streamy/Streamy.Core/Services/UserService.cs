@@ -36,30 +36,25 @@ namespace Streamy.Core.Services
             }
 
             user.UserName = userModel.UserName;
+            user.Email = userModel.Email;
 
             _repo.Update(user);
             _repo.SaveChanges();
         }
 
 
-        public async Task<List<UserModel>> GetAll()
+        public async Task<List<IdentityUser>> GetAll()
         {
-            return _repo.All<IdentityUser>()
-                .Select(u => new UserModel()
-                {
-                    Id = u.Id,
-                    UserName = u.UserName,
-                    Email = u.Email,
-                })
+            return _repo
+                .All<IdentityUser>()
                 .ToList();
         }
 
         public async Task<IdentityUser> GetById(string id)
         {
-            var user = _repo.All<IdentityUser>().FirstOrDefault(g => g.Id == id);
-
-          return user;
-
+            return _repo
+                .All<IdentityUser>()
+                .FirstOrDefault(g => g.Id == id);
         }
     }
 }

@@ -3,9 +3,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Streamy.Common;
 using Streamy.Core.Contracts;
 using Streamy.Core.Models;
+using Streamy.Common;
+using System.Linq;
 
 namespace Streamy.Controllers
 {
@@ -21,57 +22,79 @@ namespace Streamy.Controllers
         {
             _roleManager = roleManager;
             _userService = userService;
-            _roleManager = roleManager;
+            _userManager = userManager;
         }
 
 
         public async Task<IActionResult> CreateRole()
         {
-            //await _roleManager.CreateAsync(new IdentityRole()
-            //{
-            //    Name = Roles.Administrator
-            //}); ;
+            await _roleManager.CreateAsync(new IdentityRole()
+            {
+                Name = Roles.Creator
+            });
 
             return Ok();
         }
 
         public async Task<IActionResult> Index()
         {
-            var roles = await _userService.GetAll();
-            return View(roles);
+            var users = await _userService
+                .GetAll();
+
+
+            var userModels = new List<UserModel>();
+
+            foreach (var u in users)
+            {
+                var roles = await _userManager.GetRolesAsync(u);
+
+                userModels.Add(new UserModel()
+                {
+                    Id = u.Id,
+                    UserName = u.UserName,
+                    Email = u.Email,
+                    Roles = roles.ToArray()
+                });
+            }
+           
+            return View(userModels);
         }
-       
-        public async Task<IActionResult> Roles(string id)
+
+        public async Task<IActionResult> SetRole(string id)
         {
             var user = await _userService.GetById(id);
 
 
-            var roles = _roleManager.Roles
+            var roles = _roleManager
+                .Roles
                 .ToList();
 
             ViewData["Roles"] = new SelectList(roles, "Name", "Name");
 
-            var model = new UserModel()
+            var userModel = new UserModel()
             {
                 Id = id,
                 UserName = user.UserName,
-                Email = user.Email,
+
             };
 
-            return View(model);
+            return View(userModel);
         }
-      
-        [HttpPost]
-        public async Task<IActionResult> Roles(UserModel model)
-        {
-            var user = await _userService.GetById(model.Id);
 
-            var userRoles = await _userManager.GetRolesAsync(user);
-            
-            await _userManager.RemoveFromRolesAsync(user, userRoles);
+        [HttpPost]
+        public async Task<IActionResult> SetRole(UserModel model)
+        {
+            var user = await _userManager.FindByNameAsync(model.UserName);
+
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user), "No user to set role to.");
+            }
 
             if (model.Roles?.Length > 0)
             {
+
+
                 await _userManager.AddToRolesAsync(user, model.Roles);
             }
 

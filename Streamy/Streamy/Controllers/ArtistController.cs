@@ -7,7 +7,7 @@ using System.Security.Claims;
 
 namespace Streamy.Controllers
 {
-    [Authorize(Roles = RolesConstants.Roles.Administrator)]
+    [Authorize(Roles = Roles.Administrator)]
     public class ArtistController : BaseController
     {
         private readonly IArtistService _artistService;

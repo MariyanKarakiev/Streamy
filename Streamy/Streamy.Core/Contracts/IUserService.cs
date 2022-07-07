@@ -13,8 +13,7 @@ namespace Streamy.Core.Contracts
         Task UpdateUser(UserModel userModel);
         Task DeleteUser(string id);
 
-
-        Task<List<UserModel>> GetAll();
+        Task<List<IdentityUser>> GetAll();
         Task<IdentityUser> GetById(string id);
 
     }
