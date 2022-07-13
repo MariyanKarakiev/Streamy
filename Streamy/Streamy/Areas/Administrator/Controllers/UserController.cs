@@ -56,7 +56,7 @@ namespace Streamy.Controllers
                     Roles = roles.ToArray()
                 });
             }
-           
+
             return View(userModels);
         }
 
@@ -84,18 +84,32 @@ namespace Streamy.Controllers
         [HttpPost]
         public async Task<IActionResult> SetRole(UserModel model)
         {
-            var user = await _userManager.FindByNameAsync(model.UserName);
+            var user = await _userManager.FindByIdAsync(model.Id);
 
             if (user == null)
             {
                 throw new ArgumentNullException(nameof(user), "No user to set role to.");
             }
 
-            if (model.Roles?.Length > 0)
+            var selectedRoles = model.Roles.ToList();
+
+            if (selectedRoles.Count > 0)
             {
+                var userRoles = await _userManager.GetRolesAsync(user);
 
+                foreach (var role in userRoles)
+                {
+                    if (!selectedRoles.Contains(role))
+                    {
+                        await _userManager.RemoveFromRoleAsync(user, role);
+                    }
+                    else
+                    {
+                        selectedRoles.Remove(role);
+                    }
+                }
 
-                await _userManager.AddToRolesAsync(user, model.Roles);
+                await _userManager.AddToRolesAsync(user, selectedRoles);
             }
 
             return RedirectToAction(nameof(Index));

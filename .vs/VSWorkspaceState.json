@@ -1,4 +1,11 @@
 {
-  "ExpandedNodes": [],
+  "ExpandedNodes": [
+    "",
+    "\\Streamy",
+    "\\Streamy\\Streamy",
+    "\\Streamy\\Streamy\\Views",
+    "\\Streamy\\Streamy\\Views\\Shared"
+  ],
+  "SelectedNode": "\\Streamy\\Streamy\\Views\\Shared\\_UserMenuTop.cshtml",
   "PreviewInSolutionExplorer": false
 }
