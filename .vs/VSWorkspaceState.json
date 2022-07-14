@@ -3,9 +3,12 @@
     "",
     "\\Streamy",
     "\\Streamy\\Streamy",
+    "\\Streamy\\Streamy\\Areas",
+    "\\Streamy\\Streamy\\Areas\\Administrator",
+    "\\Streamy\\Streamy\\Areas\\Administrator\\Controllers",
     "\\Streamy\\Streamy\\Views",
     "\\Streamy\\Streamy\\Views\\Shared"
   ],
-  "SelectedNode": "\\Streamy\\Streamy\\Views\\Shared\\_UserMenuTop.cshtml",
+  "SelectedNode": "\\Streamy\\Streamy\\Areas\\Administrator\\Controllers\\UserController.cs",
   "PreviewInSolutionExplorer": false
 }

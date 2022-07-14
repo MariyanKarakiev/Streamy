@@ -6,8 +6,8 @@ using System.Diagnostics;
 
 namespace Streamy.Areas.Admin.Controllers
 {
-    [Authorize]
     [Area("Administrator")]
+    [Authorize(Roles = Roles.Administrator)]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

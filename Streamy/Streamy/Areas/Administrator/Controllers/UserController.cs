@@ -10,8 +10,8 @@ using System.Linq;
 
 namespace Streamy.Controllers
 {
-    [Authorize]
     [Area("Administrator")]
+    [Authorize(Roles = Roles.Administrator)]
     public class UserController : Controller
     {
         private readonly IUserService _userService;
@@ -30,7 +30,7 @@ namespace Streamy.Controllers
         {
             await _roleManager.CreateAsync(new IdentityRole()
             {
-                Name = Roles.Creator
+                Name = Roles.User
             });
 
             return Ok();
