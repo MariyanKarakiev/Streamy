@@ -1,19 +1,18 @@
-﻿
-using CloudinaryDotNet;
+﻿using CloudinaryDotNet;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-
+using Streamy.Common;
 using Streamy.Core.Contracts;
 using Streamy.Core.Models;
 using Streamy.Core.Services;
-using System.Net;
-using System.Net.Http.Headers;
-using System.Net.Mime;
 using System.Security.Claims;
 
 namespace Streamy.Controllers
 {
+    [Authorize(Roles = Roles.Creator)]
+    [Authorize(Roles = Roles.Administrator)]
     public class SongController : BaseController
     {
         private readonly ISongService _songService;
@@ -45,6 +44,7 @@ namespace Streamy.Controllers
             return View(songs);
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Detail(string? id)
         {
             try
@@ -82,7 +82,6 @@ namespace Streamy.Controllers
             }
         }
 
-
         public async Task<IActionResult> Create()
         {
             try
@@ -108,7 +107,6 @@ namespace Streamy.Controllers
         }
 
         [HttpPost]
-
         public async Task<IActionResult> Create(SongModel songModel)
         {
             try
