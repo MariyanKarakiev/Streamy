@@ -2,6 +2,7 @@ using CloudinaryDotNet;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.EntityFrameworkCore;
+using Streamy.Common;
 using Streamy.Core.Services;
 using Streamy.Extensions;
 using Streamy.Infrastructure.Data;
@@ -38,6 +39,11 @@ builder.Services.AddControllersWithViews()
     //    o.ModelBinderProviders.Insert(0, new DateTimeModelBinder())
     //})
     ;
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy(Policies.AdminCreator, policy => policy.RequireRole(Roles.Administrator, Roles.Creator));
+});
 
 var cloudinaryCloudName = builder.Configuration.GetValue<string>("Cloudinary:CloudName");
 var cloudinaryKey = builder.Configuration.GetValue<string>("Cloudinary:ApiKey");
