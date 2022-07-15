@@ -2,6 +2,7 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
+    <html>
 <ul class="nav"> 
     @if (SignInManager.IsSignedIn(User))
     {
@@ -18,15 +19,15 @@
                 <span class="menu-icon">
                     <i class="mdi mdi-playlist-play"></i>
                 </span>
-                <span class="menu-title">Your Songs</span>
+                <span class="menu-title">My Songs</span>
             </a>
         </li>
         <li class="nav-item menu-items">
-            <a asp-controller="Song" asp-action="Index" class="nav-link">
+            <a asp-controller="Playlist" asp-action="Index" class="nav-link">
                 <span class="menu-icon">
                     <i class="mdi mdi-playlist-play"></i>
                 </span>
-                <span class="menu-title">Your Playlists</span>
+                <span class="menu-title">My Playlists</span>
             </a>
         </li>
         <li class="nav-item menu-items">
@@ -84,7 +85,7 @@
             </a>
         </li>
         <li class="nav-item menu-items">
-            <a asp-controller="Song" asp-action="Index" class="nav-link">
+            <a asp-controller="Playlist" asp-action="Index" class="nav-link">
                 <span class="menu-icon">
                     <i class="mdi mdi-playlist-play"></i>
                 </span>
@@ -93,3 +94,4 @@
         </li>
     }
 </ul>
+</html>

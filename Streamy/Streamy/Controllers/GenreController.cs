@@ -9,7 +9,6 @@ using System.Security.Claims;
 
 namespace Streamy.Controllers
 {
-
     public class GenreController : BaseController
     {
         private readonly IGenreService _genreService;

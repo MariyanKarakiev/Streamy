@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Streamy.Common;
 using Streamy.Core.Contracts;
 using Streamy.Core.Models;
 using Streamy.Core.Services;
@@ -9,6 +10,7 @@ using System.Security.Claims;
 
 namespace Streamy.Controllers
 {
+    [Authorize(Policy = Policies.AdminCreator)]
     public class AlbumController : BaseController
     {
         private readonly IAlbumService _albumService;
@@ -145,6 +147,8 @@ namespace Streamy.Controllers
                 return View("505");
             }
         }
+
+        [AllowAnonymous]
         public async Task<IActionResult> Detail(string? id)
         {
             try

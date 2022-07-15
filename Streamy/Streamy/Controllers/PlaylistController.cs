@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Streamy.Common;
 using Streamy.Core.Contracts;
 using Streamy.Core.Models;
 using Streamy.Core.Services;
@@ -9,6 +10,7 @@ using System.Security.Claims;
 
 namespace Streamy.Controllers
 {
+   [Authorize(Policy = Policies.AdminCreator)]
     public class PlaylistController : BaseController
     {
         private readonly IPlaylistService _playlistService;
@@ -40,6 +42,7 @@ namespace Streamy.Controllers
             }
         }
 
+        //TO DO: Create Details method that shows num of songs in playlist
         public async Task<IActionResult> Create()
         {
             try

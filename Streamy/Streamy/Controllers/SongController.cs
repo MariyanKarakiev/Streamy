@@ -11,8 +11,7 @@ using System.Security.Claims;
 
 namespace Streamy.Controllers
 {
-    [Authorize(Roles = Roles.Creator)]
-    [Authorize(Roles = Roles.Administrator)]
+    [Authorize(Policy = Policies.AdminCreator)]
     public class SongController : BaseController
     {
         private readonly ISongService _songService;
