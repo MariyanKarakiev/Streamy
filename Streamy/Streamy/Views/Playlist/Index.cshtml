@@ -30,8 +30,12 @@
                                         <td>@playlist.Songs.Count</td>
                                         <td>
                                             <a asp-action="Detail" asp-route-id="@playlist.Id" class="mdi mdi-information-outline "></a>
-                                            <a asp-action="Edit" asp-route-id="@playlist.Id" class="mdi mdi-border-color"></a>
-                                            <a asp-action="Delete" asp-route-id="@playlist.Id" class="mdi mdi-delete "></a>
+                                            @if (User.Identity.IsAuthenticated == true)
+                                            {
+                                                <a asp-action="Edit" asp-route-id="@playlist.Id" class="mdi mdi-border-color"></a>
+                                                <a asp-action="Delete" asp-route-id="@playlist.Id" class="mdi mdi-delete "></a>
+
+                                            }
                                         </td>
                                     </tr>
 
