@@ -7,7 +7,6 @@ using System.Security.Claims;
 
 namespace Streamy.Controllers
 {
-    [Authorize(Roles = Roles.Administrator)]
     public class ArtistController : BaseController
     {
         private readonly IArtistService _artistService;
@@ -59,44 +58,6 @@ namespace Streamy.Controllers
             }
         }
 
-        public async Task<IActionResult> Detail(string? id)
-        {
-            try
-            {
-                if (id == null)
-                {
-                    return NotFound();
-                }
-
-                var artistToDetail = await _artistService.GetForDetails(id);
-
-                return View(artistToDetail);
-            }
-            catch (Exception ex)
-            {
-                return View("505");
-            }
-        }
-
-        public async Task<IActionResult> Delete(string? id)
-        {
-            try
-            {
-                if (id == null)
-                {
-                    return NotFound();
-                }
-
-                await _artistService.DeleteArtist(id);
-
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                return View("505");
-            }
-        }
-
         public async Task<IActionResult> Edit(string? id)
         {
             try
@@ -135,5 +96,45 @@ namespace Streamy.Controllers
                 return View("505");
             }
         }
+
+        public async Task<IActionResult> Detail(string? id)
+        {
+            try
+            {
+                if (id == null)
+                {
+                    return NotFound();
+                }
+
+                var artistToDetail = await _artistService.GetForDetails(id);
+
+                return View(artistToDetail);
+            }
+            catch (Exception ex)
+            {
+                return View("505");
+            }
+        }
+
+        public async Task<IActionResult> Delete(string? id)
+        {
+            try
+            {
+                if (id == null)
+                {
+                    return NotFound();
+                }
+
+                await _artistService.DeleteArtist(id);
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return View("505");
+            }
+        }
+
+
     }
 }

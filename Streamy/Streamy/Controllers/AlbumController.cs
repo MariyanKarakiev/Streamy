@@ -58,6 +58,7 @@ namespace Streamy.Controllers
         }
 
         [HttpPost]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Create(AlbumModel albumModel)
         {
             try

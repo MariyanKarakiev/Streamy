@@ -6,9 +6,10 @@
     "\\Streamy\\Streamy\\Areas",
     "\\Streamy\\Streamy\\Areas\\Administrator",
     "\\Streamy\\Streamy\\Areas\\Administrator\\Controllers",
+    "\\Streamy\\Streamy\\Controllers",
     "\\Streamy\\Streamy\\Views",
     "\\Streamy\\Streamy\\Views\\Shared"
   ],
-  "SelectedNode": "\\Streamy\\Streamy\\Areas\\Administrator\\Controllers\\UserController.cs",
+  "SelectedNode": "\\Streamy\\Streamy\\Controllers\\GenreController.cs",
   "PreviewInSolutionExplorer": false
 }

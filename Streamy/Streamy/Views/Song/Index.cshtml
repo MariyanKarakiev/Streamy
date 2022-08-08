@@ -1,6 +1,7 @@
-﻿@using Streamy.Core.Models
+﻿@using Microsoft.AspNetCore.Identity
+@using Streamy.Common
+@using Streamy.Core.Models
 @model List<SongModel>
-
 @{
     ViewData["Title"] = "Add Song";
 
@@ -42,7 +43,10 @@
                             }
                         </tbody>
                     </table>
-                    <a asp-action="Create" asp-controller="Song" class="btn btn-outline-primary">Create</a>
+                    @if (User.Identity.IsAuthenticated == true)
+                    {
+                        <a asp-action="Create" asp-controller="Song" class="btn btn-outline-primary">Create</a>
+                    }
                 </div>
             </div>
         </div>

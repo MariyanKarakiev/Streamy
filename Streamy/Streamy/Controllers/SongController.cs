@@ -106,6 +106,7 @@ namespace Streamy.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(SongModel songModel)
         {
             try
