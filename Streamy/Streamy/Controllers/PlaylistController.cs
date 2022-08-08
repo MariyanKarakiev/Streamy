@@ -42,6 +42,14 @@ namespace Streamy.Controllers
             }
         }
 
+        public async Task<IActionResult> UserPlaylists()
+        {
+            var userId = User.Claims.FirstOrDefault().Value;
+            var userPlaylists = await _playlistService.GetAll(userId);
+
+            return View("Index", userPlaylists);
+        }
+
         //TO DO: Create Details method that shows num of songs in playlist
         public async Task<IActionResult> Create()
         {

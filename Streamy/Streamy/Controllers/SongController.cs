@@ -1,6 +1,7 @@
 ﻿using CloudinaryDotNet;
 
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Streamy.Common;
@@ -18,6 +19,7 @@ namespace Streamy.Controllers
         private readonly IGenreService _genreService;
         private readonly IArtistService _artistService;
         private readonly IAlbumService _albumService;
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly Cloudinary _cloudinary;
 
 
@@ -26,6 +28,7 @@ namespace Streamy.Controllers
             IGenreService genreService,
             IArtistService artistService,
             IAlbumService albumService,
+            UserManager<IdentityUser> userManager,
             Cloudinary cloudinary)
         {
             _songService = songService;
@@ -41,6 +44,14 @@ namespace Streamy.Controllers
             var songs = await _songService.GetAll();
 
             return View(songs);
+        }
+
+        public async Task<IActionResult> UserSongs()
+        {
+            var userId = User.Claims.FirstOrDefault().Value;
+            var userSongs = await _songService.GetAll(userId);
+
+            return View("Index",userSongs);
         }
 
         [AllowAnonymous]
