@@ -3,8 +3,6 @@
 
 <html>
 <ul class="nav">
-    @if (SignInManager.IsSignedIn(User))
-    {
         <li class="nav-item menu-items">
             <a class="nav-link" href="/">
                 <span class="menu-icon">
@@ -14,31 +12,22 @@
             </a>
         </li>
         <li class="nav-item menu-items">
-            <a asp-controller="Song" asp-action="UserSongs" class="nav-link">
+            <a asp-controller="Song" asp-action="Index" class="nav-link">
                 <span class="menu-icon">
                     <i class="mdi mdi-playlist-play"></i>
                 </span>
-                <span class="menu-title">My Songs</span>
+                <span class="menu-title">Songs</span>
             </a>
         </li>
         <li class="nav-item menu-items">
-            <a asp-controller="Playlist" asp-action="UserPlayslists" class="nav-link">
+            <a asp-controller="Playlist" asp-action="Index" class="nav-link">
                 <span class="menu-icon">
                     <i class="mdi mdi-playlist-play"></i>
                 </span>
-                <span class="menu-title">My Playlists</span>
+                <span class="menu-title">Playlists</span>
             </a>
         </li>
-        <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/charts/chartjs.html">
-                <span class="menu-icon">
-                    <i class="mdi mdi-chart-bar"></i>
-                </span>
-                <span class="menu-title">All Playlist</span>
-            </a>
-        </li>
-
-        <li class="nav-item menu-items">
+              <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
                 <span class="menu-icon">
                     <i class="mdi mdi-security"></i>
@@ -64,33 +53,5 @@
                 <span class="menu-title">Documentation</span>
             </a>
         </li>
-    }
-    else
-    {
-        <li class="nav-item menu-items">
-            <a class="nav-link" href="/">
-                <span class="menu-icon">
-                    <i class="mdi mdi-speedometer"></i>
-                </span>
-                <span class="menu-title">Home</span>
-            </a>
-        </li>
-        <li class="nav-item menu-items">
-            <a asp-controller="Song" asp-action="Index" class="nav-link">
-                <span class="menu-icon">
-                    <i class="mdi mdi-playlist-play"></i>
-                </span>
-                <span class="menu-title">Songs</span>
-            </a>
-        </li>
-        <li class="nav-item menu-items">
-            <a asp-controller="Playlist" asp-action="Index" class="nav-link">
-                <span class="menu-icon">
-                    <i class="mdi mdi-playlist-play"></i>
-                </span>
-                <span class="menu-title">Playlists</span>
-            </a>
-        </li>
-    }
 </ul>
 </html>

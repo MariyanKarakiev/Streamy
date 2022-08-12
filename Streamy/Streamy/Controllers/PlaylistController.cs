@@ -47,7 +47,7 @@ namespace Streamy.Controllers
             var userId = User.Claims.FirstOrDefault().Value;
             var userPlaylists = await _playlistService.GetAll(userId);
 
-            return View("Index", userPlaylists);
+            return View(nameof(Index), userPlaylists);
         }
 
         //TO DO: Create Details method that shows num of songs in playlist

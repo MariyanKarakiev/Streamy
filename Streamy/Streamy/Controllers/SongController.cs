@@ -51,7 +51,7 @@ namespace Streamy.Controllers
             var userId = User.Claims.FirstOrDefault().Value;
             var userSongs = await _songService.GetAll(userId);
 
-            return View("Index",userSongs);
+            return View(nameof(Index), userSongs);
         }
 
         [AllowAnonymous]
@@ -117,7 +117,6 @@ namespace Streamy.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(SongModel songModel)
         {
             try

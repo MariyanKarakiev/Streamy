@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using Streamy.Common
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
@@ -6,6 +7,9 @@
 
     @if (SignInManager.IsSignedIn(User))
     {
+        <li class="nav-item dropdown d-none d-lg-block">
+              <a  asp-area="Administrator" asp-controller="User" asp-action="Index" class="nav-link btn btn-success create-new-button" >Admin panel</a>
+        </li>
         <li class="nav-item dropdown d-none d-lg-block">
             <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="dropdown" aria-expanded="false" href="#">+ Create</a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="createbuttonDropdown">
@@ -77,8 +81,34 @@
                     <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                 </div>
             </a>
+
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
                 <h6 class="p-3 mb-0">Profile</h6>
+                @if (User.IsInRole(Roles.Creator))
+                {
+                    <div class="dropdown-divider"></div>
+                    <a asp-controller="Song" asp-action="UserSongs" title="Manage" class="dropdown-item preview-item">
+                        <div class="preview-thumbnail">
+                            <div class="preview-icon bg-dark rounded-circle">
+                                <i class="mdi mdi-settings text-success"></i>
+                            </div>
+                        </div>
+                        <div class="preview-item-content">
+                            <p class="preview-subject mb-1">My Songs</p>
+                        </div>
+                    </a>
+                }
+                <div class="dropdown-divider"></div>
+                <a asp-controller="Playlist" asp-action="UserPlaylists" title="Manage" class="dropdown-item preview-item">
+                    <div class="preview-thumbnail">
+                        <div class="preview-icon bg-dark rounded-circle">
+                            <i class="mdi mdi-settings text-success"></i>
+                        </div>
+                    </div>
+                    <div class="preview-item-content">
+                        <p class="preview-subject mb-1">My Playlists</p>
+                    </div>
+                </a>
                 <div class="dropdown-divider"></div>
                 <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" class="dropdown-item preview-item">
                     <div class="preview-thumbnail">

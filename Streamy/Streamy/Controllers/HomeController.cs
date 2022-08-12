@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Streamy.Core.Contracts;
 using Streamy.Models;
 using System.Diagnostics;
 
@@ -7,15 +8,24 @@ namespace Streamy.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ISongService _songService;
+        private readonly IPlaylistService _playlistService;
+        public HomeController(
+            ILogger<HomeController> logger,
+            ISongService songService,
+            IPlaylistService playlistService
+            )
         {
+            _songService = songService;
+            _playlistService = playlistService;
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var first10Songs = await _songService.GetFirst10Async();
+
+            return View(first10Songs);
         }
 
         public IActionResult Privacy()

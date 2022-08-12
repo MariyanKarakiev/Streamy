@@ -12,5 +12,6 @@ namespace Streamy.Core.Contracts
         Task<List<SongModel>> GetAll();
         Task<List<SongModel>> GetAll(string? userId);
         Task<SongModel> GetForDetails(string? id);
+        Task<List<SongModel>> GetFirst10Async();
     }
 }

@@ -308,5 +308,24 @@ namespace Streamy.Core.Services
 
             return guidId;
         }
+
+        public async Task<List<SongModel>> GetFirst10Async()
+        {
+            var firts10Songs = await _repo
+                .All<Song>()
+                .Take(10)
+                .ToListAsync();
+
+            var mapped10Songs = firts10Songs
+                .Select(ms => new SongModel()
+                {
+                    Id = ms.Id.ToString(),
+                    Title = ms.Title,
+                    ImageUrl = ms.ImageUrl
+                })
+                .ToList();
+
+            return mapped10Songs;
+        }
     }
 }
