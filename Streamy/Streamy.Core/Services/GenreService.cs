@@ -103,7 +103,12 @@ namespace Streamy.Core.Services
         public async Task<GenreModel> GetByIdForUpdateAsync(short? id)
         {
             var genre = await _repo.GetByIdAsync<Genre>(id);
-           
+
+            if (genre == null)
+            {
+                throw new ArgumentNullException("No genre found.");
+            }
+
             var mappedGenre = new GenreModel()
             {
                 Id = genre.Id,

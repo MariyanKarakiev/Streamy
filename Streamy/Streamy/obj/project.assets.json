@@ -10952,9 +10952,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\SoftUni\\Streamy\\Streamy\\Streamy\\Streamy.csproj",
-      "projectName": "Streamy",
-      "projectPath": "D:\\SoftUni\\Streamy\\Streamy\\Streamy\\Streamy.csproj",
+      "projectUniqueName": "D:\\SoftUni\\Streamy\\Streamy\\Streamy\\Streamy.Web.csproj",
+      "projectName": "Streamy.Web",
+      "projectPath": "D:\\SoftUni\\Streamy\\Streamy\\Streamy\\Streamy.Web.csproj",
       "packagesPath": "C:\\Users\\mariq\\.nuget\\packages\\",
       "outputPath": "D:\\SoftUni\\Streamy\\Streamy\\Streamy\\obj\\",
       "projectStyle": "PackageReference",

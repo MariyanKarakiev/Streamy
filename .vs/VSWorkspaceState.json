@@ -8,8 +8,8 @@
     "\\Streamy\\Streamy\\Areas\\Administrator\\Controllers",
     "\\Streamy\\Streamy\\Controllers",
     "\\Streamy\\Streamy\\Views",
+    "\\Streamy\\Streamy\\Views\\Home",
     "\\Streamy\\Streamy\\Views\\Shared"
   ],
-  "SelectedNode": "\\Streamy\\Streamy\\Controllers\\PlaylistController.cs",
   "PreviewInSolutionExplorer": false
 }
